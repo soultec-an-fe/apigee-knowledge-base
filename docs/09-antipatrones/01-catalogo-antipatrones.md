@@ -237,7 +237,7 @@ Ver [targets](../01-proxies/05-target-endpoints-y-servidores.md).
 
 **Por qué duele:** un backend lento **mantiene ocupados hilos y conexiones del Message Processor**, que es un recurso compartido. Puede degradar el rendimiento de proxies que no tienen ninguna relación con él.
 
-**Alternativa:** timeouts agresivos (`connect.timeout.millis`, `io.timeout.millis`), `ResponseCache`, `ConcurrentRateLimit` hacia el backend y health monitors.
+**Alternativa:** timeouts agresivos (`connect.timeout.millis`, `io.timeout.millis`), `ResponseCache`, `SpikeArrest`/`Quota` hacia el backend (`ConcurrentRateLimit` está retirada) y health monitors.
 
 ---
 

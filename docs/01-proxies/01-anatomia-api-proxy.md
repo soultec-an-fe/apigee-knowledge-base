@@ -12,6 +12,16 @@ revisado: 2026-08-20
 
 Un API proxy es un **directorio con estructura fija** que se empaqueta en ZIP y se sube a Apigee. Máximo **15 MB** por bundle.
 
+## Proxy Standard vs. proxy Extensible
+
+> [!IMPORTANT]
+> Apigee distingue dos tipos de proxy, y la diferencia tiene consecuencias reales:
+>
+> - **Proxy Standard**: usa **solo** políticas de tipo Standard. Apto para soluciones ligeras. **No se puede incluir en un API product.**
+> - **Proxy Extensible**: incluye **al menos una** política Extensible o un flow hook. Puede incluir mucha más funcionalidad, pero requiere desplegarse en un entorno de tipo **Intermediate** o **Comprehensive**, con implicaciones de coste según tu licencia.
+>
+> En la práctica, casi cualquier proxy real acaba siendo Extensible: `VerifyAPIKey`, `OAuthV2` y `Quota` son políticas Extensible. Ver el catálogo completo, con la clasificación exacta de cada política, en [Standard vs. Extensible](../02-politicas/00-catalogo-de-politicas.md#standard-vs-extensible-no-es-solo-una-etiqueta-de-calidad).
+
 ## Estructura del bundle
 
 ```

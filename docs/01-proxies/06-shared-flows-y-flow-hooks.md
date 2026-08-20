@@ -79,7 +79,10 @@ apigeecli sharedflows deploy \
   --token "$(gcloud auth print-access-token)"
 ```
 
-Límite: **75 shared flows por entorno** en Apigee X (10 en hybrid 2021). Se retienen 250 revisiones.
+Límite: **75 shared flows por entorno** en Apigee X (10 en hybrid 2021). Se retienen 250 revisiones. Igual que con los proxies, **todos los despliegues exitosos de shared flows son de cero-downtime**.
+
+> [!TIP]
+> Un shared flow **no tiene endpoint propio y no se puede invocar directamente** con una petición HTTP: solo se prueba enviando una petición al proxy que lo consume. Para depurarlo, inicia una sesión de Trace en el **proxy** que lo llama, no en el shared flow.
 
 ## Invocación explícita: FlowCallout
 
@@ -132,6 +135,13 @@ Dentro del shared flow:
 ## Invocación implícita: flow hooks
 
 Un **flow hook** ata un shared flow a un **punto del pipeline a nivel de environment**. Se ejecuta para **todos** los proxies de ese entorno, sin que los proxies lo sepan ni puedan evitarlo.
+
+> [!IMPORTANT]
+> Reglas confirmadas en la documentación oficial:
+> - **Solo un administrador de organización** puede adjuntar un shared flow a un flow hook — es una acción de efecto muy amplio.
+> - **Un flow hook admite un único shared flow adjunto.** Pero el **mismo** shared flow sí puede adjuntarse a **varios** flow hooks a la vez.
+> - Si el shared flow adjunto a un flow hook **lanza un fallo o hay un error durante su ejecución, el mensaje se rechaza y el fallo se devuelve directamente al llamador** — este comportamiento es distinto del de un shared flow invocado por `FlowCallout` (ver [manejo de errores](#manejo-de-errores-dentro-de-un-shared-flow) más abajo).
+> - Los rechazos por fallo de un flow hook quedan registrados en analytics **en el contexto del proxy llamado**.
 
 | Hook | Cuándo se ejecuta |
 |---|---|
@@ -188,9 +198,16 @@ comun-todo
 
 ## Manejo de errores dentro de un shared flow
 
-Un shared flow **no tiene `<FaultRules>` propias**. Si una política falla dentro de él, el error se propaga al proxy invocador y lo maneja **la FaultRule del proxy**.
+Un shared flow **no tiene `<FaultRules>` propias**. Recomendación explícita de Google: **maneja los fallos desde el API proxy que llama al shared flow, no desde el shared flow mismo.**
 
-Consecuencia práctica: los `fault.name` que produce el shared flow deben estar contemplados en las FaultRules de todos los proxies. Por eso lo habitual es tener también un **shared flow de manejo de errores** invocado desde la `DefaultFaultRule` de cada proxy:
+Esta regla se aplica de forma distinta según cómo se invoque:
+
+| Invocación | Comportamiento ante un fallo |
+|---|---|
+| **`FlowCallout`** (invocación explícita) | El error se propaga al proxy invocador y lo maneja **la `FaultRule` del proxy**, igual que cualquier otro fallo de política |
+| **Flow hook** (invocación implícita) | El mensaje se **rechaza directamente** y el fallo se envía al llamador; **no** pasa por las `FaultRules` del proxy porque el flow hook está fuera del código del proxy |
+
+Consecuencia práctica: los `fault.name` que produce un shared flow invocado con `FlowCallout` deben estar contemplados en las FaultRules de todos los proxies que lo consuman. Por eso lo habitual es tener también un **shared flow de manejo de errores** invocado desde la `DefaultFaultRule` de cada proxy:
 
 ```xml
 <DefaultFaultRule name="fallback">
@@ -211,6 +228,6 @@ Consecuencia práctica: los `fault.name` que produce el shared flow deben estar 
 
 ## Fuentes
 
-- <https://cloud.google.com/apigee/docs/api-platform/fundamentals/shared-flows>
-- <https://cloud.google.com/apigee/docs/api-platform/fundamentals/flow-hooks>
+- <https://cloud.google.com/apigee/docs/api-platform/fundamentals/shared-flows> (consultada directamente, contenido completo)
+- <https://cloud.google.com/apigee/docs/api-platform/fundamentals/flow-hooks> (consultada directamente, contenido completo)
 - <https://cloud.google.com/apigee/docs/api-platform/reference/limits>

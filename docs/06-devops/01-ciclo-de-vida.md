@@ -16,6 +16,9 @@ revisado: 2026-08-20
 Diseñar  →  Desarrollar  →  Probar  →  Desplegar  →  Publicar  →  Monitorizar  →  Retirar
 ```
 
+> [!NOTE]
+> Estas siete fases son una organización propia de este documento, pensada para un flujo de trabajo completo con control de versiones. La documentación oficial de Google estructura el ciclo de vida de forma más simple: **Developing** (desarrollo en la nube vía Apigee UI, o desarrollo local con Apigee en VS Code), **Deploying** (como tipo `Proxy` o como tipo `Archive`), **Adding policies**, **Promoting to production**, **Scripting deployment** vía la API de Apigee, y **Managing environment resources**. Los datos verificados de esa estructura oficial están incorporados en las secciones de abajo.
+
 ## 1. Diseñar
 
 El contrato primero. La spec **OpenAPI es la fuente de verdad**, no el código del proxy:
@@ -151,6 +154,22 @@ El versionado va en el **basepath**, no en revisiones de Apigee:
 
 Las revisiones son un detalle de despliegue interno; `v1`/`v2` es el contrato público. Nunca cambies el comportamiento de `v1`: crea `v2`.
 
+### Gestionar recursos entre entornos
+
+> [!IMPORTANT]
+> Confirmado en la documentación oficial: **las API keys emitidas en un entorno de test no son válidas en producción, y viceversa.** No es solo buena práctica — es una separación real de datos entre entornos. No esperes que una key probada en `test` funcione en `prod` sin volver a provisionarla.
+
+Recomendación oficial de Google para mantener las configuraciones de proxy **independientes del entorno** al promocionar:
+
+| Recurso | Cómo desacoplarlo |
+|---|---|
+| **KVMs con scope de entorno** | Usa convenciones de nombres consistentes para que el proxy lea datos sin cambios de configuración entre entornos |
+| **URLs de backend** | Usa `TargetServer` para tener TargetEndpoints independientes del entorno — ver [targets](../01-proxies/05-target-endpoints-y-servidores.md) |
+| **Targets de ServiceCallout** | Pueden variar por entorno (p. ej. un ServiceCallout en test que consume un servicio de demostración) |
+| **Condicionales con `environment.name`** | Para lógica que debe variar por entorno sin tocar recursos externos: `<Condition>environment.name = "test"</Condition>` |
+
+Recomendación adicional de Google: **itera solo en el entorno de test**, y haz el mínimo de cambios necesarios en los proxies ya desplegados en producción.
+
 ## 5. Publicar
 
 1. Crear o actualizar los **API products** que empaquetan el proxy.
@@ -202,6 +221,6 @@ Cabeceras de deprecación:
 
 ## Fuentes
 
-- <https://cloud.google.com/apigee/docs/api-platform/fundamentals/api-development-lifecycle>
+- <https://cloud.google.com/apigee/docs/api-platform/fundamentals/api-development-lifecycle> (consultada directamente, contenido completo)
 - <https://docs.apigee.com/api-platform/fundamentals/best-practices-api-proxy-design-and-development>
 - <https://docs.apigee.com/api-platform/antipatterns/no-scm>

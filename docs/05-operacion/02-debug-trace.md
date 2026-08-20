@@ -101,12 +101,21 @@ Compara la sección **"Request al target"** con lo que enviaste. Ahí se ve el e
 | Límite | Valor |
 |---|---|
 | Sesiones de depuración por minuto | **100** |
-| Transacciones capturadas por sesión | **15** |
+| Duración (`timeout`) de una sesión | **10 minutos por defecto; 600 segundos (10 min) es el máximo**. No configurable desde la UI, sí desde la API |
+| Transacciones capturadas (`count`) | **15 por Message Processor** |
 | Tamaño de los datos de depuración | 10 KB |
 | Tasa máxima de muestreo de trazado distribuido | 0,5 |
+| Retraso de activación | **~15 segundos** entre iniciar la sesión y que esté activa en todo Apigee |
+| Retención de una sesión completada | Se borra a las **24 horas** de finalizar |
 
 > [!IMPORTANT]
-> Una sesión captura **como máximo 15 transacciones** y luego se cierra. En un proxy con tráfico alto y sin filtro, esas 15 se consumen en milisegundos con peticiones que no te interesan. **El filtro no es opcional en producción.**
+> Una sesión termina cuando se alcanza **primero** el `timeout` o el `count`. Verificado en la documentación oficial: el `count` de 15 transacciones **es por Message Processor**, no un total global de la sesión. Como el número de MPs en un clúster varía, **el efecto real del `count` es impredecible** — Google recomienda explícitamente no personalizarlo. En un proxy con tráfico alto y sin filtro, esas transacciones por MP se consumen en milisegundos con peticiones que no te interesan. **El filtro no es opcional en producción.**
+
+> [!TIP]
+> Hay un **retraso de ~15 segundos** entre iniciar la sesión de depuración y que quede activa en todo el runtime. Las peticiones enviadas en esos primeros 15-20 segundos pueden no capturarse. Espera antes de disparar la petición que quieres depurar.
+
+> [!NOTE]
+> No puedes **detener** una sesión activa manualmente; solo puedes borrar los datos ya capturados. Una sesión termina sola al alcanzar `timeout` o `count`.
 
 ## Ocultar datos sensibles
 
@@ -148,5 +157,5 @@ Ventaja sobre Trace: es **continuo y agregado**, no una captura puntual de 15 tr
 
 ## Fuentes
 
-- <https://cloud.google.com/apigee/docs/api-platform/debug/trace>
+- <https://cloud.google.com/apigee/docs/api-platform/debug/trace> (consultada directamente, contenido completo)
 - <https://cloud.google.com/apigee/docs/api-platform/reference/limits>

@@ -57,6 +57,7 @@ Reglas de uso para el modelo:
 
 ## IA
 - [Apigee como AI Gateway](docs/07-ai-gateway/01-apigee-como-ai-gateway.md)
+- [MCP en Apigee](docs/07-ai-gateway/02-mcp-en-apigee.md): exponer APIs como herramientas MCP para agentes, MCP Discovery Proxy, API hub, seguridad OAuth 2.1/OIDC.
 
 ## Calidad
 - [Mejores prácticas de diseño](docs/08-mejores-practicas/01-diseno-y-desarrollo.md)

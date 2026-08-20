@@ -168,7 +168,7 @@ Mitigaciones:
 </Properties>
 ```
 
-Y por encima de eso: `ResponseCache`, `ConcurrentRateLimit` hacia el backend, y health monitors que saquen del balanceo a los nodos degradados.
+Y por encima de eso: `ResponseCache`, `SpikeArrest`/`Quota` hacia el backend (`ConcurrentRateLimit` está retirada, ver [catálogo](../02-politicas/00-catalogo-de-politicas.md)), y health monitors que saquen del balanceo a los nodos degradados.
 
 ## Orden del PreFlow
 

@@ -4,7 +4,7 @@ titulo: Ediciones de Apigee — X, hybrid y Edge
 area: fundamentos
 tags: [apigee-x, hybrid, edge, eol, migracion, comparativa]
 aplica_a: [apigee-x, apigee-hybrid, apigee-edge]
-fuente: https://docs.apigee.com/migration-to-x/compare-apigee-edge-to-apigee-x
+fuente: https://docs.apigee.com/release/apigee-edge-release-process
 revisado: 2026-08-20
 ---
 
@@ -31,14 +31,22 @@ revisado: 2026-08-20
 
 Datos confirmados en la documentación de Google:
 
-- **Classic UI de Apigee Edge**: apagada el **2 de noviembre de 2025**.
+- **Classic UI de Apigee Edge**: apagado general el **29 de agosto de 2025**; apagado final para clientes con excepción aprobada el **29 de septiembre de 2025**. Es la fase final de la migración de Apigee a la consola de Google Cloud.
 - **Edge for Private Cloud 4.53**: fin de vida el **11 de abril de 2026**.
 - **Edge for Private Cloud 4.53.01**: fin de vida el **26 de febrero de 2027**.
+- **Edge for Private Cloud 4.52.00 / 4.52.01 / 4.52.02**: fin de vida el 31/08/2024, 30/09/2025 y 31/12/2025 respectivamente.
 - **API BaaS** y **Node.js basado en Trireme**: retirados.
+- **Política `ConcurrentRateLimit`**: deprecada el 15/07/2020, retirada de Private Cloud en la versión 4.50.00 (15/07/2021). No confundir con la política `Quota`, que sigue vigente.
 
-> [!WARNING]
-> Las fechas de EOL cambian. Verifica siempre en
-> <https://docs.apigee.com/release/deprecated-features> antes de planificar una migración.
+> [!NOTE]
+> Cada versión mayor/menor de Apigee Edge Private Cloud recibe soporte completo durante
+> **~18 meses** desde su fecha de lanzamiento inicial. Una versión de parche (p. ej. `4.53.00.04`)
+> **no extiende** la ventana de soporte de la versión mayor/menor. Actualizar a una versión
+> más reciente reinicia la ventana de 18 meses. El contrato comercial (2-3 años) sigue vigente
+> independientemente del ciclo de vida de la versión de software concreta que estés ejecutando.
+>
+> Verifica siempre las fechas vigentes en <https://docs.apigee.com/release/apigee-edge-release-process>
+> y <https://docs.cloud.google.com/apigee/docs/deprecations/apigee-classic-ui> antes de planificar una migración.
 
 ## Diferencias que importan al escribir código
 

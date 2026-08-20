@@ -313,19 +313,12 @@ Reinicia el contador de una Quota, típicamente en un endpoint administrativo pr
 
 ---
 
-## ConcurrentRateLimit
+## ConcurrentRateLimit — retirada, no usar
 
-Limita conexiones **simultáneas** hacia un TargetEndpoint. Útil cuando el backend tiene un pool de conexiones fijo.
-
-```xml
-<ConcurrentRateLimit name="CRL-LimiteBackend">
-    <AllowConnections count="50" ttl="10"/>
-    <Distributed>true</Distributed>
-    <Strict>false</Strict>
-</ConcurrentRateLimit>
-```
-
-Se adjunta en el **TargetEndpoint**, no en el ProxyEndpoint.
+> [!CAUTION]
+> **`ConcurrentRateLimit` está retirada.** Se deprecó el 15/07/2020 y se retiró de Private Cloud en la versión 4.50.00 (15/07/2021). Google explica el motivo: su arquitectura afectaba al rendimiento de las APIs que la usaban. **No existe en Apigee X.** Si ves este XML en un ejemplo o tutorial antiguo, es de Apigee Edge legacy.
+>
+> Para limitar la carga hacia un backend con pool de conexiones fijo, usa **`SpikeArrest`** combinada con **`Quota`**, o considera encadenar proxies y shared flows según recomienda la propia nota de deprecación de Google.
 
 ## Fuentes
 
@@ -333,3 +326,4 @@ Se adjunta en el **TargetEndpoint**, no en el ProxyEndpoint.
 - <https://cloud.google.com/apigee/docs/api-platform/reference/policies/spike-arrest-policy>
 - <https://cloud.google.com/apigee/docs/api-platform/reference/policies/response-cache-policy>
 - <https://cloud.google.com/apigee/docs/api-platform/reference/limits>
+- <https://docs.apigee.com/release/deprecated-features> (retirada de ConcurrentRateLimit)

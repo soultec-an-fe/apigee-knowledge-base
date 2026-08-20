@@ -10,6 +10,9 @@ revisado: 2026-08-20
 
 # Apigee como AI Gateway
 
+> [!NOTE]
+> Este documento cubre el gobierno del **tráfico saliente hacia un LLM** (cuotas de tokens, caché semántica, Model Armor). Para exponer tus propias APIs **como herramientas invocables por agentes** vía Model Context Protocol, ver [MCP en Apigee](02-mcp-en-apigee.md) — es una capacidad distinta y complementaria.
+
 ## El problema
 
 Una organización que empieza a usar LLMs se encuentra, en pocos meses, con esto:

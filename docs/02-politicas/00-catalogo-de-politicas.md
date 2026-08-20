@@ -2,7 +2,7 @@
 id: politicas-catalogo
 titulo: Catálogo completo de políticas
 area: politicas
-tags: [politicas, catalogo, referencia, xml, indice]
+tags: [politicas, catalogo, referencia, xml, indice, standard, extensible]
 aplica_a: [apigee-x, apigee-hybrid]
 fuente: https://cloud.google.com/apigee/docs/api-platform/reference/policies/reference-overview-policy
 revisado: 2026-08-20
@@ -10,14 +10,28 @@ revisado: 2026-08-20
 
 # Catálogo completo de políticas
 
-Referencia rápida de **todas** las políticas de Apigee, con su nombre de elemento XML exacto.
+Referencia rápida de **todas** las políticas de Apigee vigentes, con su nombre de elemento XML exacto y su tipo real (Standard / Extensible) tal como los agrupa la documentación oficial.
 
 > [!IMPORTANT]
 > El nombre del elemento raíz XML es **case-sensitive** y debe escribirse exactamente como aparece aquí. `<VerifyApiKey>` no existe; es `<VerifyAPIKey>`.
 
+## Standard vs. Extensible: no es solo una etiqueta de calidad
+
+> [!IMPORTANT]
+> La distinción Standard/Extensible **no es "básico vs. avanzado"**. Es una frontera real con consecuencias de **coste, tipo de entorno y qué proxies pueden ir en un API product**:
+>
+> - **Políticas Standard**: funcionan en **cualquier tipo de entorno**. Aptas para desarrollo interno y soluciones ligeras.
+> - **Políticas Extensible**: solo funcionan en entornos de tipo **Intermediate** y **Comprehensive**. Usar **una sola** política extensible convierte automáticamente el proxy en un **proxy Extensible**, con implicaciones de coste según tu licencia (Pay-as-you-go o Subscription).
+> - Un **proxy Standard** (solo políticas Standard) **no puede incluirse en un API product**.
+> - En **Pay-as-you-go**, un API product debe incluir **o bien** proxies extensibles con flow hooks, **o bien** políticas extensibles como `VerifyAPIKey` u `OAuthV2`.
+>
+> Consecuencia práctica: **`VerifyAPIKey`, `OAuthV2` y `Quota` son políticas Extensible.** Casi cualquier API real que autentique y limite tráfico —es decir, casi cualquier API en producción— acaba siendo un proxy Extensible desplegado en un entorno Intermediate o Comprehensive. `SpikeArrest` es la **única** política Standard de traffic management; el resto (`Quota`, todo el bloque de caché) es Extensible.
+>
+> Regla de Google: **si una política Standard y una Extensible hacen lo mismo, usa la Standard.**
+
 ## Clasificación funcional
 
-Apigee agrupa las políticas en cuatro categorías funcionales, más una categoría de IA:
+Las políticas se agrupan en categorías funcionales; cada categoría existe tanto en el lado Standard como en el Extensible cuando aplica:
 
 | Categoría | Propósito |
 |---|---|
@@ -25,31 +39,66 @@ Apigee agrupa las políticas en cuatro categorías funcionales, más una categor
 | **Security** | Autenticar, autorizar y proteger el contenido |
 | **Mediation** | Manipular activamente los payloads y mensajes |
 | **Extension** | Implementar comportamiento personalizado en varios lenguajes |
-| **AI** | Gobernar el tráfico hacia modelos de lenguaje |
-
-Ortogonalmente, Apigee distingue entre políticas **estándar** y **extensibles** (estas últimas ofrecen más funcionalidad y pueden tener implicaciones de coste o rendimiento distintas).
+| **AI** | Gobernar el tráfico hacia modelos de lenguaje (siempre Extensible) |
 
 ---
 
-## Traffic management
+## Políticas Standard (cualquier tipo de entorno)
+
+### Traffic management
+
+| Política | Elemento XML | Qué hace |
+|---|---|---|
+| SpikeArrest | `<SpikeArrest>` | Suaviza picos instantáneos de tráfico. Protege el runtime, no es contador de negocio |
+
+### Security
+
+| Política | Elemento XML | Qué hace |
+|---|---|---|
+| AccessControl | `<AccessControl>` | Lista de permitidos/denegados por dirección IP |
+| HMAC | `<HMAC>` | Calcula y verifica firmas HMAC |
+| DecodeJWT | `<DecodeJWT>` | Decodifica un JWT **sin** verificar la firma |
+| VerifyJWT | `<VerifyJWT>` | Verifica firma y claims de un JWT |
+| VerifyIAM | `<VerifyIAM>` | Verifica autorización basada en IAM de Google Cloud |
+
+### Mediation
+
+| Política | Elemento XML | Qué hace |
+|---|---|---|
+| CORS | `<CORS>` | Gestiona cabeceras de Cross-Origin Resource Sharing |
+| GraphQL | `<GraphQL>` | Valida y procesa peticiones GraphQL |
+| HTTPModifier | `<HTTPModifier>` | Modifica cabeceras HTTP y códigos de estado |
+| JSONtoXML | `<JSONtoXML>` | Convierte JSON a XML |
+| XMLtoJSON | `<XMLtoJSON>` | Convierte XML a JSON |
+| OASValidation | `<OASValidation>` | Valida peticiones/respuestas contra una spec OpenAPI |
+| PublishMessage | `<PublishMessage>` | Publica un mensaje en Pub/Sub |
+| RaiseFault | `<RaiseFault>` | Genera un fallo explícito con respuesta personalizada |
+| ReadPropertySet | `<ReadPropertySet>` | Lee valores de un PropertySet del bundle |
+| SOAPMessageValidation | `<SOAPMessageValidation>` | Valida estructura de mensajes SOAP contra WSDL/XSD |
+
+### Extension
+
+| Política | Elemento XML | Qué hace |
+|---|---|---|
+| AssertCondition | `<AssertCondition>` | Evalúa condiciones y lanza fallo si no se cumplen |
+| ExternalCallout | `<ExternalCallout>` | Invoca un servicio gRPC externo |
+
+---
+
+## Políticas Extensible (solo entornos Intermediate / Comprehensive)
+
+### Traffic management
 
 | Política | Elemento XML | Qué hace |
 |---|---|---|
 | Quota | `<Quota>` | Límite de negocio de nº de llamadas por intervalo, por app/producto/developer |
-| SpikeArrest | `<SpikeArrest>` | Suaviza picos instantáneos de tráfico. Protege el runtime, no es contador de negocio |
 | ResponseCache | `<ResponseCache>` | Cachea la respuesta completa del backend, con lookup y populate integrados |
 | LookupCache | `<LookupCache>` | Lee un valor de la caché de propósito general |
 | PopulateCache | `<PopulateCache>` | Escribe un valor en la caché |
 | InvalidateCache | `<InvalidateCache>` | Elimina entradas de la caché |
-| ConcurrentRateLimit | `<ConcurrentRateLimit>` | Limita conexiones concurrentes hacia el backend |
 | ResetQuota | `<ResetQuota>` | Reinicia el contador de una política Quota |
-| MonetizationLimitsCheck | `<MonetizationLimitsCheck>` | Aplica límites de los planes de monetización |
 
-Detalle: [Traffic Management](01-traffic-management.md)
-
----
-
-## Security
+### Security
 
 | Política | Elemento XML | Qué hace |
 |---|---|---|
@@ -60,72 +109,48 @@ Detalle: [Traffic Management](01-traffic-management.md)
 | DeleteOAuthV2Info | `<DeleteOAuthV2Info>` | Revoca tokens de acceso o refresco |
 | RevokeOAuthV2 | `<RevokeOAuthV2>` | Revoca tokens por ID de app o de usuario final |
 | GenerateJWT | `<GenerateJWT>` | Crea y firma un JWT |
-| VerifyJWT | `<VerifyJWT>` | Verifica firma y claims de un JWT |
-| DecodeJWT | `<DecodeJWT>` | Decodifica un JWT **sin** verificar la firma |
 | GenerateJWS | `<GenerateJWS>` | Crea y firma un JWS (detached o adjunto) |
 | VerifyJWS | `<VerifyJWS>` | Verifica la firma de un JWS |
 | DecodeJWS | `<DecodeJWS>` | Decodifica un JWS sin verificar |
 | BasicAuthentication | `<BasicAuthentication>` | Codifica/decodifica credenciales HTTP Basic |
-| HMAC | `<HMAC>` | Calcula y verifica firmas HMAC |
-| AccessControl | `<AccessControl>` | Lista de permitidos/denegados por dirección IP |
-| AccessEntity | `<AccessEntity>` | Recupera entidades del perfil (app, developer, producto) como XML |
-| VerifyIAM | `<VerifyIAM>` | Verifica autorización basada en IAM de Google Cloud |
 | JSONThreatProtection | `<JSONThreatProtection>` | Protege contra ataques estructurales en JSON |
 | XMLThreatProtection | `<XMLThreatProtection>` | Protege contra ataques estructurales en XML (incl. entity expansion) |
 | RegularExpressionProtection | `<RegularExpressionProtection>` | Bloquea patrones maliciosos (SQLi, XSS) mediante regex |
 | SAMLAssertion | `<SAMLAssertion>` | Genera y valida aserciones SAML |
 
-Detalle: [Seguridad](02-seguridad.md)
+> [!NOTE]
+> Nótese la asimetría JWT/JWS: para **JWT**, `VerifyJWT` y `DecodeJWT` son **Standard** pero `GenerateJWT` es **Extensible**. Para **JWS**, las tres operaciones (`GenerateJWS`, `VerifyJWS`, `DecodeJWS`) son **Extensible**. Si solo necesitas *verificar* JWT de un IdP externo, tu proxy puede seguir siendo Standard en ese aspecto — pero en la práctica casi siempre necesitarás `VerifyAPIKey` u `OAuthV2` de todos modos, que sí son Extensible.
 
----
-
-## Mediation
+### Mediation
 
 | Política | Elemento XML | Qué hace |
 |---|---|---|
 | AssignMessage | `<AssignMessage>` | Crea y modifica mensajes, cabeceras, payloads y variables. La navaja suiza |
 | ExtractVariables | `<ExtractVariables>` | Extrae datos de un mensaje a variables (JSONPath, XPath, regex, params) |
-| JSONtoXML | `<JSONtoXML>` | Convierte JSON a XML |
-| XMLtoJSON | `<XMLtoJSON>` | Convierte XML a JSON |
-| XSL / XSLTransform | `<XSL>` | Aplica una transformación XSLT |
-| CORS | `<CORS>` | Gestiona cabeceras de Cross-Origin Resource Sharing |
-| HTTPModifier | `<HTTPModifier>` | Modifica cabeceras HTTP y códigos de estado |
-| OASValidation | `<OASValidation>` | Valida peticiones/respuestas contra una spec OpenAPI |
-| SOAPMessageValidation | `<SOAPMessageValidation>` | Valida estructura de mensajes SOAP contra WSDL/XSD |
-| GraphQL | `<GraphQL>` | Valida y procesa peticiones GraphQL |
-| RaiseFault | `<RaiseFault>` | Genera un fallo explícito con respuesta personalizada |
-| AssertCondition | `<AssertCondition>` | Evalúa condiciones y lanza fallo si no se cumplen |
-| ParsePayload | `<ParsePayload>` | Parsea el payload a estructuras accesibles |
+| AccessEntity | `<AccessEntity>` | Recupera entidades del perfil (app, developer, producto) como XML |
 | KeyValueMapOperations | `<KeyValueMapOperations>` | Lee, escribe y borra entradas de un KVM |
-| ReadPropertySet | `<ReadPropertySet>` | Lee valores de un PropertySet del bundle |
-| MessageValidation | `<MessageValidation>` | Validación genérica de mensajes (XSD/WSDL/JSON schema) |
+| MonetizationLimitsCheck | `<MonetizationLimitsCheck>` | Aplica límites de los planes de monetización |
+| ParsePayload | `<ParsePayload>` | Parsea el payload a estructuras accesibles |
+| XSLTransform (`<XSL>`) | `<XSL>` | Aplica una transformación XSLT. Usa el procesador Saxon (XSLT 1.0/2.0); no soporta `<xsl:include>` ni `<xsl:import>` |
+| ParseDialogflowRequest | `<ParseDialogflowRequest>` | Parsea una petición entrante de Dialogflow |
+| SetDialogflowResponse | `<SetDialogflowResponse>` | Construye la respuesta hacia Dialogflow |
 
-Detalle: [Mediación](03-mediacion.md)
-
----
-
-## Extension
+### Extension
 
 | Política | Elemento XML | Qué hace |
 |---|---|---|
 | ServiceCallout | `<ServiceCallout>` | Llama a un servicio HTTP externo desde el flujo |
-| ExternalCallout | `<ExternalCallout>` | Invoca un servicio gRPC externo |
 | FlowCallout | `<FlowCallout>` | Invoca un shared flow |
 | JavaScript | `<Javascript>` | Ejecuta código JavaScript personalizado |
 | JavaCallout | `<JavaCallout>` | Ejecuta código Java empaquetado en un JAR |
 | PythonScript | `<Script>` | ⚠️ **Solo Edge.** Ejecuta Python. No disponible en Apigee X |
 | MessageLogging | `<MessageLogging>` | Envía logs a syslog o Cloud Logging |
 | DataCapture | `<DataCapture>` | Captura datos de petición/respuesta para analytics |
-| StatisticsCollector | `<StatisticsCollector>` | Recoge datos personalizados para analytics (predecesor de DataCapture) |
 | IntegrationCallout | `<IntegrationCallout>` | Invoca un flujo de Application Integration |
 | SetIntegrationRequest | `<SetIntegrationRequest>` | Configura los parámetros de la petición de integración |
-| PublishMessage | `<PublishMessage>` | Publica un mensaje en Pub/Sub |
+| TraceCapture | `<TraceCapture>` | **(Preview / Pre-GA)** Añade variables personalizadas a los spans del trazado distribuido |
 
-Detalle: [Extensión](04-extension.md)
-
----
-
-## Políticas de IA
+### AI (siempre Extensible)
 
 | Política | Elemento XML | Qué hace |
 |---|---|---|
@@ -136,7 +161,22 @@ Detalle: [Extensión](04-extension.md)
 | SanitizeUserPrompt | `<SanitizeUserPrompt>` | Filtra el prompt del usuario vía Model Armor (prompt injection, jailbreak, datos sensibles) |
 | SanitizeModelResponse | `<SanitizeModelResponse>` | Sanea la salida del modelo antes de devolverla |
 
-Detalle: [Políticas de IA](05-politicas-ai.md) y [Apigee como AI Gateway](../07-ai-gateway/01-apigee-como-ai-gateway.md)
+Detalle: [Traffic Management](01-traffic-management.md) · [Seguridad](02-seguridad.md) · [Mediación](03-mediacion.md) · [Extensión](04-extension.md) · [Políticas de IA](05-politicas-ai.md)
+
+---
+
+## Políticas retiradas o exclusivas de Apigee Edge
+
+> [!CAUTION]
+> Estas políticas **no existen o están retiradas en Apigee X**. Si las ves en un ejemplo o tutorial antiguo, no las uses en un proxy nuevo.
+
+| Política | Estado | Alternativa |
+|---|---|---|
+| `ConcurrentRateLimit` | **Deprecada** el 15/07/2020, **retirada** de Private Cloud en la versión 4.50.00 (15/07/2021). Su arquitectura afectaba al rendimiento de las APIs | `SpikeArrest` y/o `Quota`, combinadas con encadenamiento de proxies o shared flows |
+| `StatisticsCollector` | Predecesora de `DataCapture` en Edge | `DataCapture` |
+| `MessageValidation` | No aparece en el catálogo vigente de Apigee X | `SOAPMessageValidation` para SOAP, `OASValidation` para REST/OpenAPI |
+| `OAuthv1.0a`, `GetOAuthV1Info`, `DeleteOAuthV1Info` | Deprecadas el 15/07/2020, retiradas el 15/11/2018 (Cloud) / v4.50.00 (Private Cloud) | Políticas `OAuthV2` |
+| `Script` (Python) | ⚠️ Solo Edge | `Javascript` o `JavaCallout` |
 
 ---
 
@@ -146,10 +186,11 @@ Regla de Google, en orden de preferencia:
 
 ```
 1. ¿Existe una política que lo haga?            → úsala
-2. ¿AssignMessage + ExtractVariables bastan?    → úsalas
-3. ¿Necesitas lógica real?                      → JavaScript
-4. ¿El rendimiento es crítico?                  → JavaCallout
-5. Python                                        → evitar (y no existe en X)
+2. ¿Standard y Extensible hacen lo mismo?       → usa la Standard
+3. ¿AssignMessage + ExtractVariables bastan?    → úsalas
+4. ¿Necesitas lógica real?                      → JavaScript
+5. ¿El rendimiento es crítico?                  → JavaCallout
+6. Python                                        → evitar (y no existe en X)
 ```
 
 Las políticas nativas están **endurecidas, optimizadas y soportadas**. El código personalizado no.
@@ -175,5 +216,8 @@ Convención de prefijos recomendada en [convenciones de nombres](../08-mejores-p
 
 ## Fuentes
 
-- <https://cloud.google.com/apigee/docs/api-platform/reference/policies/reference-overview-policy>
+- <https://cloud.google.com/apigee/docs/api-platform/reference/policies/reference-overview-policy> (consultada directamente, contenido completo)
+- <https://cloud.google.com/apigee/docs/api-platform/reference/policies/xsl-transform-policy>
+- <https://cloud.google.com/apigee/docs/api-platform/reference/policies/trace-capture-policy>
 - <https://cloud.google.com/apigee/docs/api-platform/develop/policy-attachment-and-enforcement>
+- <https://docs.apigee.com/release/deprecated-features> (ConcurrentRateLimit y OAuth v1)

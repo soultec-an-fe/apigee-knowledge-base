@@ -64,7 +64,14 @@ Límite: hasta **85 environments por organización**.
 
 ### Tipos de environment (Apigee X)
 
-Apigee X ofrece tipos de environment que afectan a facturación y funcionalidad — típicamente **Base**, **Intermediate** y **Comprehensive**. El tipo determina qué funciones avanzadas (por ejemplo analytics extendido o Advanced API Security) están disponibles. Verifica el catálogo vigente antes de crear un environment, porque **el tipo condiciona el coste**.
+> [!IMPORTANT]
+> Confirmado en la documentación oficial: existen los tipos **Base**, **Intermediate** y **Comprehensive**, y el tipo determina **qué políticas puedes usar**, no solo qué analytics tienes:
+>
+> - **Solo los entornos Intermediate y Comprehensive admiten políticas Extensible.** Un entorno Base solo puede ejecutar proxies **Standard** — lo que en la práctica excluye `VerifyAPIKey`, `OAuthV2` y `Quota`. Ver [Standard vs. Extensible](../02-politicas/00-catalogo-de-politicas.md#standard-vs-extensible-no-es-solo-una-etiqueta-de-calidad).
+> - Usar una política Extensible en un proxy convierte automáticamente ese proxy en **Extensible**, con implicaciones de coste según tu modelo de licencia (Pay-as-you-go o Subscription).
+> - En **Pay-as-you-go**, un API product debe incluir proxies extensibles (con flow hooks) o políticas extensibles (`VerifyAPIKey`, `OAuthV2`) — un proxy puramente Standard no se puede empaquetar en un producto.
+>
+> Verifica el catálogo de entitlements vigente para tu modelo de facturación antes de elegir el tipo de entorno, porque condiciona directamente el coste.
 
 ## Environment group
 

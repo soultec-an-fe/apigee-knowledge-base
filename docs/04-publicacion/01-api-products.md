@@ -38,13 +38,27 @@ API Proxy(s)  ──agrupados en──►  API Product  ◄──suscrita── 
 | **API proxies / Operations** | Qué proxies y qué operaciones concretas (verbo + ruta) están incluidos |
 | **Environments** | En qué entornos es válido |
 | **Quota** | Límite de llamadas por intervalo, leído por la política `Quota` |
-| **OAuth scopes** | Scopes que se conceden a los tokens emitidos para este producto |
-| **Access level** | `public`, `private` o `internal`: controla la visibilidad en el portal |
+| **OAuth scopes** | Scopes que se conceden a los tokens emitidos para este producto, como lista separada por comas |
+| **Access level** | `Public`, `Private` o `Internal only`: controla la visibilidad en el portal |
 | **Custom attributes** | Pares clave/valor arbitrarios. **La clave de la flexibilidad** |
+
+> [!IMPORTANT]
+> **Requisito en Pay-as-you-go, confirmado en la documentación oficial:** un API product en un proyecto Pay-as-you-go debe incluir **o bien** proxies extensibles con flow hooks, **o bien** al menos una política extensible como `VerifyAPIKey` u `OAuthV2`. Un producto que envuelva únicamente un proxy Standard sin ninguna política extensible no cumple este requisito. Ver [Standard vs. Extensible](../02-politicas/00-catalogo-de-politicas.md#standard-vs-extensible-no-es-solo-una-etiqueta-de-calidad).
 
 ## Operations — control granular
 
-En lugar de incluir un proxy entero, se declaran operaciones concretas:
+En lugar de incluir un proxy entero, se declaran **operaciones**: grupos de atributos que restringen el acceso a uno o más proxies según ruta, método HTTP y cuota.
+
+| Atributo de la operación | ¿Obligatorio? | Descripción |
+|---|---|---|
+| API proxy | Sí | Cada grupo de operaciones especifica un proxy. Solo uno por grupo |
+| Remote Service | Solo si usas Apigee Adapter for Envoy | — |
+| Resource path | Sí | Uno o más resource paths: la parte de la URL que va después del basepath |
+| HTTP method | No | Si no se especifica, se permiten todos los métodos |
+| Quota | No | La cuota de la operación **tiene precedencia** sobre la cuota a nivel de producto, si ambas están definidas |
+| Custom attributes | No | Además de los atributos a nivel de producto. Se acceden en runtime con el prefijo `apiproduct.operation.attributes.*` |
+
+En JSON:
 
 ```json
 {
@@ -107,13 +121,17 @@ El plan premium sería el mismo proxy con más métodos y más cuota:
 
 ## Cómo se aplica en runtime
 
-`VerifyAPIKey` u `OAuthV2 VerifyAccessToken` hacen la resolución:
+Apigee no valida las API keys automáticamente: **tú** debes incluir `VerifyAPIKey` u `OAuthV2 VerifyAccessToken` en el flujo. Sin una política de este tipo, cualquiera puede invocar tu proxy sin credenciales.
 
-1. Buscan la credencial.
-2. Recorren los API products asociados.
-3. Buscan uno que incluya **este proxy** y **esta operación** (verbo + ruta) en **este entorno**.
-4. Si lo encuentran, pueblan `apiproduct.*` y dejan pasar.
-5. Si no, lanzan `InvalidApiKeyForGivenResource`.
+Los pasos exactos que ejecuta Apigee al verificar una credencial, según la documentación oficial:
+
+1. Obtiene las credenciales que vienen en la petición. Con verificación por token OAuth, primero comprueba que el token no ha expirado y luego recupera la consumer key que lo generó.
+2. Recupera la lista de API products asociados a esa consumer key.
+3. Confirma que el proxy actual está incluido en el producto, que la ruta actual está habilitada en él y, si el producto lo restringe, que se usa el verbo HTTP permitido.
+4. Verifica que la cuota, si está definida, no se ha superado.
+5. Verifica que la consumer key no está expirada ni revocada, que la app no está revocada y que el developer está activo.
+
+Si todos los checks pasan, la verificación tiene éxito y se pueblan las variables `apiproduct.*`. Si falla el paso 3, Apigee lanza `InvalidApiKeyForGivenResource`.
 
 Luego la política `Quota` **lee** los valores del producto:
 
@@ -181,9 +199,19 @@ producto-partners   → operaciones ampliadas, approvalType manual
 producto-interno    → todo, access level internal
 ```
 
-> [!WARNING]
-> **Antipatrón de producto: un producto por proxy.**
-> Si tienes 40 proxies y 40 productos que contienen uno cada uno, no estás usando el modelo: estás duplicando el catálogo de proxies. Los productos deben representar **planes o audiencias**, no piezas técnicas.
+> [!NOTE]
+> **Matiz importante, no una regla cerrada.** La documentación oficial recomienda mantener una relación **uno a uno entre spec OpenAPI, API proxy y API product** como punto de partida para gobernar el catálogo con claridad. Eso no prohíbe el patrón de planes: puedes tener varios products que envuelven el **mismo proxy** con cuotas y operaciones distintas (`producto-free`, `producto-basico`, `producto-premium`), que es exactamente el mecanismo de `operationConfigs` que se muestra arriba. Lo que sí es un error real es duplicar el **catálogo técnico** — un producto por proxy sin ninguna diferenciación de plan, cuota o audiencia — porque entonces el producto no aporta nada sobre el proxy y solo añade una capa de gestión redundante. La recomendación de Google es sobre claridad de gobierno del catálogo; la del "producto = plan" de aquí es criterio propio derivado de esa idea, no una cita textual de Google.
+
+## Niveles de acceso
+
+| Nivel | Descripción |
+|---|---|
+| `Public` | Visible para todos los desarrolladores; se puede añadir a portales integrados o basados en Drupal |
+| `Private` | Diseñado para uso privado |
+| `Internal only` | Diseñado para uso interno |
+
+> [!NOTE]
+> Confirmado en la documentación oficial: **no hay diferencia funcional entre `Private` e `Internal only`**. Son dos etiquetas para que elijas la que mejor describa la audiencia prevista del producto; el comportamiento de acceso es idéntico. Para hacerlos visibles a una app concreta hay que añadirlos manualmente desde la UI o la API de Apigee.
 
 ## Límites
 
@@ -213,6 +241,6 @@ apigeecli products export --org "$ORG" --token "$(gcloud auth print-access-token
 
 ## Fuentes
 
-- <https://cloud.google.com/apigee/docs/api-platform/publish/what-api-product>
+- <https://cloud.google.com/apigee/docs/api-platform/publish/what-api-product> (consultada directamente, contenido completo)
 - <https://cloud.google.com/apigee/docs/api-platform/publish/create-api-products>
 - <https://cloud.google.com/apigee/docs/api-platform/reference/limits>

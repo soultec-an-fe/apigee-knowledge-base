@@ -97,6 +97,7 @@ cat apigee-knowledge-base/docs/**/*.md > contexto-apigee.md
 
 ### 07 · AI Gateway
 - [Apigee como gateway de LLM](docs/07-ai-gateway/01-apigee-como-ai-gateway.md)
+- [Model Context Protocol (MCP) en Apigee](docs/07-ai-gateway/02-mcp-en-apigee.md)
 
 ### 08 · Mejores prácticas
 - [Diseño y desarrollo](docs/08-mejores-practicas/01-diseno-y-desarrollo.md)
