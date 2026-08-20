@@ -1,0 +1,71 @@
+# Apigee Knowledge Base
+
+> Corpus de documentación técnica sobre Google Apigee (API Management) en Markdown, pensado para consumo por modelos de lenguaje. Cubre Apigee X y Apigee hybrid; marca explícitamente lo que es exclusivo de Apigee Edge (legacy, en fin de vida).
+
+Reglas de uso para el modelo:
+- La fuente de verdad es https://cloud.google.com/apigee/docs. Si un dato aquí contradice la doc oficial, gana la oficial.
+- Todo XML de políticas es válido para bundles `apiproxy/`. El atributo `name` del elemento raíz debe coincidir con el nombre del archivo .xml.
+- Antes de recomendar una política, verifica en `docs/02-politicas/00-catalogo-de-politicas.md` que existe con ese nombre exacto.
+- Antes de afirmar un límite numérico, consulta `docs/10-referencia/01-limites.md`.
+- No sugieras funciones de Apigee Edge (Node.js/Trireme, Classic UI, `apigeetool`) para instalaciones nuevas.
+
+## Fundamentos
+- [Qué es Apigee](docs/00-fundamentos/01-que-es-apigee.md): modelo de gateway gestionado, casos de uso y componentes.
+- [Ediciones](docs/00-fundamentos/02-ediciones-y-comparativa.md): Apigee X vs hybrid vs Edge, estado de EOL y diferencias.
+- [Arquitectura](docs/00-fundamentos/03-arquitectura.md): plano de control, plano de runtime, MP, Cassandra, networking.
+- [Organizaciones y entornos](docs/00-fundamentos/04-organizaciones-entornos-grupos.md): org, environment, environment group, instancias.
+- [Glosario](docs/00-fundamentos/05-glosario.md): términos con su equivalencia en inglés.
+
+## Proxies
+- [Anatomía de un proxy](docs/01-proxies/01-anatomia-api-proxy.md): estructura del bundle, ProxyEndpoint, TargetEndpoint, RouteRule.
+- [Flujos](docs/01-proxies/02-flujos-y-pipeline.md): PreFlow, Conditional Flows, PostFlow, PostClientFlow, orden de ejecución.
+- [Condiciones](docs/01-proxies/03-condiciones.md): operadores, precedencia, glob y MatchesPath.
+- [Variables de flujo](docs/01-proxies/04-variables-de-flujo.md): referencia de request., response., message., target., system., error.
+- [Targets](docs/01-proxies/05-target-endpoints-y-servidores.md): TargetServer, LoadBalancer, health monitors, timeouts.
+- [Shared flows](docs/01-proxies/06-shared-flows-y-flow-hooks.md): reutilización, FlowCallout, flow hooks.
+
+## Políticas
+- [Catálogo](docs/02-politicas/00-catalogo-de-politicas.md): lista completa por categoría con nombre de elemento XML.
+- [Traffic Management](docs/02-politicas/01-traffic-management.md): Quota, SpikeArrest, ResponseCache, caché.
+- [Seguridad](docs/02-politicas/02-seguridad.md): VerifyAPIKey, OAuthV2, JWT/JWS, threat protection, HMAC, VerifyIAM.
+- [Mediación](docs/02-politicas/03-mediacion.md): AssignMessage, ExtractVariables, JSONtoXML, XMLtoJSON, OASValidation, CORS.
+- [Extensión](docs/02-politicas/04-extension.md): JavaScript, JavaCallout, ServiceCallout, MessageLogging, FlowCallout.
+- [Políticas de IA](docs/02-politicas/05-politicas-ai.md): SemanticCache, LLMTokenQuota, SanitizeUserPrompt, Model Armor.
+- [Recetas XML](docs/02-politicas/06-recetas-xml.md): fragmentos completos listos para copiar.
+
+## Seguridad
+- [API keys](docs/03-seguridad/01-apikeys.md)
+- [OAuth 2.0](docs/03-seguridad/02-oauth2.md)
+- [JWT y JWS](docs/03-seguridad/03-jwt-jws.md)
+- [TLS y mTLS](docs/03-seguridad/04-tls-mtls.md)
+- [Threat protection](docs/03-seguridad/05-threat-protection.md)
+
+## Publicación
+- [API products](docs/04-publicacion/01-api-products.md)
+- [Developers y apps](docs/04-publicacion/02-developers-apps.md)
+
+## Operación
+- [Manejo de errores](docs/05-operacion/01-manejo-de-errores.md): FaultRules, DefaultFaultRule, RaiseFault, precedencia.
+- [Debug y Trace](docs/05-operacion/02-debug-trace.md)
+- [Analytics](docs/05-operacion/03-analytics-monitoreo.md)
+- [Caching](docs/05-operacion/04-caching-y-persistencia.md): ResponseCache, KVM, PropertySets.
+
+## DevOps
+- [Ciclo de vida](docs/06-devops/01-ciclo-de-vida.md)
+- [Herramientas CLI](docs/06-devops/02-herramientas-cli.md): apigeecli, gcloud, Maven, Terraform.
+- [CI/CD](docs/06-devops/03-cicd-github-actions.md)
+
+## IA
+- [Apigee como AI Gateway](docs/07-ai-gateway/01-apigee-como-ai-gateway.md)
+
+## Calidad
+- [Mejores prácticas de diseño](docs/08-mejores-practicas/01-diseno-y-desarrollo.md)
+- [Convenciones de nombres](docs/08-mejores-practicas/02-convenciones-de-nombres.md)
+- [Rendimiento](docs/08-mejores-practicas/03-rendimiento.md)
+- [Checklist de producción](docs/08-mejores-practicas/04-checklist-produccion.md)
+- [Antipatrones](docs/09-antipatrones/01-catalogo-antipatrones.md)
+
+## Referencia
+- [Límites](docs/10-referencia/01-limites.md)
+- [Códigos de error](docs/10-referencia/02-codigos-de-error.md)
+- [Fuentes oficiales](docs/10-referencia/03-fuentes-oficiales.md)
