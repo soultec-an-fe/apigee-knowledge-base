@@ -14,13 +14,15 @@ Un corpus de documentación técnica sobre Apigee organizado para **RAG, agentes
 
 - **Un tema por archivo**, con frontmatter YAML (`id`, `tags`, `fuentes`) para filtrar y citar.
 - **Rutas predecibles y numeradas** (`docs/NN-area/NN-tema.md`) para que la navegación sea determinista.
-- **Todo el XML real** de las políticas, listo para copiar en un bundle `apiproxy/`.
+- **XML bien formado y validado** en todos los ejemplos, listo para copiar en un bundle `apiproxy/`.
 - **Sin imágenes ni diagramas** que carguen información esencial: todo es texto, tablas y código.
-- **Enlace a la fuente canónica** de Google en cada documento, para verificar y refrescar.
+- **Enlace al tema canónico** de Google en cada documento — no todo el contenido procede de ahí, ver [PROCEDENCIA.md](PROCEDENCIA.md).
 
 > [!IMPORTANT]
 > Este repositorio es material **derivado y sintetizado**, no una copia de la documentación de Google.
 > La fuente de verdad siempre es <https://cloud.google.com/apigee/docs>. Ver [Fuentes oficiales](docs/10-referencia/03-fuentes-oficiales.md).
+>
+> **No todo el contenido está verificado contra la documentación oficial en el mismo grado.** Antes de citar algo como norma de Google, consulta [PROCEDENCIA.md](PROCEDENCIA.md), que clasifica cada sección por nivel de respaldo (verificado / no accesible en el momento de escribirlo / criterio propio).
 
 ---
 
