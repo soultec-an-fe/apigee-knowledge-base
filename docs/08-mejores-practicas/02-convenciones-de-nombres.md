@@ -148,7 +148,7 @@ private.api_key_backend      ← el prefijo private. oculta el valor en Trace
 
 Describe la **operación de negocio**, no el mecanismo:
 
-```xml
+```text
 <Flow name="ListarPedidos">      ✅
 <Flow name="CrearPedido">        ✅
 <Flow name="Flow1">              ❌
@@ -161,7 +161,7 @@ El nombre del flujo aparece en `current.flow.name` y en las sesiones de Trace: u
 
 Describe **qué error maneja**:
 
-```xml
+```text
 <FaultRule name="errores-autenticacion">
 <FaultRule name="errores-cuota">
 <FaultRule name="backend-no-disponible">

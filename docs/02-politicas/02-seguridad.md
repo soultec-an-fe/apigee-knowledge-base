@@ -322,7 +322,7 @@ Protege contra *XML entity expansion* (billion laughs) y *XML bomb*.
         <Pattern>[\s]*(?i)((delete)|(exec)|(drop\s*table)|(insert)|(shutdown)|(update)|(\bor\b))</Pattern>
     </URIPath>
     <QueryParam name="q">
-        <Pattern>(?i)((select)|(union)|(script)|(<))</Pattern>
+        <Pattern>(?i)((select)|(union)|(script)|(&lt;))</Pattern>
     </QueryParam>
     <JSONPayload>
         <JSONPath JSONPath="$.comentario">
