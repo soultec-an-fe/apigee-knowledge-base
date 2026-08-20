@@ -352,18 +352,29 @@ apigeecli targetservers export -o "$ORG" -e prod -t "$(gcloud auth print-access-
 apigeecli keystores export -o "$ORG" -e prod -f respaldo/keystores \
   -t "$(gcloud auth print-access-token)"
 
-# Recursos con scope de entorno (properties, jsc, oas, ...): sin export masivo,
-# hay que listar y pedir cada archivo. Ajusta el filtro jq a la forma real de tu salida.
+# Recursos con scope de entorno (properties, jsc, oas, xslt, java, wsdl, xsd, py, graphql, js).
+# "list" imprime JSON: {"resourceFile":[{"name":"config.properties","type":"properties"}, ...]}
 apigeecli resources list -o "$ORG" -e prod -t "$(gcloud auth print-access-token)"
-apigeecli resources get -o "$ORG" -e prod -n config.properties -p properties \
-  -t "$(gcloud auth print-access-token)" > respaldo/recursos/config.properties
+
+# "get" NO imprime a stdout: descarga el archivo AL DIRECTORIO ACTUAL con su nombre real
+# (verificado en el código fuente: internal/apiclient/httpclient.go, función DownloadResource)
+( cd respaldo/recursos && apigeecli resources get -o "$ORG" -e prod \
+    -n config.properties -p properties -t "$(gcloud auth print-access-token)" )
+
+# Restaurar un recurso (crea uno nuevo; para sobrescribir uno existente usa "resources update")
+apigeecli resources create -o "$ORG" -e prod \
+  -n config.properties -p properties --respath respaldo/recursos/config.properties \
+  -t "$(gcloud auth print-access-token)"
 ```
+
+> [!NOTE]
+> `apigeecli resources` **no tiene un `export`/`import` masivo** como sí tienen `kvms` y `targetservers`. Hay que listar (`resources list`) e iterar descargando cada archivo con `resources get`, y para restaurar, iterar creando cada uno con `resources create`. El script completo de abajo hace exactamente eso.
 
 ### Script de respaldo completo, programado
 
 ```bash
 #!/usr/bin/env bash
-# respaldar-entorno.sh — vuelca KVMs, TargetServers y keystores a un directorio versionado en Git
+# respaldar-entorno.sh — vuelca KVMs, TargetServers, keystores y recursos a un directorio versionado en Git
 set -euo pipefail
 
 ORG="${ORG:?falta ORG}"
@@ -371,7 +382,7 @@ ENV="${ENV:?falta ENV}"
 TOKEN="$(gcloud auth print-access-token)"
 DEST="respaldo/${ENV}"
 
-mkdir -p "$DEST/kvms"
+mkdir -p "$DEST/kvms" "$DEST/recursos"
 
 echo "→ TargetServers (un único targetservers.json)"
 ( cd "$DEST" && apigeecli targetservers export -o "$ORG" -e "$ENV" -t "$TOKEN" )
@@ -382,11 +393,24 @@ apigeecli keystores export -o "$ORG" -e "$ENV" -f "$DEST/keystores" -t "$TOKEN"
 echo "→ KVMs de entorno (los que NO tienen enmascarado activo)"
 ( cd "$DEST/kvms" && apigeecli kvms export -o "$ORG" -e "$ENV" -t "$TOKEN" )
 
+echo "→ Recursos con scope de entorno"
+apigeecli resources list -o "$ORG" -e "$ENV" -t "$TOKEN" \
+  | jq -r '.resourceFile[]? | "\(.name)\t\(.type)"' \
+  | while IFS=$'\t' read -r nombre tipo; do
+      ( cd "$DEST/recursos" && apigeecli resources get -o "$ORG" -e "$ENV" \
+          -n "$nombre" -p "$tipo" -t "$TOKEN" )
+    done
+
 echo "Respaldo de $ENV completo en $DEST"
 ```
 
 > [!TIP]
-> Ejecutar `apigeecli kvms export` con el directorio de trabajo (`cd`) ya puesto en la carpeta destino evita tener que mover archivos después — el propio comando escribe ahí. Para restaurar: `apigeecli kvms import -o "$ORG" -f "$DEST/kvms" -t "$TOKEN"`, que reconstruye cada KVM y sus entradas a partir del nombre de archivo.
+> Ejecutar `apigeecli kvms export` y `resources get` con el directorio de trabajo (`cd`) ya puesto en la carpeta destino evita tener que mover archivos después — ambos comandos escriben directamente ahí, no a stdout. Para restaurar:
+> - **KVMs**: `apigeecli kvms import -o "$ORG" -f "$DEST/kvms" -t "$TOKEN"` reconstruye cada KVM y sus entradas a partir del nombre de archivo.
+> - **TargetServers**: `apigeecli targetservers import -o "$ORG" -e "$ENV" -f "$DEST/targetservers.json" -t "$TOKEN"`.
+> - **Recursos**: itera igual que en el backup pero llamando a `apigeecli resources create -o "$ORG" -e "$ENV" -n NOMBRE -p TIPO --respath "$DEST/recursos/NOMBRE" -t "$TOKEN"` (o `resources update` si el recurso ya existe en el entorno destino).
+>
+> Ningún comando de `resources` acepta scope de organización en esta versión de `apigeecli`: `res.go` construye la URL fija a `environments/{env}/resourcefiles`. Si usas recursos con scope de organización, gestiónalos con la API de gestión directamente (`apigee.googleapis.com/v1/organizations/{org}/resourcefiles`).
 
 ### GitHub Actions: snapshot nocturno con historial completo en Git
 
@@ -486,6 +510,9 @@ El mismo patrón es directo en cualquier CI:
 - <https://github.com/apigee/apigeecli/blob/main/internal/cmd/kvm/impkvms.go> (código fuente verificado: `kvms import` masivo)
 - <https://github.com/apigee/apigeecli/blob/main/internal/cmd/targetservers/expts.go> (código fuente verificado: `targetservers export` escribe un único archivo)
 - <https://github.com/apigee/apigeecli/blob/main/internal/cmd/utils/utils.go> (constante `DefaultFileSplitter = "__"`)
+- <https://github.com/apigee/apigeecli/blob/main/internal/client/res/res.go> (código fuente verificado: rutas de la API y scope fijo a entorno para `resources`)
+- <https://github.com/apigee/apigeecli/blob/main/internal/apiclient/httpclient.go> (código fuente verificado: `DownloadResource` escribe a disco, no a stdout)
+- <https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.environments.resourcefiles/list> (esquema `ListEnvironmentResourcesResponse`: campo `resourceFile[]` con `name`/`type`)
 - <https://cloud.google.com/apigee/docs/api-platform/cache/key-value-maps> (consultada directamente: enmascarado de KVM es opt-in, no por defecto)
 - <https://cloud.google.com/iam/docs/workload-identity-federation>
 - <https://cloud.google.com/apigee/docs/api-platform/fundamentals/api-development-lifecycle>
