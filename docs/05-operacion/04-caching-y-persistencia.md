@@ -195,7 +195,7 @@ apigeecli kvms entries create --map config-backends \
 ```
 
 > [!WARNING]
-> Los valores escritos en un KVM cifrado **no se pueden leer de vuelta** por la API de gestión. Es intencionado. Guarda el valor original en tu gestor de secretos: si lo pierdes, hay que rotarlo.
+> **Corrección frente a una creencia extendida:** por defecto, los valores de un KVM **sí se pueden leer de vuelta** por la API de gestión, en texto plano — el cifrado protege los datos en reposo (con una clave de Cloud KMS, AES256), no oculta el valor al que tiene permiso IAM de lectura. Existe un ajuste opcional de **enmascarado** (`maskedValues`) que sí oculta el valor con asteriscos en las respuestas de la API y la UI, pero **hay que activarlo explícitamente por KVM** — no viene activado por defecto, ni siquiera en KVMs existentes tras activarlo en KVMs nuevos. El enmascarado se aplica a **todo el KVM**, no a entradas individuales. Ver la estrategia completa de respaldo en [CI/CD](../06-devops/03-cicd-github-actions.md#respaldo-de-kvms-y-recursos-con-scope-de-entorno).
 
 ---
 

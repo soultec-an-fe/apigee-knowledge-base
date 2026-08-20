@@ -93,7 +93,7 @@ cat apigee-knowledge-base/docs/**/*.md > contexto-apigee.md
 ### 06 · DevOps
 - [Ciclo de vida de la API](docs/06-devops/01-ciclo-de-vida.md)
 - [apigeecli y herramientas](docs/06-devops/02-herramientas-cli.md)
-- [CI/CD con GitHub Actions](docs/06-devops/03-cicd-github-actions.md)
+- [CI/CD con GitHub Actions](docs/06-devops/03-cicd-github-actions.md) (incluye respaldo versionado de KVMs y recursos)
 
 ### 07 · AI Gateway
 - [Apigee como gateway de LLM](docs/07-ai-gateway/01-apigee-como-ai-gateway.md)

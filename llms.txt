@@ -53,7 +53,7 @@ Reglas de uso para el modelo:
 ## DevOps
 - [Ciclo de vida](docs/06-devops/01-ciclo-de-vida.md)
 - [Herramientas CLI](docs/06-devops/02-herramientas-cli.md): apigeecli, gcloud, Maven, Terraform.
-- [CI/CD](docs/06-devops/03-cicd-github-actions.md)
+- [CI/CD](docs/06-devops/03-cicd-github-actions.md): pipeline con GitHub Actions y respaldo versionado en Git de KVMs, TargetServers y keystores.
 
 ## IA
 - [Apigee como AI Gateway](docs/07-ai-gateway/01-apigee-como-ai-gateway.md)

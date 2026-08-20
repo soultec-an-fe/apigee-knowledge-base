@@ -308,6 +308,158 @@ apigeecli apis deploy --name pedidos-v1 --rev 11 \
 
 Como las revisiones son inmutables y se retienen **250**, el rollback es siempre volver a desplegar un número. No requiere reconstruir nada.
 
+## Respaldo de KVMs y recursos con scope de entorno
+
+> [!IMPORTANT]
+> El **bundle del proxy** (políticas, recursos empaquetados en `apiproxy/resources/`) ya está versionado si sigues el flujo de este documento: vive en Git y cada despliegue es una revisión inmutable con 250 histórico. **Lo que NO está versionado por defecto** es todo lo que vive únicamente en el runtime de Apigee y se edita fuera del bundle: **entradas de KVM, TargetServers, keystores/truststores y recursos con scope de entorno u organización**. Si alguien borra una entrada de KVM o un TargetServer desde la consola, no hay "deshacer": se ha ido, salvo que tengas tu propio respaldo.
+
+### El punto de partida: los KVM sí se pueden leer de vuelta
+
+Por defecto, `apigeecli kvms entries export` **devuelve los valores en texto plano** — el cifrado de un KVM protege los datos en reposo (Cloud KMS, AES256), no oculta el valor a quien tiene permiso de lectura. Solo se oculta si activas explícitamente el **enmascarado** (`maskedValues`) en ese KVM concreto, y entonces ni siquiera tú puedes recuperar el valor por la API. Ver el detalle en [caching y persistencia](../05-operacion/04-caching-y-persistencia.md).
+
+Esto significa que **sí puedes hacer un respaldo automatizado de tus KVMs**, con dos condiciones:
+
+1. **No actives el enmascarado** en los KVMs que quieras poder respaldar y restaurar tú mismo.
+2. **No commitees el respaldo en texto plano a un repo compartido** si contiene secretos reales — cífralo primero (ver más abajo).
+
+### Comandos verificados de `apigeecli` (contra el código fuente)
+
+> [!NOTE]
+> Los nombres de archivo de salida de `kvms export` y `targetservers export` están verificados directamente contra el **código fuente** de `apigeecli` (paquetes `internal/cmd/kvm` y `internal/cmd/targetservers`), no solo contra su documentación de flags, porque es exactamente el dato que rompe un script si se asume mal.
+
+```bash
+# Exportar TODAS las entradas de TODOS los KVMs de un entorno, de una vez.
+# Escribe un archivo por KVM en el directorio ACTUAL, con el patrón:
+#   env__<ENTORNO>__<NOMBRE_KVM>__kvmfile__0.json
+apigeecli kvms export -o "$ORG" -e prod -t "$(gcloud auth print-access-token)"
+# Omitir -e exporta los KVMs con scope de organización (patrón org__<KVM>__kvmfile__0.json)
+
+# Restaurar TODOS los KVMs desde una carpeta con ese patrón de archivos
+# (recorre la carpeta de forma recursiva, recrea cada KVM y sus entradas)
+apigeecli kvms import -o "$ORG" -f respaldo/prod/kvms -t "$(gcloud auth print-access-token)"
+
+# Exportar/restaurar solo UN KVM concreto
+apigeecli kvms entries export -o "$ORG" -e prod -m config-backends \
+  -t "$(gcloud auth print-access-token)" > respaldo/kvm-config-backends.json
+apigeecli kvms entries import -o "$ORG" -e prod -m config-backends \
+  -f respaldo/kvm-config-backends.json -t "$(gcloud auth print-access-token)"
+
+# Exportar todos los TargetServers de un entorno.
+# Escribe UN ÚNICO archivo "targetservers.json" en el directorio actual (no una carpeta)
+apigeecli targetservers export -o "$ORG" -e prod -t "$(gcloud auth print-access-token)"
+
+# Exportar keystores y key aliases (certificados, sin la clave privada) a una carpeta
+apigeecli keystores export -o "$ORG" -e prod -f respaldo/keystores \
+  -t "$(gcloud auth print-access-token)"
+
+# Recursos con scope de entorno (properties, jsc, oas, ...): sin export masivo,
+# hay que listar y pedir cada archivo. Ajusta el filtro jq a la forma real de tu salida.
+apigeecli resources list -o "$ORG" -e prod -t "$(gcloud auth print-access-token)"
+apigeecli resources get -o "$ORG" -e prod -n config.properties -p properties \
+  -t "$(gcloud auth print-access-token)" > respaldo/recursos/config.properties
+```
+
+### Script de respaldo completo, programado
+
+```bash
+#!/usr/bin/env bash
+# respaldar-entorno.sh — vuelca KVMs, TargetServers y keystores a un directorio versionado en Git
+set -euo pipefail
+
+ORG="${ORG:?falta ORG}"
+ENV="${ENV:?falta ENV}"
+TOKEN="$(gcloud auth print-access-token)"
+DEST="respaldo/${ENV}"
+
+mkdir -p "$DEST/kvms"
+
+echo "→ TargetServers (un único targetservers.json)"
+( cd "$DEST" && apigeecli targetservers export -o "$ORG" -e "$ENV" -t "$TOKEN" )
+
+echo "→ Keystores"
+apigeecli keystores export -o "$ORG" -e "$ENV" -f "$DEST/keystores" -t "$TOKEN"
+
+echo "→ KVMs de entorno (los que NO tienen enmascarado activo)"
+( cd "$DEST/kvms" && apigeecli kvms export -o "$ORG" -e "$ENV" -t "$TOKEN" )
+
+echo "Respaldo de $ENV completo en $DEST"
+```
+
+> [!TIP]
+> Ejecutar `apigeecli kvms export` con el directorio de trabajo (`cd`) ya puesto en la carpeta destino evita tener que mover archivos después — el propio comando escribe ahí. Para restaurar: `apigeecli kvms import -o "$ORG" -f "$DEST/kvms" -t "$TOKEN"`, que reconstruye cada KVM y sus entradas a partir del nombre de archivo.
+
+### GitHub Actions: snapshot nocturno con historial completo en Git
+
+La clave para "si alguien borra algo, recuperarlo" no es solo tener un respaldo: es tener **historial versionado**, para poder volver a cualquier punto anterior, no solo al último snapshot.
+
+```yaml
+name: Respaldo nocturno de configuración de Apigee
+
+on:
+  schedule:
+    - cron: '0 3 * * *'   # cada noche a las 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+env:
+  APIGEE_ORG: mi-proyecto
+
+jobs:
+  respaldar:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        entorno: [dev, test, prod]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Instalar apigeecli
+        run: |
+          curl -L https://raw.githubusercontent.com/apigee/apigeecli/main/downloadLatest.sh | sh -
+          echo "$HOME/.apigeecli/bin" >> "$GITHUB_PATH"
+
+      - name: Respaldar
+        env:
+          ORG: ${{ env.APIGEE_ORG }}
+          ENV: ${{ matrix.entorno }}
+        run: ./scripts/respaldar-entorno.sh
+
+      - name: Commitear solo si hay cambios
+        run: |
+          git config user.name "apigee-backup-bot"
+          git config user.email "actions@github.com"
+          git add "respaldo/${{ matrix.entorno }}"
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: snapshot de ${{ matrix.entorno }} $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          else
+            echo "Sin cambios, nada que commitear"
+          fi
+```
+
+Con esto, cada noche se crea un commit **solo si algo cambió**. Si alguien borra una entrada de KVM el martes, el commit del lunes por la noche la conserva intacta: `git log -- respaldo/prod/kvms/config-backends.json` te da el historial completo, y `git show <commit>:respaldo/prod/kvms/config-backends.json` recupera cualquier versión pasada sin tocar el entorno real hasta que decidas restaurarla con `kvms entries import`.
+
+### Secretos: no lo comitees en texto plano sin cifrar
+
+> [!CAUTION]
+> El script de arriba vuelca los valores de KVM **en texto plano** al repositorio, porque por defecto Apigee los devuelve así. Si algún KVM contiene credenciales reales, **no lo subas así a un repositorio compartido**, aunque sea privado. Tres opciones, de más a menos recomendada:
+>
+> 1. **Fuente de verdad fuera de Apigee.** Guarda el secreto real en Secret Manager (o el gestor que uses) y trata el KVM como un espejo de solo escritura: un job de CI lo sincroniza *hacia* Apigee, pero el repositorio nunca contiene el valor — solo el nombre de la clave. El respaldo de ese KVM entonces solo registra qué claves existen, no sus valores.
+> 2. **Cifra el respaldo antes de commitear.** Usa [`git-crypt`](https://github.com/AGWA/git-crypt) o [`SOPS`](https://github.com/getsops/sops) para que los archivos de `respaldo/*/kvms/*.json` se guarden cifrados en el historial de Git y solo se descifren en checkout local para quien tenga la clave.
+> 3. **Excluye del respaldo automatizado los KVMs con secretos**, y respáldalos aparte manualmente en un gestor de secretos con su propio control de versiones. Reserva el script de arriba para KVMs de **configuración no sensible** (URLs de backend, feature flags, mapeos), donde el texto plano en Git no es un riesgo.
+
+Para configuración **no sensible**, el patrón de arriba —snapshot nocturno versionado en Git— es exactamente lo que buscas: da recuperación ante borrado accidental, historial completo de quién cambió qué y cuándo (vía `git blame`), y una fuente auditable independiente de la consola de Apigee.
+
 ## Otros CI
 
 El mismo patrón es directo en cualquier CI:
@@ -330,5 +482,10 @@ El mismo patrón es directo en cualquier CI:
 ## Fuentes
 
 - <https://github.com/apigee/apigeecli>
+- <https://github.com/apigee/apigeecli/blob/main/internal/cmd/kvm/expkvm.go> (código fuente verificado: patrón de nombre de archivo de `kvms export`)
+- <https://github.com/apigee/apigeecli/blob/main/internal/cmd/kvm/impkvms.go> (código fuente verificado: `kvms import` masivo)
+- <https://github.com/apigee/apigeecli/blob/main/internal/cmd/targetservers/expts.go> (código fuente verificado: `targetservers export` escribe un único archivo)
+- <https://github.com/apigee/apigeecli/blob/main/internal/cmd/utils/utils.go> (constante `DefaultFileSplitter = "__"`)
+- <https://cloud.google.com/apigee/docs/api-platform/cache/key-value-maps> (consultada directamente: enmascarado de KVM es opt-in, no por defecto)
 - <https://cloud.google.com/iam/docs/workload-identity-federation>
 - <https://cloud.google.com/apigee/docs/api-platform/fundamentals/api-development-lifecycle>
