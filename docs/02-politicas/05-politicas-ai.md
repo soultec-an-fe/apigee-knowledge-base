@@ -230,7 +230,7 @@ Detecta:
 ```
 
 > [!IMPORTANT]
-> Ambas usan **`continueOnError="true"`**. Es deliberado: la política **no bloquea por sí sola**. Escribe el resultado del análisis en variables y **tú decides** qué hacer con condiciones posteriores. Esto permite políticas de respuesta distintas por tipo de amenaza.
+> Ambas usan **`continueOnError="true"`**, y es deliberado. **Por defecto** (`continueOnError="false"`), la política **sí bloquea**: si un filtro coincide lanza `FilterMatched` y responde `400`. Con `continueOnError="true"` deja de bloquear, escribe el resultado en variables y **tú decides** con condiciones posteriores, lo que permite respuestas distintas por tipo de amenaza. Comprueba también `invocationResult`: si no es `SUCCESS`, no todos los filtros se evaluaron. Detalle en las referencias de [SanitizeUserPrompt](referencia/sanitize-user-prompt.md) y [SanitizeModelResponse](referencia/sanitize-llm-response.md).
 
 ### Variables de resultado
 
