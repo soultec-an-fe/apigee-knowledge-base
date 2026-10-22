@@ -85,11 +85,17 @@ Ver [caching](../05-operacion/04-caching-y-persistencia.md).
 
 ### 7. Invocar `MessageLogging` varias veces en un proxy
 
-**Qué pasa:** adjuntas `MessageLogging` en varios puntos del flujo.
+**Qué pasa:** adjuntas `MessageLogging` en varios puntos del flujo (PreFlow de petición, de respuesta, una FaultRule…) o registras "por partes" fuera del `PostClientFlow`.
 
-**Por qué duele:** multiplica el coste de I/O por petición y produce logs desordenados y difíciles de correlacionar.
+**Por qué duele:**
 
-**Alternativa:** **una sola invocación**, en el `PostClientFlow`, con `continueOnError="true"`. Ver [analytics](../05-operacion/03-analytics-monitoreo.md).
+- Cada invocación abre una conexión al destino de logs; con syslog sobre TCP/TLS, además, un handshake TLS. Son dos o más conexiones por petición.
+- Si el servidor syslog va lento, genera **contrapresión** en el Message Processor: latencia alta e incluso `504 Gateway Timeout`.
+- **Se pierden logs:** si una política anterior falla o el target devuelve 4xx/5xx, el log del flujo de respuesta no se ejecuta.
+
+**Alternativa:** guarda en variables lo que quieras registrar (con `ExtractVariables` o `JavaScript`) a lo largo del flujo, y haz **una sola invocación** en el `PostClientFlow`, que se ejecuta siempre. Como `response.*` no está disponible ahí tras un error, usa `message.*` o las variables que guardaste. Si no necesitas entrega garantizada ni TLS, Google sugiere syslog por UDP. Ver [MessageLogging](../02-politicas/referencia/message-logging.md) y [analytics](../05-operacion/03-analytics-monitoreo.md).
+
+Fuente: <https://docs.cloud.google.com/apigee/docs/api-platform/antipatterns/messagelogging-multiple-times> (consultada directamente, 2026-10-22).
 
 ---
 

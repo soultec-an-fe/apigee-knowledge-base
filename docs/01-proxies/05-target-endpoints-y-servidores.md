@@ -206,7 +206,7 @@ Límites de payload:
 |---|---|
 | Buffered | **30 MB** |
 | Streamed | **10 MB** (con salvedades de rendimiento) |
-| Payload de MessageLogging | **11 MB** |
+| Payload de MessageLogging | **11 MB** (aplicación «planificada», aún no exigida; Cloud Logging limita cada entrada a **256 KB**) |
 
 Superar el límite produce `protocol.http.TooBigBody`.
 

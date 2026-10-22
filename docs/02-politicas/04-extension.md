@@ -290,11 +290,11 @@ Envía logs a syslog o a Cloud Logging.
               "correlation_id": "{messageid}",
               "verbo": "{request.verb}",
               "ruta": "{proxy.pathsuffix}",
-              "status": "{response.status.code}",
+              "status": "{message.status.code}",
               "producto": "{apiproduct.name}",
               "developer": "{developer.email}",
-              "latencia_total_ms": "{client.sent.end.timestamp}",
-              "latencia_backend_ms": "{target.received.end.timestamp}",
+              "fin_cliente_ts": "{client.sent.end.timestamp}",
+              "fin_backend_ts": "{target.received.end.timestamp}",
               "error": "{fault.name}"
             }
         </Message>
@@ -313,7 +313,7 @@ Variante syslog:
 ```xml
 <MessageLogging continueOnError="true" enabled="true" name="ML-Syslog">
     <Syslog>
-        <Message>{system.time} {organization.name} {apiproxy.name} {messageid} {response.status.code}</Message>
+        <Message>{system.time} {organization.name} {apiproxy.name} {messageid} {message.status.code}</Message>
         <Host>logs.empresa.com</Host>
         <Port>514</Port>
         <Protocol>TCP</Protocol>
@@ -329,10 +329,10 @@ Variante syslog:
 |---|---|
 | **Colócala en `PostClientFlow`** | Se ejecuta después de responder: cero latencia percibida, y también se ejecuta en errores |
 | **Usa `continueOnError="true"`** | Un fallo de logging nunca debe tumbar una petición |
-| **Una sola invocación por proxy** | **Antipatrón documentado**: invocar `MessageLogging` varias veces en un proxy multiplica el coste de I/O y desordena los logs |
+| **Una sola invocación por proxy** | **Antipatrón documentado**: cada invocación abre una conexión al destino (y un handshake TLS con syslog/TLS); un syslog lento genera contrapresión en el MP (latencia, 504) y las invocaciones del flujo de respuesta se pierden si hay error |
 | **Formato consistente en toda la plataforma** | Recomendación de Google: usa el mismo shared flow de logging en todos los bundles |
 | **Nunca registres secretos** | Filtra `Authorization`, API keys, PII. Usa variables `private.` |
-| **Cuidado con el tamaño** | El límite de payload de MessageLogging es **11 MB** |
+| **Cuidado con el tamaño** | Payload de MessageLogging: **11 MB** según la página de límites, con aplicación «planificada». El tope real con `<CloudLogging>` es el de Cloud Logging: **256 KB** por entrada |
 
 ---
 

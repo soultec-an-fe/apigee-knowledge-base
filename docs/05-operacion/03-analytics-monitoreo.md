@@ -78,7 +78,7 @@ Colocación: **PostClientFlow**, para no añadir latencia.
   "correlation_id": "{messageid}",
   "verbo": "{request.verb}",
   "ruta": "{proxy.pathsuffix}",
-  "status": "{response.status.code}",
+  "status": "{message.status.code}",
   "producto": "{apiproduct.name}",
   "developer": "{developer.email}",
   "app": "{developer.app.name}",
@@ -105,11 +105,11 @@ Colocación: **PostClientFlow**, para no añadir latencia.
 |---|---|
 | **`PostClientFlow`** | Cero latencia percibida; se ejecuta también en errores |
 | **`continueOnError="true"`** | Un fallo de logging nunca debe tumbar una petición |
-| **Una sola invocación por proxy** | Invocar `MessageLogging` varias veces es un [antipatrón documentado](../09-antipatrones/01-catalogo-antipatrones.md) |
+| **Una sola invocación por proxy** | Invocar `MessageLogging` varias veces es un [antipatrón documentado](../09-antipatrones/01-catalogo-antipatrones.md#7-invocar-messagelogging-varias-veces-en-un-proxy) |
 | **Formato JSON consistente** | Permite consultar con filtros estructurados en Cloud Logging |
 | **Mismo shared flow en toda la plataforma** | Recomendación explícita de Google: formato estandarizado |
 | **Nunca registres secretos ni PII** | Filtra `Authorization`, API keys, emails de usuario final, tarjetas |
-| **Cuidado con el tamaño** | Límite de payload de MessageLogging: **11 MB** |
+| **Cuidado con el tamaño** | Payload de MessageLogging: **11 MB** según la página de límites, con aplicación «planificada». El tope real con `<CloudLogging>` es el de Cloud Logging: **256 KB** por entrada |
 
 > [!WARNING]
 > **No registres el payload completo por defecto.** Además del coste de almacenamiento, es la vía más común de filtrar datos personales a un sistema de logs con controles de acceso más laxos que la propia API. Registra el payload solo bajo un flag explícito y con retención corta.

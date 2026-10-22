@@ -195,6 +195,10 @@ Todos devuelven `500`.
 | `fault.name` | `fault.name Matches "StepDefinitionExecutionFailed"` |
 | `messagelogging.{policy_name}.failed` | `messagelogging.ML-Transaccion.failed = true` |
 
+### Tamaño del mensaje
+
+La [página de límites](https://docs.cloud.google.com/apigee/docs/api-platform/reference/limits) de Apigee fija el payload de MessageLogging en **11 MB**, pero con aplicación «planificada» (todavía no se exige). Con `<CloudLogging>` el tope efectivo es el de Cloud Logging: **256 KB por entrada**.
+
 ### Desbordamiento del búfer
 
 Si se escribe en el búfer más rápido de lo que se lee, el búfer se desborda y se pierden mensajes. Las señales son:
@@ -304,7 +308,7 @@ Sustituye `TOKEN-LOGGLY` por la clave de tu cuenta. Guárdala en un KVM cifrado 
 
 ## Antipatrones
 
-- **Ponerla en el flujo de petición o de respuesta "normal".** Si va ahí, un error antes de llegar a ella hace que el log no se escriba, y no captura las métricas finales. Va en el PostClientFlow.
+- **Invocarla varias veces, o fuera del PostClientFlow.** Es un [antipatrón documentado](../../09-antipatrones/01-catalogo-antipatrones.md#7-invocar-messagelogging-varias-veces-en-un-proxy). Cada invocación abre una conexión (y un handshake TLS con syslog/TLS), un syslog lento genera contrapresión en el MP (latencia, 504), y las invocaciones del flujo de respuesta no se ejecutan si hubo error. Guarda los datos en variables a lo largo del flujo y registra **una sola vez** en el PostClientFlow.
 - **Usar `response.*` en el mensaje.** Esas variables salen vacías en las transacciones con error. Usa `message.*`.
 - **Confiar en que no ver errores significa que todo se entregó.** La entrega es asíncrona y sus fallos no se reportan. Vigila el colector (volumen esperado contra volumen recibido).
 - **Usar syslog por UDP para auditoría.** UDP puede perder paquetes sin avisar. Usa TCP con TLS.
@@ -315,4 +319,6 @@ Sustituye `TOKEN-LOGGLY` por la clave de tu cuenta. Guárdala en un KVM cifrado 
 ## Fuentes
 
 - MessageLogging policy — Apigee X/hybrid: <https://docs.cloud.google.com/apigee/docs/api-platform/reference/policies/message-logging-policy> (consultada directamente, contenido completo, 2026-10-22).
+- Límites de Apigee: <https://docs.cloud.google.com/apigee/docs/api-platform/reference/limits> (consultada directamente, fila «Message logging payload», 2026-10-22).
+- Antipatrón «Invoke MessageLogging multiple times»: <https://docs.cloud.google.com/apigee/docs/api-platform/antipatterns/messagelogging-multiple-times> (consultada directamente, 2026-10-22).
 - MessageLogging policy — Apigee Edge: <https://docs.apigee.com/api-platform/reference/policies/message-logging-policy> (consultada directamente, contenido completo, 2026-10-22).
