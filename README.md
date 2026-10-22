@@ -41,7 +41,7 @@ Un corpus de documentación técnica sobre Apigee organizado para **RAG, agentes
 Clonado completo como contexto:
 
 ```bash
-git clone https://github.com/festem200/apigee-knowledge-base.git
+git clone https://github.com/soultec-an-fe/apigee-knowledge-base.git
 cat apigee-knowledge-base/docs/**/*.md > contexto-apigee.md
 ```
 
@@ -66,6 +66,7 @@ cat apigee-knowledge-base/docs/**/*.md > contexto-apigee.md
 
 ### 02 · Políticas
 - [Catálogo completo de políticas](docs/02-politicas/00-catalogo-de-politicas.md)
+- [**Referencia por política**](docs/02-politicas/referencia/00-indice.md): un archivo por cada una de las 69 políticas (65 de X/hybrid y 4 exclusivas de Edge), con sintaxis completa, errores, ejemplos y diferencias con Edge
 - [Traffic Management](docs/02-politicas/01-traffic-management.md)
 - [Seguridad](docs/02-politicas/02-seguridad.md)
 - [Mediación](docs/02-politicas/03-mediacion.md)

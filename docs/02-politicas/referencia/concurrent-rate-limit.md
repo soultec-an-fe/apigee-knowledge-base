@@ -5,7 +5,7 @@ area: politicas
 tags: [concurrentratelimit, retirada, edge, spike-arrest, quota, migracion]
 aplica_a: [apigee-edge]
 elemento_xml: ConcurrentRatelimit
-tipo_politica: trafico
+tipo_politica: solo-edge
 fuente: https://docs.apigee.com/release/deprecated-features
 revisado: 2026-10-22
 ---

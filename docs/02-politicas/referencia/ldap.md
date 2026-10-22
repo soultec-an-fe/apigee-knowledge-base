@@ -5,7 +5,7 @@ area: politicas
 tags: [ldap, autenticacion, directorio, private-cloud, edge]
 aplica_a: [apigee-edge]
 elemento_xml: Ldap
-tipo_politica: seguridad
+tipo_politica: solo-edge
 fuente: https://docs.apigee.com/api-platform/reference/policies/ldap-policy
 revisado: 2026-10-22
 ---

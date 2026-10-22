@@ -5,7 +5,7 @@ area: politicas
 tags: [extensioncallout, connectorcallout, extensions, edge, google-cloud]
 aplica_a: [apigee-edge]
 elemento_xml: ConnectorCallout
-tipo_politica: extension
+tipo_politica: solo-edge
 fuente: https://docs.apigee.com/api-platform/reference/policies/extension-callout-policy
 revisado: 2026-10-22
 ---

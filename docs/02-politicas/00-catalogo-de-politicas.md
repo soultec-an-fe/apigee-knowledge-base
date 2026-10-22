@@ -5,12 +5,15 @@ area: politicas
 tags: [politicas, catalogo, referencia, xml, indice, standard, extensible]
 aplica_a: [apigee-x, apigee-hybrid]
 fuente: https://cloud.google.com/apigee/docs/api-platform/reference/policies/reference-overview-policy
-revisado: 2026-08-20
+revisado: 2026-10-22
 ---
 
 # Catálogo completo de políticas
 
 Referencia rápida de **todas** las políticas de Apigee vigentes, con su nombre de elemento XML exacto y su tipo real (Standard / Extensible) tal como los agrupa la documentación oficial.
+
+> [!TIP]
+> Para la sintaxis completa, los errores y los ejemplos de cada política, ve a la [**referencia por política**](referencia/00-indice.md): un archivo por política, verificado contra la página oficial de X y la de Edge.
 
 > [!IMPORTANT]
 > El nombre del elemento raíz XML es **case-sensitive** y debe escribirse exactamente como aparece aquí. `<VerifyApiKey>` no existe; es `<VerifyAPIKey>`.

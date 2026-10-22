@@ -26,6 +26,7 @@ Reglas de uso para el modelo:
 
 ## Políticas
 - [Catálogo](docs/02-politicas/00-catalogo-de-politicas.md): lista completa por categoría con nombre de elemento XML.
+- [Referencia por política](docs/02-politicas/referencia/00-indice.md): un archivo por política (`docs/02-politicas/referencia/<politica>.md`) con sintaxis, atributos, elementos, variables, códigos de error, ejemplos y diferencias con Edge. **Consúltalo antes de escribir XML de una política**: los documentos generales por categoría son introductorios.
 - [Traffic Management](docs/02-politicas/01-traffic-management.md): Quota, SpikeArrest, ResponseCache, caché.
 - [Seguridad](docs/02-politicas/02-seguridad.md): VerifyAPIKey, OAuthV2, JWT/JWS, threat protection, HMAC, VerifyIAM.
 - [Mediación](docs/02-politicas/03-mediacion.md): AssignMessage, ExtractVariables, JSONtoXML, XMLtoJSON, OASValidation, CORS.

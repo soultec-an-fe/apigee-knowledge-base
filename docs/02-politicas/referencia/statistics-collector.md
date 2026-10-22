@@ -5,7 +5,7 @@ area: politicas
 tags: [statisticscollector, analytics, custom-reports, dimensiones, edge]
 aplica_a: [apigee-edge]
 elemento_xml: StatisticsCollector
-tipo_politica: extension
+tipo_politica: solo-edge
 fuente: https://docs.apigee.com/api-platform/reference/policies/statistics-collector-policy
 revisado: 2026-10-22
 ---

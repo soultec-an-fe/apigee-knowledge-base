@@ -1,27 +1,27 @@
 edicion	tema	paginas	citadas	pct
 x-hybrid	reference/apis (API REST, bloque)	767	2	0
 x-hybrid	hybrid (v1.17)	126	0	0
-x-hybrid	api-platform/reference	102	23	23
+x-hybrid	api-platform/reference	102	72	71
 x-hybrid	api-platform/troubleshoot	89	0	0
 x-hybrid	apihub	75	1	1
 x-hybrid	api-platform/get-started	58	2	3
 x-hybrid	api-platform/publish	53	4	8
 x-hybrid	api-platform/integration	42	0	0
-x-hybrid	api-platform/security	41	2	5
+x-hybrid	api-platform/security	41	6	15
 x-hybrid	api-platform/envoy-adapter	39	0	0
-x-hybrid	api-platform/system-administration	36	0	0
+x-hybrid	api-platform/system-administration	36	1	3
 x-hybrid	api-platform/analytics	28	1	4
-x-hybrid	api-platform/develop	28	1	4
+x-hybrid	api-platform/develop	28	2	7
 x-hybrid	api-platform/fundamentals	26	12	46
 x-hybrid	api-platform/local-development	25	1	4
-x-hybrid	api-platform/antipatterns	22	1	5
+x-hybrid	api-platform/antipatterns	22	4	18
 x-hybrid	api-security	18	1	6
 x-hybrid	api-platform/apigee-kubernetes	15	0	0
 x-hybrid	api-platform/monetization	13	0	0
 x-hybrid	api-hub	12	0	0
-x-hybrid	api-platform/tutorials	9	1	11
+x-hybrid	api-platform/tutorials	9	3	33
 x-hybrid	api-monitoring	8	0	0
-x-hybrid	api-platform/cache	8	1	12
+x-hybrid	api-platform/cache	8	3	38
 x-hybrid	deprecations	7	1	14
 x-hybrid	api-platform/apigee-mcp	6	2	33
 x-hybrid	api-platform/debug	6	1	17
@@ -50,7 +50,7 @@ x-hybrid	registry	1	0	0
 x-hybrid	release-notes	1	0	0
 x-hybrid	security-bulletins	1	0	0
 edge	release (notas, bloque)	644	2	0
-edge	api-platform/reference	198	5	3
+edge	api-platform/reference	198	51	26
 edge	api-platform/troubleshoot	163	0	0
 edge	api-platform/publish	62	0	0
 edge	api-platform/microgateway	58	0	0

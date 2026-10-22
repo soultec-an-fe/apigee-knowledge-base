@@ -31,11 +31,42 @@ significativo de documentos. El resultado de esa pasada es lo que reporta este d
 | `ConcurrentRateLimit` presentada como política de traffic management vigente | Es una **política retirada** (deprecada 15/07/2020, retirada de Private Cloud en 4.50.00, 15/07/2021). Corregido en el catálogo, en `01-traffic-management.md`, y en las dos menciones restantes en `08-mejores-practicas/03-rendimiento.md` y `09-antipatrones/01-catalogo-antipatrones.md` |
 | Catálogo de políticas con categorías Standard/Extensible **inventadas** ("estándar = endurecida, extensible = más funciones") | Reescrito con la clasificación **real** de Google: Standard funciona en cualquier tipo de entorno; Extensible solo en entornos Intermediate/Comprehensive y tiene implicaciones de coste. Un proxy con una sola política Extensible se convierte en proxy Extensible completo |
 | Catálogo de políticas incompleto: faltaban `TraceCapture`, `ParseDialogflowRequest`, `SetDialogflowResponse` | Añadidas, con su categoría oficial verificada |
-| `MessageValidation` listada como política vigente de Apigee X | No aparece en el catálogo oficial actual; marcada como posible legacy de Edge, con `SOAPMessageValidation`/`OASValidation` como alternativas |
+| `MessageValidation` listada como política vigente de Apigee X | ~~Marcada como posible legacy de Edge~~. **Revertido en la tercera pasada:** `<MessageValidation>` sí existe en X/hybrid; en la UI se llama SOAPMessageValidation. Ver [message-validation.md](docs/02-politicas/referencia/message-validation.md) |
 | Categorías incorrectas para `PublishMessage`, `AssertCondition`, `ExternalCallout`, `AccessEntity`, `MonetizationLimitsCheck` | Recolocadas según la categoría oficial exacta |
 | "Antipatrón: un producto por proxy" presentado como si fuera doctrina de Google | Es **criterio propio**. La recomendación oficial real es mantener una relación 1:1 entre spec OpenAPI, proxy y producto para gobernar el catálogo — no prohíbe el patrón de planes (varios productos sobre el mismo proxy). Reescrito para separar ambas cosas |
 | Límite de Trace "15 transacciones por sesión" sin matizar | Corregido: son **15 por Message Processor**, no un total global — el efecto real es impredecible según el propio texto de Google. Añadidos el timeout de 10 min, el retraso de activación de ~15 s y la retención de 24 h |
 | Ausencia total de **MCP (Model Context Protocol) en Apigee** | Añadido como documento nuevo: [docs/07-ai-gateway/02-mcp-en-apigee.md](docs/07-ai-gateway/02-mcp-en-apigee.md), verificado íntegramente contra la documentación oficial |
+
+---
+
+## Tercera pasada (22 de octubre de 2026): referencia por política
+
+Se escribió un archivo por política en [`docs/02-politicas/referencia/`](docs/02-politicas/referencia/00-indice.md): 65 de Apigee X/hybrid (con su sección de diferencias en Edge) y 4 exclusivas de Edge, más dos documentos de conceptos compartidos (claves de caché y JWT/JWS).
+
+**Método:** cada página oficial se descargó con `scripts/extraer_pagina.py` y se leyó completa, tanto la versión de X como la de Edge. Las tablas que el extractor aplanaba se reconstruyeron desde el HTML crudo. Las contradicciones internas de Google se documentan en el archivo afectado en lugar de elegir una versión; la lista está en [COBERTURA.md](COBERTURA.md#discrepancias-encontradas-en-la-documentación-oficial).
+
+### Errores corregidos en la tercera pasada
+
+| Error | Corrección |
+|---|---|
+| PromptTokenLimit descrito como tope de tamaño por petición | Es una **tasa** de tokens por segundo o minuto |
+| `llmQuota.*` atribuido a un atributo personalizado | Sale de la configuración de cuota LLM del API product |
+| Políticas de Model Armor descritas como no bloqueantes por defecto | **Sí bloquean** por defecto (`FilterMatched`, 400); solo dejan de hacerlo con `continueOnError="true"` |
+| DeleteOAuthV2Info presentada como revocación | **Borra** el token; revocar es RevokeOAuthV2 |
+| JSONThreatProtection con `<Expression>` como atributo | Es un elemento hijo |
+| XMLThreatProtection presentada como defensa contra *billion laughs* y XXE | La página oficial no lo afirma; se eliminó la afirmación y se añadió la dependencia del `Content-Type` |
+| MessageValidation y PythonScript como inexistentes en X | Existen en X/hybrid (`<MessageValidation>`, `<Script>`) |
+| `<ReasonPhrase>` en 13 ejemplos de X | X no lo documenta en AssignMessage ni RaiseFault (solo Edge); eliminado |
+| Parámetros de FlowCallout leídos como `flowcallout.{política}.{param}` | Se leen por el **nombre exacto** del parámetro, sin prefijo |
+| «Límite de 11 MB» de MessageLogging como límite exigido | Aplicación «planificada»; con Cloud Logging el tope real es 256 KB por entrada |
+| Impacto del antipatrón «MessageLogging varias veces» descrito como logs desordenados | Conexiones y handshakes TLS extra, contrapresión en el MP (504) y logs perdidos en errores |
+| `waitForComplete()`: «usa ServiceCallout, lo dice el antipatrón» | El antipatrón recomienda **callbacks** (tope del 30 % de hilos JavaScript); ServiceCallout lo recomienda la guía de buenas prácticas |
+| ExternalCallout con `<Timeout>` | Es `<TimeoutMs>` |
+| DataCapture con `<Source>` directamente bajo `<Capture>` | Es `<Collect ref>` o un hijo de extracción de `<Collect>` |
+| SetIntegrationRequest con `<TriggerName>`, sin región y con `clearPayload` | Es `<ApiTrigger>`, `<IntegrationRegion>` es obligatorio y `clearPayload` pertenece al `<Request>` de IntegrationCallout |
+| Catálogo: SOAPMessageValidation con elemento `<SOAPMessageValidation>` | El elemento es `<MessageValidation>` |
+| Catálogo: fechas de OAuthV1 aparentemente contradictorias | Dos anuncios distintos: Edge Cloud (2018) y Private Cloud (2020) |
+| Ejemplos de logging con `response.status.code` y timestamps etiquetados como latencias | `message.status.code` (válido también tras un error) y nombres `*_ts` |
 
 ---
 
@@ -63,6 +94,7 @@ navegador) que devolvieron contenido sustantivo, o de código publicado por Goog
 | Fechas de EOL de Apigee Edge Private Cloud (4.53, 4.53.01, 4.52.x) y fecha de apagado de la Classic UI | Navegador — dos páginas completas de `docs.apigee.com` y `docs.cloud.google.com/apigee/docs/deprecations` |
 | Introducción a OAuth 2.0: roles, los cuatro grant types | Navegador — página completa (confirma el contenido ya escrito) |
 | `XSLTransform` (`<XSL>`) y `TraceCapture`: elemento XML, tipo Extensible, procesador Saxon | Navegador — páginas de referencia de cada política |
+| **[Referencia por política](docs/02-politicas/referencia/00-indice.md)**: los 71 archivos | Página oficial de X y de Edge leída completa, descargada con `scripts/extraer_pagina.py` (tercera pasada) |
 
 ---
 
@@ -74,8 +106,8 @@ alcance revisado. Siguen sin confirmación directa página por página.
 | Documento | Nota |
 |---|---|
 | [Developers y apps](docs/04-publicacion/02-developers-apps.md) | No revisado en la segunda pasada |
-| [OAuth 2.0](docs/03-seguridad/02-oauth2.md) — más allá de la introducción general | El flujo de operaciones (`GenerateAccessToken`, scopes, revocación) no se verificó contra la página de referencia de la política `OAuthV2` |
-| [JWT/JWS](docs/03-seguridad/03-jwt-jws.md) | No se consultó la página de referencia de `VerifyJWT`/`GenerateJWT` |
+| [OAuth 2.0](docs/03-seguridad/02-oauth2.md) — más allá de la introducción general | La prosa general sigue siendo de nivel B, pero las operaciones de la política ya están verificadas en [oauthv2.md](docs/02-politicas/referencia/oauthv2.md) y en las referencias de Get/Set/Delete/RevokeOAuthV2 (tercera pasada). Ante una diferencia, manda la referencia |
+| [JWT/JWS](docs/03-seguridad/03-jwt-jws.md) | La prosa general sigue siendo de nivel B; las seis políticas ya están verificadas en `docs/02-politicas/referencia/` (tercera pasada). Ante una diferencia, manda la referencia |
 | [TLS/mTLS](docs/03-seguridad/04-tls-mtls.md) | No se consultó `keystores-truststores` en esta pasada |
 | [Analytics y monitoreo](docs/05-operacion/03-analytics-monitoreo.md) | No revisado en la segunda pasada, salvo los límites (Nivel A) |
 
