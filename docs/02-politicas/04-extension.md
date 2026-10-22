@@ -92,10 +92,11 @@ Después se extrae con `ExtractVariables` sobre `respuesta.perfil`:
 
 ## ExternalCallout
 
-Equivalente a `ServiceCallout` pero sobre **gRPC**.
+Envía las variables de flujo a un servidor **gRPC** propio, que puede leerlas y modificarlas (a diferencia de `ServiceCallout`). Es Standard y solo existe en X/hybrid. Ver la [referencia completa](referencia/external-callout.md).
 
 ```xml
 <ExternalCallout name="EC-ServicioGrpc">
+    <TimeoutMs>5000</TimeoutMs>
     <GrpcConnection>
         <Server name="servicio-grpc"/>
     </GrpcConnection>
@@ -103,9 +104,11 @@ Equivalente a `ServiceCallout` pero sobre **gRPC**.
         <Property name="with.request.content">true</Property>
         <Property name="with.request.headers">true</Property>
     </Configurations>
-    <Timeout>5000</Timeout>
 </ExternalCallout>
 ```
+
+> [!NOTE]
+> Corrección (2026-10-22): el elemento del timeout es `<TimeoutMs>`, no `<Timeout>`.
 
 ---
 
@@ -340,20 +343,23 @@ Variante syslog:
 
 ## DataCapture
 
-Captura datos para analytics personalizado. Sustituye al antiguo `StatisticsCollector`.
+Captura datos para analytics personalizado. Sustituye al antiguo `StatisticsCollector` de Edge. Ver la [referencia completa](referencia/data-capture.md).
 
 ```xml
-<DataCapture name="DC-MetricasNegocio">
+<DataCapture name="DC-MetricasNegocio" continueOnError="true">
     <Capture>
-        <DataCollector>tenant</DataCollector>
-        <Source>ruta.tenant_id</Source>
+        <DataCollector>dc_tenant</DataCollector>
+        <Collect ref="ruta.tenant_id" default="desconocido"/>
     </Capture>
     <Capture>
-        <DataCollector>importe</DataCollector>
-        <Source>pedido.total</Source>
+        <DataCollector>dc_importe</DataCollector>
+        <Collect ref="pedido.total" default="0"/>
     </Capture>
 </DataCapture>
 ```
+
+> [!NOTE]
+> Corrección (2026-10-22): el valor se indica con `<Collect ref="…"/>` (o con sus hijos de extracción), no con `<Source>` directamente bajo `<Capture>`. Cada collector se captura con un máximo de 400 bytes, y hay un límite de 100 variables.
 
 Los data collectors se declaran a nivel de entorno y aparecen como dimensiones en Analytics.
 
@@ -361,7 +367,7 @@ Los data collectors se declaran a nivel de entorno y aparecen como dimensiones e
 
 ## PublishMessage
 
-Publica en Pub/Sub, para arquitecturas orientadas a eventos.
+Publica en Pub/Sub, para arquitecturas orientadas a eventos. Es Standard y solo existe en X/hybrid; el proxy se despliega con una cuenta de servicio con `pubsub.topics.publish`. Ver la [referencia completa](referencia/publish-message.md).
 
 ```xml
 <PublishMessage name="PM-EventoPedido">

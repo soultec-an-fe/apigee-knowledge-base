@@ -74,7 +74,7 @@ Las políticas se agrupan en categorías funcionales; cada categoría existe tan
 | PublishMessage | `<PublishMessage>` | Publica un mensaje en Pub/Sub |
 | RaiseFault | `<RaiseFault>` | Genera un fallo explícito con respuesta personalizada |
 | ReadPropertySet | `<ReadPropertySet>` | Lee valores de un PropertySet del bundle |
-| SOAPMessageValidation | `<SOAPMessageValidation>` | Valida estructura de mensajes SOAP contra WSDL/XSD |
+| SOAPMessageValidation | `<MessageValidation>` | Valida estructura de mensajes SOAP/XML contra WSDL/XSD |
 
 ### Extension
 
@@ -143,7 +143,7 @@ Las políticas se agrupan en categorías funcionales; cada categoría existe tan
 | FlowCallout | `<FlowCallout>` | Invoca un shared flow |
 | JavaScript | `<Javascript>` | Ejecuta código JavaScript personalizado |
 | JavaCallout | `<JavaCallout>` | Ejecuta código Java empaquetado en un JAR |
-| PythonScript | `<Script>` | ⚠️ **Solo Edge.** Ejecuta Python. No disponible en Apigee X |
+| PythonScript | `<Script>` | Ejecuta un script Python (X, hybrid y Edge; puede no estar en todos los planes) |
 | MessageLogging | `<MessageLogging>` | Envía logs a syslog o Cloud Logging |
 | DataCapture | `<DataCapture>` | Captura datos de petición/respuesta para analytics |
 | IntegrationCallout | `<IntegrationCallout>` | Invoca un flujo de Application Integration |
