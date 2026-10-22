@@ -174,7 +174,7 @@ Detalle: [Traffic Management](01-traffic-management.md) · [Seguridad](02-seguri
 |---|---|---|
 | `ConcurrentRateLimit` | **Deprecada** el 15/07/2020, **retirada** de Private Cloud en la versión 4.50.00 (15/07/2021). Su arquitectura afectaba al rendimiento de las APIs | `SpikeArrest` y/o `Quota`, combinadas con encadenamiento de proxies o shared flows |
 | `StatisticsCollector` | Predecesora de `DataCapture` en Edge | `DataCapture` |
-| `OAuthv1.0a`, `GetOAuthV1Info`, `DeleteOAuthV1Info` | Deprecadas y retiradas en Edge (Cloud y Private Cloud v4.50.00). ⚠️ Fechas pendientes de verificación: la versión anterior de esta tabla daba una retirada (15/11/2018) anterior a la deprecación (15/07/2020) | Políticas `OAuthV2` |
+| `OAuthv1.0a`, `GetOAuthV1Info`, `DeleteOAuthV1Info` | Dos anuncios distintos en la página de deprecaciones de Edge: **Edge Cloud**, anunciada el 14/05/2018 y retirada el 15/11/2018 (~4.19.01); **Cloud y Private Cloud**, anunciada el 15/07/2020 y retirada el 15/07/2021 (Private Cloud 4.50.00). No hay contradicción: la de 2018 es la retirada en la nube pública y la de 2020, la de Private Cloud (verificado el 2026-10-22) | Políticas `OAuthV2` |
 
 > [!NOTE]
 > **Correcciones (2026-10-22).** Esta tabla incluía antes `MessageValidation` y `Script` (Python) como políticas ausentes de Apigee X. Las dos **existen** en X/hybrid: `<MessageValidation>` (en la UI, "SOAPMessageValidation"; ver [referencia](referencia/message-validation.md)) y `<Script>` (PythonScript, con Jython 2.5.2, que puede no estar en todos los planes; ver [referencia](referencia/python-script.md)).
