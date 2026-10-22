@@ -154,8 +154,16 @@ Límite: **18 atributos personalizados por token**.
 ## Revocación
 
 ```xml
-<!-- Revocar un token concreto -->
-<DeleteOAuthV2Info name="DO-Revocar">
+<!-- Revocar un token concreto (reversible con ValidateToken; RFC 7009) -->
+<OAuthV2 name="OA-Revocar">
+    <Operation>InvalidateToken</Operation>
+    <Tokens>
+        <Token type="accesstoken" cascade="true">request.formparam.token</Token>
+    </Tokens>
+</OAuthV2>
+
+<!-- Borrar un token concreto (irreversible: no deja rastro ni se puede reaprobar) -->
+<DeleteOAuthV2Info name="DO-Borrar">
     <AccessToken ref="request.formparam.token"/>
 </DeleteOAuthV2Info>
 
@@ -171,6 +179,8 @@ Límite: **18 atributos personalizados por token**.
     <Cascade>true</Cascade>
 </RevokeOAuthV2>
 ```
+
+Revocar por usuario final solo funciona si los tokens se emitieron con `<AppEndUser>`. Ninguna revocación es inmediata: la verificación cachea los tokens hasta 180 s. Detalle en las referencias de [OAuthV2](../02-politicas/referencia/oauthv2.md), [RevokeOAuthV2](../02-politicas/referencia/revoke-oauth-v2.md) y [DeleteOAuthV2Info](../02-politicas/referencia/delete-oauth-v2-info.md).
 
 ## Límites y expiración
 
