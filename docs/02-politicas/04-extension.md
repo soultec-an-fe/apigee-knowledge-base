@@ -388,11 +388,12 @@ Invocan flujos de **Application Integration** de Google Cloud, para orquestacion
 <SetIntegrationRequest name="SIR-Config">
     <ProjectId>mi-proyecto</ProjectId>
     <IntegrationName>procesar-pedido</IntegrationName>
-    <TriggerName>api_trigger/procesar</TriggerName>
+    <IntegrationRegion>us-central1</IntegrationRegion>
+    <ApiTrigger>api_trigger/procesar</ApiTrigger>
     <Parameters>
-        <Parameter name="pedido_id" ref="ruta.pedido_id"/>
+        <Parameter name="pedido_id" type="string" ref="ruta.pedido_id"/>
     </Parameters>
-    <Request clearPayload="true">peticion.integracion</Request>
+    <Request>peticion.integracion</Request>
 </SetIntegrationRequest>
 
 <IntegrationCallout name="IC-Ejecutar">
@@ -401,6 +402,9 @@ Invocan flujos de **Application Integration** de Google Cloud, para orquestacion
     <Response>respuesta.integracion</Response>
 </IntegrationCallout>
 ```
+
+> [!NOTE]
+> Corrección (2026-10-22): el trigger se declara con `<ApiTrigger>` (no `<TriggerName>`), `<IntegrationRegion>` es obligatorio y `clearPayload` es atributo del `<Request>` de IntegrationCallout, no del de SetIntegrationRequest. En modo síncrono la integración tiene un máximo de 2 minutos; en asíncrono, 50. Referencias completas: [SetIntegrationRequest](referencia/set-integration-request.md) e [IntegrationCallout](referencia/integration-callout.md).
 
 ## Fuentes
 

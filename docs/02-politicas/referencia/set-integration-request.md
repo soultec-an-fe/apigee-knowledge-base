@@ -16,7 +16,7 @@ revisado: 2026-10-22
 > **Tipo:** Extensible. **Elemento raíz:** `<SetIntegrationRequest>`.
 > **Aplica a:** Apigee X y hybrid. **No existe en Apigee Edge.**
 
-SetIntegrationRequest **prepara la petición** para ejecutar una integración de **Application Integration** (Apigee Integration) desde un proxy: proyecto, región, integración, *API trigger*, parámetros de entrada y, opcionalmente, hora programada. El objeto de petición queda en una variable; quien la ejecuta es la política [IntegrationCallout](../04-extension.md) o un **IntegrationEndpoint** (un TargetEndpoint de tipo integración).
+SetIntegrationRequest **prepara la petición** para ejecutar una integración de **Application Integration** (Apigee Integration) desde un proxy: proyecto, región, integración, *API trigger*, parámetros de entrada y, opcionalmente, hora programada. El objeto de petición queda en una variable; quien la ejecuta es la política [IntegrationCallout](integration-callout.md) o un **IntegrationEndpoint** (un TargetEndpoint de tipo integración).
 
 Solo se pueden ejecutar integraciones que tengan un **API trigger**.
 
