@@ -71,7 +71,10 @@ Colocación: ProxyEndpoint → PreFlow → Request, condicionado a métodos con 
 
 ## XMLThreatProtection
 
-Además de límites estructurales, protege contra **XML entity expansion** ("billion laughs") y **XML bombs**.
+Limita nombres, estructura (profundidad, hijos, atributos) y longitud de valores, lo que mitiga documentos desmesurados (*XML bombs*). La página oficial **no documenta** protección contra expansión de entidades ("billion laughs") ni XXE: desactiva las entidades externas en el parser del backend. Detalle en la [referencia de XMLThreatProtection](../02-politicas/referencia/xml-threat-protection.md).
+
+> [!IMPORTANT]
+> JSONThreatProtection y XMLThreatProtection **solo se ejecutan si el `Content-Type` es `application/json` o `application/xml`**. Rechaza antes los tipos de contenido que tu API no acepta, o un cliente podrá saltarse la protección cambiando la cabecera. Por defecto devuelven **500**; la propiedad de organización `features.isPolicyHttpStatusEnabled` hace que devuelvan 400 en el flujo de petición.
 
 ```xml
 <XMLThreatProtection continueOnError="false" enabled="true" name="XTP-ProtegerXml">
@@ -128,7 +131,8 @@ Bloquea patrones de inyección en la URL, en parámetros, cabeceras y payload.
     </Header>
 
     <JSONPayload>
-        <JSONPath JSONPath="$.comentario">
+        <JSONPath>
+            <Expression>$.comentario</Expression>
             <Pattern>(?i)&lt;\s*script</Pattern>
             <Pattern>(?i)javascript\s*:</Pattern>
         </JSONPath>
