@@ -15,6 +15,7 @@ Reglas (ver CONTRIBUTING.md):
 - Los enlaces relativos [texto](ruta.md#ancla) deben apuntar a un archivo existente y, si
   llevan #ancla (también los enlaces #ancla dentro del mismo archivo), a un encabezado que
   exista, con las reglas de anclas de GitHub.
+- En las filas de tabla, un `|` dentro de código (`a|b`) parte la celda: hay que escaparlo (`\\|`).
 """
 
 from __future__ import annotations
@@ -31,6 +32,7 @@ BLOQUE_XML = re.compile(r"^```xml\n(.*?)^```", re.S | re.M)
 ENLACE = re.compile(r"\]\((?!https?://|mailto:)([^)#\s]*)(#[^)\s]*)?\)")
 ENCABEZADO = re.compile(r"^#{1,6} +(.+?) *#*$", re.M)
 CODIGO = re.compile(r"^```.*?^```", re.S | re.M)
+SPAN = re.compile(r"`([^`]*)`")
 
 
 def anclas(texto: str) -> set[str]:
@@ -94,6 +96,11 @@ def validar(ruta: pathlib.Path, ids: dict[str, pathlib.Path]) -> list[str]:
             errores.append(f"{rel}:{linea}: enlace roto -> {archivo}")
         elif ancla and destino.suffix == ".md" and ancla not in anclas(destino.read_text()):
             errores.append(f"{rel}:{linea}: ancla inexistente -> {archivo}#{ancla}")
+    for n, linea in enumerate(CODIGO.sub(lambda c: "\n" * c.group(0).count("\n"), texto).splitlines(), 1):
+        if linea.lstrip().startswith("|"):
+            for span in SPAN.findall(linea):
+                if "|" in span.replace("\\|", ""):
+                    errores.append(f"{rel}:{n}: '|' sin escapar dentro de código en una tabla: `{span}`")
     return errores
 
 

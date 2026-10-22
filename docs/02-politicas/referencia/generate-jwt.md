@@ -116,7 +116,7 @@ Algoritmos, formatos de clave, JWKS y el riesgo de inyección de plantillas se e
 | `RSA-OAEP-256`, `ECDH-ES*` | `<PublicKey>` | **Uno** de `<Value>` (PEM), `<Certificate>` (PEM X.509) o `<JWKS>` (literal, `ref`, `uri` o `uriRef`); con `<JWKS>`, `<Id>` es **obligatorio** para elegir la clave |
 | `A*KW`, `A*GCMKW` | `<SecretKey>` | `<Value>`, `<Id>` |
 | `PBES2-*` | `<PasswordKey>` | `<Value ref="private.…"/>`, `<Id>`, `<SaltLength>` (default 8 bytes), `<PBKDF2Iterations>` (default 10.000) |
-| `dir` | `<DirectKey>` | `<Value encoding="hex|base16|base64|base64url" ref="private.…"/>` (default base64), `<Id>` |
+| `dir` | `<DirectKey>` | `<Value encoding="…" ref="private.…"/>` con `encoding` = `hex`, `base16`, `base64` (default) o `base64url`; `<Id>` |
 
 - `encoding` de `<SecretKey>`: sin el atributo, el secreto se toma como UTF-8.
 - La clave privada RSA debe ser RSA para RS*/PS*; para ES*, una clave EC de la curva que toca. Si no, `WrongKeyType` o `InvalidCurve`.

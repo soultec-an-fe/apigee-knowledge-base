@@ -177,6 +177,9 @@ Con frecuencia la mejor protección no es una lista de patrones prohibidos sino 
 
 Con `AllowUnspecifiedParameters` en `false`, cualquier parámetro no declarado en la spec se rechaza. Es un control de superficie de ataque muy efectivo y de mantenimiento casi nulo.
 
+> [!CAUTION]
+> Fíjate en que el ejemplo **declara** todas las opciones: por defecto, `ValidateMessageBody` es `false` (no valida el contenido del cuerpo) y los tres `AllowUnspecifiedParameters` son `true`. Además, el cuerpo solo se valida con `Content-Type: application/json`; con otro tipo, la validación del cuerpo **pasa sin mirar**. Ver la [referencia de OASValidation](../02-politicas/referencia/oas-validation.md).
+
 ---
 
 ## Advanced API Security
