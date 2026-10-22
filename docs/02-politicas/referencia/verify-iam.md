@@ -139,7 +139,7 @@ gcloud projects add-iam-policy-binding MI_PROYECTO \
 
 ## Diferencias en Apigee Edge
 
-No existe en Edge (ni en hybrid). En esas ediciones, la alternativa es validar el token de Google como JWT (ID token) con VerifyJWT (ver [JWT y JWS](../../03-seguridad/03-jwt-jws.md)) contra las claves públicas de Google, y llevar tú la lista de identidades autorizadas.
+No existe en Edge (ni en hybrid). En esas ediciones, la alternativa es validar el token de Google como JWT (ID token) con [VerifyJWT](verify-jwt.md) contra las claves públicas de Google, y llevar tú la lista de identidades autorizadas.
 
 ## Antipatrones
 
