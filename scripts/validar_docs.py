@@ -12,7 +12,9 @@ Reglas (ver CONTRIBUTING.md):
 - Cada bloque ```xml debe ser XML bien formado. Un bloque con varios elementos raíz se
   valida envuelto en un contenedor. Los marcadores tipo `[false|true]` de una sintaxis
   esquemática no son XML válido: esos bloques se marcan con ```xml-sintaxis y se omiten.
-- Los enlaces relativos [texto](ruta.md#ancla) deben apuntar a un archivo existente.
+- Los enlaces relativos [texto](ruta.md#ancla) deben apuntar a un archivo existente y, si
+  llevan #ancla (también los enlaces #ancla dentro del mismo archivo), a un encabezado que
+  exista, con las reglas de anclas de GitHub.
 """
 
 from __future__ import annotations
@@ -26,7 +28,22 @@ RAIZ = pathlib.Path(__file__).resolve().parent.parent
 DOCS = RAIZ / "docs"
 CAMPOS = ("id", "titulo", "area", "tags", "aplica_a", "fuente", "revisado")
 BLOQUE_XML = re.compile(r"^```xml\n(.*?)^```", re.S | re.M)
-ENLACE = re.compile(r"\]\((?!https?://|mailto:|#)([^)#\s]+)(#[^)\s]*)?\)")
+ENLACE = re.compile(r"\]\((?!https?://|mailto:)([^)#\s]*)(#[^)\s]*)?\)")
+ENCABEZADO = re.compile(r"^#{1,6} +(.+?) *#*$", re.M)
+CODIGO = re.compile(r"^```.*?^```", re.S | re.M)
+
+
+def anclas(texto: str) -> set[str]:
+    """Anclas que GitHub genera para los encabezados: minúsculas, sin puntuación salvo `-` y `_`,
+    espacios a guiones, y sufijo -1, -2... para los repetidos."""
+    vistas: dict[str, int] = {}
+    out = set()
+    for m in ENCABEZADO.finditer(CODIGO.sub("", texto)):
+        base = re.sub(r"[^\w\- ]", "", m.group(1).lower()).replace(" ", "-")
+        n = vistas.get(base, 0)
+        vistas[base] = n + 1
+        out.add(base if n == 0 else f"{base}-{n}")
+    return out
 
 
 def frontmatter(texto: str) -> dict[str, str] | None:
@@ -67,11 +84,16 @@ def validar(ruta: pathlib.Path, ids: dict[str, pathlib.Path]) -> list[str]:
         except ET.ParseError as e:
             errores.append(f"{rel}:{linea}: XML mal formado: {e}")
 
-    for m in ENLACE.finditer(texto):
-        destino = (ruta.parent / m.group(1)).resolve()
+    for m in ENLACE.finditer(CODIGO.sub(lambda c: "\n" * c.group(0).count("\n"), texto)):
+        archivo, ancla = m.group(1), (m.group(2) or "")[1:]
+        if not archivo and not ancla:
+            continue
+        destino = (ruta.parent / archivo).resolve() if archivo else ruta
+        linea = texto[: m.start()].count("\n") + 1
         if not destino.exists():
-            linea = texto[: m.start()].count("\n") + 1
-            errores.append(f"{rel}:{linea}: enlace roto -> {m.group(1)}")
+            errores.append(f"{rel}:{linea}: enlace roto -> {archivo}")
+        elif ancla and destino.suffix == ".md" and ancla not in anclas(destino.read_text()):
+            errores.append(f"{rel}:{linea}: ancla inexistente -> {archivo}#{ancla}")
     return errores
 
 
