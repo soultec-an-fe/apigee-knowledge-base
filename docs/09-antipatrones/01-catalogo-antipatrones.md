@@ -99,7 +99,7 @@ Ver [caching](../05-operacion/04-caching-y-persistencia.md).
 
 **Por qué duele:** **cada valor distinto crea una fila de contador en Cassandra**. Explosión de almacenamiento y degradación del runtime.
 
-**Alternativa:** usa `client_id`, `developer.id` o `apiproduct.name`. Ver [traffic management](../02-politicas/01-traffic-management.md).
+**Alternativa:** usa `client_id`, `apiproduct.name` o un atributo personalizado estable del desarrollador. **No** uses `developer.id` ni `developer.app.id`: Google advierte que son IDs internos que pueden cambiar. Ver [Quota — `<Identifier>`](../02-politicas/referencia/quota.md#identifier).
 
 ---
 

@@ -72,10 +72,13 @@ Límites: intervalo de sincronización **≥ 10 segundos**; intervalo de cuota m
 
 ```xml
 <Identifier ref="client_id"/>        <!-- por app: lo habitual -->
-<Identifier ref="developer.id"/>      <!-- por desarrollador -->
+<Identifier ref="verifyapikey.VAK.developer.cuenta_id"/>  <!-- por desarrollador: atributo propio estable -->
 <Identifier ref="apiproduct.name"/>   <!-- global por producto -->
 <Identifier ref="request.header.x-tenant-id"/>  <!-- por tenant -->
 ```
+
+> [!WARNING]
+> No uses `developer.id`, `developer.app.id` ni `appgroup.id` como identificador: según la página de VerifyAPIKey son IDs internos sin garantía de estabilidad. Ver [Quota — `<Identifier>`](referencia/quota.md#identifier).
 
 > [!CAUTION]
 > **Antipatrón documentado: identificadores de alta cardinalidad en Quota.**

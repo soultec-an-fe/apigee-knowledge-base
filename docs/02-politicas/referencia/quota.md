@@ -193,12 +193,16 @@ Para contratos de consumo usa al menos `Distributed=true`.
 
 ### `<Identifier>`
 
-Reparte el conteo en "cubetas" según el valor de una variable. Las más habituales son `client_id` (por app) y `developer.id` (por desarrollador, sumando todas sus apps), ambas pobladas por `VerifyAPIKey` u `OAuthV2`. También sirve cualquier variable propia.
+Reparte el conteo en "cubetas" según el valor de una variable. La más habitual es `client_id` (una cubeta por app), poblada por `VerifyAPIKey` u `OAuthV2`. También sirve cualquier variable propia.
 
 Sin `<Identifier>` (ni `<Class>`), **un único contador** para todos los llamantes.
 
-> [!NOTE]
-> Google advierte que `developer.id` y `developer.app.id` podrían cambiar de valor en alguna ventana de mantenimiento, algo raro pero posible. Si ocurre, la cuota no se aplica estrictamente mientras dura el cambio.
+> [!WARNING]
+> **No uses `developer.id`, `developer.app.id` ni `appgroup.id` como identificador.** La documentación oficial se contradice aquí:
+> - La página de Quota los pone como ejemplo y solo advierte que podrían cambiar de valor en alguna ventana de mantenimiento, lo que es raro.
+> - La página de [VerifyAPIKey](verify-api-key.md#variables-de-flujo) es tajante: son IDs internos sin garantía de estabilidad, y no deben usarse como identificador de Quota, como clave de KVM ni como identificador hacia el backend.
+>
+> Sigue la regla estricta. Para contar **por desarrollador** usa un atributo personalizado estable del desarrollador, por ejemplo `verifyapikey.{politica}.developer.cuenta_id`.
 
 ### `<MessageWeight>`
 
@@ -323,14 +327,14 @@ La forma recomendada: el negocio cambia el cupo en el producto sin redesplegar e
 
 ### 2. Ventana deslizante de una hora por desarrollador
 
-Cuenta todas las apps del mismo desarrollador y evita el "efecto reinicio" de las cuotas de calendario, en el que todo el mundo vuelve a llamar justo a la hora en punto.
+Cuenta todas las apps del mismo desarrollador y evita el "efecto reinicio" de las cuotas de calendario, en el que todo el mundo vuelve a llamar justo a la hora en punto. El identificador es un atributo personalizado `cuenta_id` del desarrollador, porque `developer.id` no es estable (ver [`<Identifier>`](#identifier)).
 
 ```xml
 <Quota name="Q-Hora-Desarrollador" type="rollingwindow">
   <Allow count="3000"/>
   <Interval>1</Interval>
   <TimeUnit>hour</TimeUnit>
-  <Identifier ref="developer.id"/>
+  <Identifier ref="verifyapikey.VAK-Header.developer.cuenta_id"/>
   <Distributed>true</Distributed>
 </Quota>
 ```

@@ -256,7 +256,7 @@ Estas las puebla la política de autenticación y son la base de la autorizació
 | `apiproduct.developer.quota.limit` | Límite de cuota definido en el producto |
 | `apiproduct.developer.quota.interval` | Intervalo de cuota |
 | `apiproduct.developer.quota.timeunit` | Unidad de tiempo de la cuota |
-| `developer.id` | ID del desarrollador |
+| `developer.id` | ID interno del desarrollador. **No es estable**: no lo uses como identificador de Quota, clave de KVM ni identidad hacia el backend ([VerifyAPIKey](../02-politicas/referencia/verify-api-key.md#variables-de-flujo)) |
 | `developer.email` | Email del desarrollador |
 | `developer.app.name` | Nombre de la app |
 | `client_id` | Consumer key de la app |
