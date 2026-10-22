@@ -107,7 +107,7 @@ Y se referencia como cualquier política:
 
 ### Pasar parámetros
 
-`FlowCallout` admite `<Parameters>`, accesibles dentro del shared flow con el prefijo `flowcallout.<nombre>.`:
+`FlowCallout` admite `<Parameters>`: cada `<Parameter name>` crea una variable con **ese nombre exacto**, sin prefijo, visible solo mientras se ejecuta el shared flow (ver [referencia](../02-politicas/referencia/flow-callout.md)):
 
 ```xml
 <FlowCallout name="FC-Cuota">
@@ -123,9 +123,9 @@ Dentro del shared flow:
 
 ```xml
 <Quota name="Q-Dinamica">
-    <Allow countRef="flowcallout.FC-Cuota.limite" count="100"/>
+    <Allow countRef="limite" count="100"/>
     <Interval>1</Interval>
-    <TimeUnit ref="flowcallout.FC-Cuota.unidad">hour</TimeUnit>
+    <TimeUnit ref="unidad">hour</TimeUnit>
 </Quota>
 ```
 
