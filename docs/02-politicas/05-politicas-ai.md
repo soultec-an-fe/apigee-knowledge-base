@@ -311,7 +311,6 @@ El sample oficial devuelve **200 OK con un payload con forma de respuesta del mo
       }
       </Payload>
       <StatusCode>200</StatusCode>
-      <ReasonPhrase>OK</ReasonPhrase>
     </Set>
   </FaultResponse>
   <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>

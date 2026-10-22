@@ -118,7 +118,6 @@ Entra en error flow inmediatamente.
     <FaultResponse>
         <Set>
             <StatusCode>403</StatusCode>
-            <ReasonPhrase>Forbidden</ReasonPhrase>
             <Payload contentType="application/json">{"error":"canal_no_permitido"}</Payload>
         </Set>
     </FaultResponse>

@@ -205,7 +205,6 @@ En el ProxyEndpoint, sustituye el JSON por defecto por el formato de error de la
 <AssignMessage name="AM-Error-429">
   <Set>
     <StatusCode>429</StatusCode>
-    <ReasonPhrase>Too Many Requests</ReasonPhrase>
     <Headers>
       <Header name="Retry-After">1</Header>
     </Headers>

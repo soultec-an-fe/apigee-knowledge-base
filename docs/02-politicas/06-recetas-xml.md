@@ -120,7 +120,6 @@ Fragmentos completos y válidos. Cada uno indica su archivo destino dentro del b
             <Header name="X-Correlation-Id">{messageid}</Header>
         </Headers>
         <StatusCode>401</StatusCode>
-        <ReasonPhrase>Unauthorized</ReasonPhrase>
         <Payload contentType="application/json">
 {"error":{"codigo":"NO_AUTORIZADO","mensaje":"Credenciales ausentes o invalidas","correlation_id":"{messageid}","timestamp":"{system.time}"}}
         </Payload>
@@ -142,7 +141,6 @@ Fragmentos completos y válidos. Cada uno indica su archivo destino dentro del b
             <Header name="X-Correlation-Id">{messageid}</Header>
         </Headers>
         <StatusCode>429</StatusCode>
-        <ReasonPhrase>Too Many Requests</ReasonPhrase>
         <Payload contentType="application/json">
 {"error":{"codigo":"LIMITE_EXCEDIDO","mensaje":"Has superado el limite de peticiones permitido","correlation_id":"{messageid}"}}
         </Payload>
@@ -163,7 +161,6 @@ Fragmentos completos y válidos. Cada uno indica su archivo destino dentro del b
             <Header name="X-Correlation-Id">{messageid}</Header>
         </Headers>
         <StatusCode>500</StatusCode>
-        <ReasonPhrase>Internal Server Error</ReasonPhrase>
         <Payload contentType="application/json">
 {"error":{"codigo":"ERROR_INTERNO","mensaje":"Se ha producido un error procesando la peticion","correlation_id":"{messageid}"}}
         </Payload>
@@ -513,7 +510,6 @@ context.setVariable('canary.activo', (sorteo < porcentaje) ? 'true' : 'false');
             <Header name="X-Mock">true</Header>
         </Headers>
         <StatusCode>200</StatusCode>
-        <ReasonPhrase>OK</ReasonPhrase>
         <Payload contentType="application/json">
 {"datos":[{"id":"1","nombre":"Ejemplo A"},{"id":"2","nombre":"Ejemplo B"}],"total":2,"pagina":1}
         </Payload>
@@ -562,7 +558,6 @@ Autorización por scope, después de verificar:
     <FaultResponse>
         <Set>
             <StatusCode>403</StatusCode>
-            <ReasonPhrase>Forbidden</ReasonPhrase>
             <Payload contentType="application/json">{"error":{"codigo":"SCOPE_INSUFICIENTE"}}</Payload>
         </Set>
     </FaultResponse>

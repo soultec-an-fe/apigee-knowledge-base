@@ -58,7 +58,6 @@ Crea y modifica mensajes, cabeceras, payloads y variables. Es la política que m
         <Verb>POST</Verb>
         <Path>/api/v2/pedidos</Path>
         <StatusCode>200</StatusCode>
-        <ReasonPhrase>OK</ReasonPhrase>
     </Set>
 
     <!-- 4. Eliminar -->
@@ -113,7 +112,6 @@ Con `createNew="true"` se debe dar un nombre:
 <AssignMessage name="AM-Health">
     <Set>
         <StatusCode>200</StatusCode>
-        <ReasonPhrase>OK</ReasonPhrase>
         <Payload contentType="application/json">{"estado":"ok","proxy":"{apiproxy.name}","rev":"{apiproxy.revision}"}</Payload>
     </Set>
     <AssignTo createNew="true" transport="http" type="response"/>
@@ -369,7 +367,6 @@ Genera un fallo explícito con respuesta personalizada.
                 <Header name="X-Correlation-Id">{messageid}</Header>
             </Headers>
             <StatusCode>403</StatusCode>
-            <ReasonPhrase>Forbidden</ReasonPhrase>
             <Payload contentType="application/json">
                 {"error":{"codigo":"CANAL_NO_PERMITIDO","mensaje":"Este canal no tiene acceso a la operación","correlation_id":"{messageid}"}}
             </Payload>

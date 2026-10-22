@@ -273,7 +273,6 @@ Se reenvía el nombre de la app y un atributo estable del desarrollador, nunca `
 <AssignMessage name="AM-Error-401">
   <Set>
     <StatusCode>401</StatusCode>
-    <ReasonPhrase>Unauthorized</ReasonPhrase>
     <Headers>
       <Header name="WWW-Authenticate">ApiKey realm="api"</Header>
     </Headers>

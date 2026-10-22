@@ -394,7 +394,6 @@ Después de la Quota, en la respuesta, se exponen el límite, el consumo y el re
 <AssignMessage name="AM-Error-Cuota-429">
   <Set>
     <StatusCode>429</StatusCode>
-    <ReasonPhrase>Too Many Requests</ReasonPhrase>
     <Payload contentType="application/json">{"codigo":"CUOTA_AGOTADA","mensaje":"Se alcanzó el cupo del plan."}</Payload>
   </Set>
   <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
