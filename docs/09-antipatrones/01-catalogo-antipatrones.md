@@ -33,9 +33,16 @@ Los **21 antipatrones documentados oficialmente por Apigee**, con explicación d
 
 **Qué pasa:** llamas a `httpClient` en un `Javascript` y esperas con `waitForComplete()`.
 
-**Por qué duele:** **bloquea el hilo del Message Processor**, que es un recurso compartido. Degrada **todo** el tráfico del nodo, no solo tu proxy.
+**Por qué duele:** **bloquea el hilo** mientras espera al backend. Como mucho el **30 %** de los hilos de un Message Processor puede estar ejecutando JavaScript a la vez. Al agotarse, las peticiones nuevas fallan con `500` «Timed out», incluso antes de que venza el `timeLimit` de la política, y el diagnóstico se vuelve difícil. Degrada **todo** el tráfico del nodo, no solo tu proxy.
 
-**Alternativa:** usa la política **`ServiceCallout`**. Google es explícito: no hagas peticiones HTTP dentro de un script callout. Ver [políticas de extensión](../02-politicas/04-extension.md).
+**Alternativa:**
+
+- La página del antipatrón recomienda pasar un **callback** a `httpClient.get()` o `send()`: el hilo vuelve al pool y la respuesta se procesa cuando llega.
+- La guía de buenas prácticas de Google va más allá: evita peticiones HTTP dentro de un script y usa **`ServiceCallout`**, que gestiona mejor las conexiones.
+
+Ver [JavaScript](../02-politicas/referencia/javascript.md#httpclient).
+
+Fuente: <https://docs.cloud.google.com/apigee/docs/api-platform/antipatterns/wait-for-complete> (consultada directamente, 2026-10-22).
 
 ---
 

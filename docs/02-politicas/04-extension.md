@@ -203,9 +203,11 @@ Objetos globales disponibles: `crypto` (hashes), `httpClient` (⚠️ ver abajo)
 | **Base64 y iteración de JSON** están soportados | No necesitas librerías externas para eso |
 
 > [!CAUTION]
-> **NO hagas peticiones HTTP dentro de un JavaScript.** Google lo dice explícitamente: usa `ServiceCallout`.
+> **Evita peticiones HTTP dentro de un JavaScript.** La guía de buenas prácticas de Google recomienda `ServiceCallout`. Si usas `httpClient` (por ejemplo, para varias llamadas en paralelo), hazlo siempre con callbacks.
 >
-> **NO uses `waitForComplete()`** sobre `httpClient`. Es un [antipatrón documentado](../09-antipatrones/01-catalogo-antipatrones.md): bloquea el hilo del Message Processor, que es un recurso compartido, y degrada **todo** el tráfico del nodo — no solo tu proxy.
+> **NO uses `waitForComplete()`** sobre `httpClient`. Es un [antipatrón documentado](../09-antipatrones/01-catalogo-antipatrones.md#2-usar-waitforcomplete-en-código-javascript): bloquea el hilo, y como mucho el 30 % de los hilos de un Message Processor puede estar ejecutando JavaScript a la vez. Al agotarse, todo el tráfico del nodo falla con `500`.
+>
+> Referencia completa: [JavaScript](referencia/javascript.md).
 
 ---
 
@@ -259,7 +261,7 @@ public class FirmaCallout implements Execution {
 |---|---|
 | **No dependas de las librerías Java que trae Apigee** | Google declara ese uso **no soportado**. Empaqueta tus dependencias |
 | **Importa los JAR vía la API de recursos**, no en `resources/java/` del bundle | Recomendación explícita de Google; permite compartirlos entre proxies |
-| **Usa `ctx.getMessage()`** en lugar de métodos separados de request/response | Funciona en todos los contextos, incluido el error flow |
+| **Usa `ctx.getMessage()`** en lugar de métodos separados de request/response | Recupera el mensaje tanto en el flujo de petición como en el de respuesta. Referencia completa: [JavaCallout](referencia/java-callout.md) |
 | **No gestiones recursos** (thread pools, conexiones, ficheros) | El MP es un entorno compartido; crear hilos lo desestabiliza |
 | **Versiona el código fuente Java** | El JAR compilado no es auditable |
 | **Devuelve `ExecutionResult.ABORT`** para señalar fallo | `SUCCESS` con un error dentro deja el flujo en estado inconsistente |
