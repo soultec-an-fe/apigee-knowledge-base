@@ -21,10 +21,10 @@ Apigee incorpora políticas específicas para gobernar tráfico hacia modelos de
 
 | Política | Elemento XML | Función |
 |---|---|---|
-| SemanticCacheLookup | `<SemanticCacheLookup>` | Busca respuestas cacheadas **semánticamente similares** vía embeddings |
-| SemanticCachePopulate | `<SemanticCachePopulate>` | Inserta la respuesta del modelo en el índice vectorial |
-| LLMTokenQuota | `<LLMTokenQuota>` | Cuota sobre **tokens consumidos**, no sobre número de llamadas |
-| PromptTokenLimit | `<PromptTokenLimit>` | Limita el tamaño en tokens del prompt de entrada |
+| SemanticCacheLookup | `<SemanticCacheLookup>` | Busca respuestas cacheadas **semánticamente similares** vía embeddings ([referencia](referencia/semantic-cache-lookup.md)) |
+| SemanticCachePopulate | `<SemanticCachePopulate>` | Inserta la respuesta del modelo en el índice vectorial ([referencia](referencia/semantic-cache-populate.md)) |
+| LLMTokenQuota | `<LLMTokenQuota>` | Cuota sobre **tokens consumidos**, no sobre número de llamadas ([referencia](referencia/llm-token-quota.md)) |
+| PromptTokenLimit | `<PromptTokenLimit>` | Tasa de tokens del prompt por segundo o minuto, como un SpikeArrest de tokens ([referencia](referencia/prompt-token-limit.md)) |
 | SanitizeUserPrompt | `<SanitizeUserPrompt>` | Filtra el prompt vía **Model Armor** |
 | SanitizeModelResponse | `<SanitizeModelResponse>` | Filtra la respuesta del modelo vía Model Armor |
 
@@ -93,15 +93,17 @@ Es necesario porque el número de tokens consumidos **solo se conoce después** 
 
 ### La cuota vive en el API product
 
-Nótese `verifyapikey.VA-VerifyAPIKey.apiproduct.developer.llmQuota.limit`: es un **atributo personalizado** llamado `llmQuota` definido en el API product. El patrón es el mismo que en la [Quota normal](01-traffic-management.md): el producto define el plan, la política solo lo lee.
+Nótese `verifyapikey.VA-VerifyAPIKey.apiproduct.developer.llmQuota.limit`: no es un atributo personalizado, sino una variable que `VerifyAPIKey` (o `VerifyAccessToken`) publica a partir de la **configuración de cuota LLM de las operaciones del API product**, por modelo. El patrón es el mismo que en la [Quota normal](01-traffic-management.md): el producto define el plan, la política solo lo lee. Ver [LLMTokenQuota — Con API products](referencia/llm-token-quota.md#con-api-products).
 
 ---
 
 ## PromptTokenLimit
 
-Rechaza prompts demasiado largos **antes** de enviarlos al modelo. Protege del coste de un prompt de 500.000 tokens y de ataques de agotamiento de contexto.
+Es un SpikeArrest **de tokens**: calcula los tokens del prompt **antes** de enviarlo al modelo y aplica una tasa por segundo o por minuto (`<Rate>20000pm</Rate>`), agrupada por cliente con `<Identifier>`. Si se supera, responde `429`. Protege el backend de ráfagas de tokens.
 
-Complementa a `LLMTokenQuota`: `PromptTokenLimit` es un límite **por petición**, `LLMTokenQuota` es un límite **acumulado por intervalo**.
+Complementa a `LLMTokenQuota`: `PromptTokenLimit` es protección **operativa** de corto plazo (segundos o minutos, sobre los tokens de entrada), y `LLMTokenQuota` es el cupo **comercial** acumulado (horas, días o meses, sobre los tokens que informa el modelo).
+
+Para limitar el **tamaño de cada petición** (p. ej. contra ataques de agotamiento de contexto), Google propone usar como `<Identifier>` un valor único por petición (`messageid`), de modo que cada petición tenga su propio contador. Detalle completo en la [referencia de PromptTokenLimit](referencia/prompt-token-limit.md).
 
 ---
 
