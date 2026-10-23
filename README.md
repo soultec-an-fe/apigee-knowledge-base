@@ -51,7 +51,7 @@ cat apigee-knowledge-base/docs/**/*.md > contexto-apigee.md
 
 ### 00 · Fundamentos
 - [Qué es Apigee](docs/00-fundamentos/01-que-es-apigee.md)
-- [Ediciones: X, hybrid y Edge (EOL)](docs/00-fundamentos/02-ediciones-y-comparativa.md)
+- [Ediciones: X, hybrid y Edge (legado)](docs/00-fundamentos/02-ediciones-y-comparativa.md)
 - [Arquitectura del runtime](docs/00-fundamentos/03-arquitectura.md)
 - [Organizaciones, entornos y grupos de entorno](docs/00-fundamentos/04-organizaciones-entornos-grupos.md)
 - [Glosario](docs/00-fundamentos/05-glosario.md)
@@ -151,6 +151,14 @@ cat apigee-knowledge-base/docs/**/*.md > contexto-apigee.md
 - [Apigee Operator for Kubernetes](docs/16-adaptadores/03-apim-operator-kubernetes.md)
 - [Apigee Adapter for Envoy](docs/16-adaptadores/04-envoy-adapter.md)
 
+### 17 · Apigee Edge (legado)
+- [Panorama, estado y ciclo de vida](docs/17-edge/01-panorama-y-ciclo-de-vida.md): Public y Private Cloud, LTS 4.54 hasta 2029, funciones retiradas
+- [Edge for Private Cloud 4.54](docs/17-edge/02-private-cloud.md): arquitectura, topologías, requisitos, puertos y cambios de la 4.54 (Java 21, TLS 1.3)
+- [Edge Microgateway](docs/17-edge/03-microgateway.md)
+- [Node.js, Hosted Targets y Extensions](docs/17-edge/04-nodejs-hosted-targets-y-extensions.md)
+- [API Monitoring y troubleshooting](docs/17-edge/05-api-monitoring-y-troubleshooting.md)
+- [Diferencias Edge frente a X por área](docs/17-edge/06-diferencias-por-area.md), con checklist de migración
+
 ---
 
 ## Convenciones del repositorio
@@ -169,7 +177,7 @@ revisado: 2026-08-20
 ---
 ```
 
-- `aplica_a` distingue **Apigee X / hybrid** de **Apigee Edge** (legacy, en EOL).
+- `aplica_a` distingue **Apigee X / hybrid** de **Apigee Edge** (legado: soportado, con versiones y funciones en fin de vida).
 - Los bloques marcados `⚠️ Solo Edge` no aplican a instalaciones nuevas.
 
 ## Licencia

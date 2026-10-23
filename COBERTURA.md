@@ -5,7 +5,7 @@
 
 ## Respuesta corta
 
-**No está completa.** El repositorio nació como una síntesis del *núcleo de desarrollo de proxies* (políticas, flujos, seguridad, publicación, operación básica, DevOps, IA) y lo cubre bien. Desde el 22 de octubre de 2026, además, la **referencia de políticas está completa**: un archivo por cada una de las 69 políticas (65 de X/hybrid y 4 exclusivas de Edge), verificado contra la página de X y la de Edge. Desde el 23 de octubre también cubre, como síntesis, las áreas que antes faltaban en X/hybrid: hybrid, troubleshooting, administración, API hub, Advanced API Security, adaptadores y monetización. Siguen sin cubrir el **material propio de Edge** (Private Cloud, Microgateway, Node.js, API Monitoring) y el **mapa de ejemplos**. Pero la documentación oficial es mucho más amplia, y hay áreas enteras sin representar: Apigee hybrid como producto, troubleshooting, administración del sistema, API hub, Advanced API Security, adaptadores (Envoy, Kubernetes), monetización y todo lo propio de Edge (Private Cloud, Microgateway, Node.js, API Monitoring).
+**No está completa.** El repositorio nació como una síntesis del *núcleo de desarrollo de proxies* (políticas, flujos, seguridad, publicación, operación básica, DevOps, IA) y lo cubre bien. Desde el 22 de octubre de 2026, además, la **referencia de políticas está completa**: un archivo por cada una de las 69 políticas (65 de X/hybrid y 4 exclusivas de Edge), verificado contra la página de X y la de Edge. Desde el 23 de octubre también cubre, como síntesis, las áreas que antes faltaban en X/hybrid: hybrid, troubleshooting, administración, API hub, Advanced API Security, adaptadores y monetización. Desde la misma fecha están también el **mapa de ejemplos** (`ejemplos/`) y el **material propio de Edge** (`docs/17-edge/`: Private Cloud 4.54, Microgateway, Node.js y Hosted Targets, API Monitoring, diferencias por área). Lo que queda sin cubrir es el detalle página a página: procedimientos de la UI, versiones antiguas, notas de versión y la API REST. Pero la documentación oficial es mucho más amplia, y hay áreas enteras sin representar: Apigee hybrid como producto, troubleshooting, administración del sistema, API hub, Advanced API Security, adaptadores (Envoy, Kubernetes), monetización y todo lo propio de Edge (Private Cloud, Microgateway, Node.js, API Monitoring).
 
 ## Cómo se mide
 
@@ -24,8 +24,8 @@ python3 scripts/cobertura.py
 
 | Edición | Páginas en navegación | Tras normalizar | De ellas, guías (sin API REST ni release notes) | Citadas por el repo |
 |---|---|---|---|---|
-| Apigee X / hybrid | 3391 | 1719 | ≈ 950 | 233 (13,6 %) |
-| Apigee Edge | 2103 | 1606 | ≈ 960 | 57 (3,5 %) |
+| Apigee X / hybrid | 3391 | 1719 | ≈ 950 | 235 (13,7 %) |
+| Apigee Edge | 2103 | 1606 | ≈ 960 | 95 (5,9 %) |
 
 ## Matriz por área — Apigee X / hybrid
 
@@ -61,15 +61,15 @@ Estado: ✅ cubierto · 🟡 parcial · ❌ ausente · 🔧 en curso.
 | Área oficial | Páginas | Citadas | Estado | Dónde está o estará en el repo |
 |---|---|---|---|---|
 | `api-platform/reference` (políticas) | 198 | 51 | ✅ | Cada archivo de `docs/02-politicas/referencia/` incluye **Diferencias en Apigee Edge**; las 4 exclusivas de Edge (ExtensionCallout, LDAP, StatisticsCollector, ConcurrentRateLimit, esta última retirada) tienen archivo propio |
-| `api-platform/fundamentals`, `develop`, `get-started` | 56 | 2 | 🟡 | Los conceptos son comunes con X; faltan las diferencias de Edge |
-| `api-platform/troubleshoot` | 163 | 0 | ❌ | `docs/14-troubleshooting/`, con columna por edición |
-| `api-platform/publish`, `monetization` | 108 | 0 | ❌ | `docs/17-edge/` |
-| `api-platform/microgateway` | 58 | 0 | ❌ | `docs/17-edge/` |
-| `private-cloud` (v4.54.00 + sin versión) | 73 | 0 | ❌ | `docs/17-edge/` |
-| `api-platform/system-administration` | 48 | 0 | ❌ | `docs/17-edge/` |
+| `api-platform/fundamentals`, `develop`, `get-started` | 56 | 3 | 🟡 | Los conceptos son comunes con X; diferencias (virtual hosts, roles) en [`17-edge/06`](docs/17-edge/06-diferencias-por-area.md) |
+| `api-platform/troubleshoot` | 163 | 2 | 🟡 | [`17-edge/05`](docs/17-edge/05-api-monitoring-y-troubleshooting.md): timeouts, errores frecuentes y logs de Private Cloud. Los códigos comunes con X están en el [catálogo de errores](docs/10-referencia/02-codigos-de-error.md). |
+| `api-platform/publish`, `monetization` | 108 | 3 | 🟡 | Diferencias de portal y monetización en [`17-edge/06`](docs/17-edge/06-diferencias-por-area.md#publicación-y-monetización) |
+| `api-platform/microgateway` | 58 | 5 | ✅ | [`17-edge/03`](docs/17-edge/03-microgateway.md), versión 3.3.x |
+| `private-cloud` (v4.54.00 + sin versión) | 73 | 8 | 🟡 | [`17-edge/02`](docs/17-edge/02-private-cloud.md): arquitectura, topologías, requisitos, puertos, operación y cambios de la 4.54. Faltan los procedimientos de instalación paso a paso. |
+| `api-platform/system-administration` | 48 | 2 | 🟡 | Roles, 2FA y SAML en [`17-edge/06`](docs/17-edge/06-diferencias-por-area.md#identidad-y-acceso) |
 | `api-platform/envoy-adapter`, `istio-adapter` | 43 | 0 | ❌ | `docs/16-adaptadores/` |
-| `api-platform/nodejs`, `hosted-targets`, `extensions` | 23 | 0 | ❌ | `docs/17-edge/` (funciones sin equivalente en X) |
-| `api-monitoring` | 22 | 0 | ❌ | `docs/17-edge/` |
+| `api-platform/nodejs`, `hosted-targets`, `extensions` | 23 | 7 | ✅ | [`17-edge/04`](docs/17-edge/04-nodejs-hosted-targets-y-extensions.md), con equivalencias en X |
+| `api-monitoring` | 22 | 6 | ✅ | [`17-edge/05`](docs/17-edge/05-api-monitoring-y-troubleshooting.md) |
 | `api-platform/antipatterns` | 29 | 2 | 🟡 | `docs/09-antipatrones/` |
 | `api-platform/analytics`, `cache`, `debug`, `deploy`, `security` | 75 | 0 | 🟡 | Conceptos comunes con X; faltan diferencias |
 | `api-platform/faq`, `samples`, `tutorials`, `integrations` | 60 | 0 | ❌ | Mapa de ejemplos en `ejemplos/` |
@@ -96,7 +96,7 @@ Además: [índice de ejemplos por política](ejemplos/05-indice-por-politica.md)
 | 1 | Inventario oficial, scripts y esta matriz | ✅ |
 | 2 | Referencia por política: 65 de X/hybrid + 4 exclusivas de Edge | ✅ 69 hechas, más 2 documentos de conceptos y el [índice](docs/02-politicas/referencia/00-indice.md) |
 | 3 | Áreas ausentes de X/hybrid: hybrid, troubleshooting, administración, API hub, Advanced API Security, adaptadores, monetización | ✅ 23 documentos nuevos y la verificación de los códigos de error. Pendientes: Apigee Integration y el detalle paso a paso de hybrid y API hub |
-| 4 | Edge (`docs/17-edge/`): Private Cloud, Microgateway, Node.js, API Monitoring, monetización, diferencias por área | Pendiente |
+| 4 | Edge (`docs/17-edge/`): Private Cloud, Microgateway, Node.js, API Monitoring, monetización, diferencias por área | ✅ 6 documentos. Corrige el estado de Edge (no está en EOL), la fecha de la 4.53.01 y la atribución de la Classic UI. |
 | 5 | Mapa de ejemplos oficiales y bundles propios validados | ✅ 4 repositorios mapeados (205 bundles), 5 bundles propios con 0 errores de `apigeelint`; generación reproducible con `scripts/mapa_ejemplos.py` y `scripts/generar_mapa_ejemplos.py` |
 | 6 | Índices (`README.md`, `llms.txt`), `PROCEDENCIA.md` y esta matriz actualizados | Continuo |
 
@@ -140,3 +140,6 @@ Contradicciones internas de las páginas de Google, documentadas en el archivo a
 | Redis en hybrid | Aparece listado como *datastore*, pero «todo salvo Cassandra es *stateless*» | [03-cassandra.md](docs/11-hybrid/03-cassandra.md) |
 | Catálogo de errores de runtime | `ErrorResponseCode` descrito solo para el `500`; la variante de respuesta de `TooBigBody` repite la causa de la de petición | [02-codigos-de-error.md](docs/10-referencia/02-codigos-de-error.md#backend-y-transporte) |
 | Variables `mint.*` en Debug | Con punto y con guion bajo para la misma variable | [03-monetizacion.md](docs/04-publicacion/03-monetizacion.md) |
+| Fin de vida de Private Cloud 4.53.01 | La fecha cambió del 26 de febrero de 2027 al 30 de junio de 2027 en la página oficial | [01-panorama-y-ciclo-de-vida.md](docs/17-edge/01-panorama-y-ciclo-de-vida.md#ciclo-de-vida-de-private-cloud) |
+| Retirada de *traffic alerts* en Edge Cloud | La página de deprecaciones no aclara si incluye las alertas de API Monitoring | [05-api-monitoring-y-troubleshooting.md](docs/17-edge/05-api-monitoring-y-troubleshooting.md) |
+| Trace (Edge) frente a Debug (X) | 10 transacciones por MP en Edge frente a 15 en X | [06-diferencias-por-area.md](docs/17-edge/06-diferencias-por-area.md#desarrollo-y-depuración) |

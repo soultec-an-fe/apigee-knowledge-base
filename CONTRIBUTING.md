@@ -10,7 +10,7 @@ Todo `.md` dentro de `docs/` y de `ejemplos/` debe empezar con:
 ---
 id: area-tema              # kebab-case, único en el repo
 titulo: Título legible
-area: fundamentos|proxies|politicas|seguridad|publicacion|operacion|devops|ai|practicas|antipatrones|referencia|hybrid|api-hub|seguridad-avanzada|troubleshooting|administracion|adaptadores|ejemplos
+area: fundamentos|proxies|politicas|seguridad|publicacion|operacion|devops|ai|practicas|antipatrones|referencia|hybrid|api-hub|seguridad-avanzada|troubleshooting|administracion|adaptadores|edge|ejemplos
 tags: [lista, de, keywords]
 aplica_a: [apigee-x, apigee-hybrid, apigee-edge]
 fuente: https://cloud.google.com/apigee/docs/...

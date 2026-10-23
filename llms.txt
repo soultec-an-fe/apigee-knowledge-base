@@ -11,7 +11,7 @@ Reglas de uso para el modelo:
 
 ## Fundamentos
 - [Qué es Apigee](docs/00-fundamentos/01-que-es-apigee.md): modelo de gateway gestionado, casos de uso y componentes.
-- [Ediciones](docs/00-fundamentos/02-ediciones-y-comparativa.md): Apigee X vs hybrid vs Edge, estado de EOL y diferencias.
+- [Ediciones](docs/00-fundamentos/02-ediciones-y-comparativa.md): Apigee X vs hybrid vs Edge, ciclo de vida y diferencias.
 - [Arquitectura](docs/00-fundamentos/03-arquitectura.md): plano de control, plano de runtime, MP, Cassandra, networking.
 - [Organizaciones y entornos](docs/00-fundamentos/04-organizaciones-entornos-grupos.md): org, environment, environment group, instancias.
 - [Glosario](docs/00-fundamentos/05-glosario.md): términos con su equivalencia en inglés.
@@ -106,3 +106,11 @@ Reglas de uso para el modelo:
 - [Mapa de ejemplos oficiales](ejemplos/README.md): qué muestra cada ejemplo de Google y qué políticas usa.
 - [Ejemplos por política](ejemplos/05-indice-por-politica.md): configuraciones reales de cada política.
 - [Bundles propios](ejemplos/bundles/README.md): proxies completos validados con apigeelint, en `ejemplos/bundles/<nombre>/apiproxy/`.
+
+## Apigee Edge (legado)
+- [Panorama y ciclo de vida](docs/17-edge/01-panorama-y-ciclo-de-vida.md): Edge no está en EOL como producto; 4.54 LTS hasta octubre de 2029.
+- [Private Cloud 4.54](docs/17-edge/02-private-cloud.md): componentes, topologías, puertos, cambios de Java 21 y TLS.
+- [Microgateway](docs/17-edge/03-microgateway.md)
+- [Node.js, Hosted Targets y Extensions](docs/17-edge/04-nodejs-hosted-targets-y-extensions.md): no existen en X; equivalencias.
+- [API Monitoring y troubleshooting](docs/17-edge/05-api-monitoring-y-troubleshooting.md): timeouts por defecto (Router 57 s, MP 55 s).
+- [Diferencias por área](docs/17-edge/06-diferencias-por-area.md): virtual hosts vs environment groups, roles vs IAM, monetización, checklist de migración.

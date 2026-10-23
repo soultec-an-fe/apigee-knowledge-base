@@ -27,7 +27,7 @@ significativo de documentos. El resultado de esa pasada es lo que reporta este d
 
 | Error | Corrección |
 |---|---|
-| Fecha de apagado de la Classic UI de Apigee Edge dada como "2 de noviembre de 2025" | Corregida a **29 de agosto de 2025** (apagado general) / **29 de septiembre de 2025** (apagado final para clientes con excepción), verificado contra `docs.cloud.google.com/apigee/docs/deprecations/apigee-classic-ui` |
+| Fecha de apagado de la Classic UI de Apigee Edge dada como "2 de noviembre de 2025" | *(Revisado en la sexta pasada: esa Classic UI es la de **Apigee X/hybrid**, no la de Edge.)* Corregida a **29 de agosto de 2025** (apagado general) / **29 de septiembre de 2025** (apagado final para clientes con excepción), verificado contra `docs.cloud.google.com/apigee/docs/deprecations/apigee-classic-ui` |
 | `ConcurrentRateLimit` presentada como política de traffic management vigente | Es una **política retirada** (deprecada 15/07/2020, retirada de Private Cloud en 4.50.00, 15/07/2021). Corregido en el catálogo, en `01-traffic-management.md`, y en las dos menciones restantes en `08-mejores-practicas/03-rendimiento.md` y `09-antipatrones/01-catalogo-antipatrones.md` |
 | Catálogo de políticas con categorías Standard/Extensible **inventadas** ("estándar = endurecida, extensible = más funciones") | Reescrito con la clasificación **real** de Google: Standard funciona en cualquier tipo de entorno; Extensible solo en entornos Intermediate/Comprehensive y tiene implicaciones de coste. Un proxy con una sola política Extensible se convierte en proxy Extensible completo |
 | Catálogo de políticas incompleto: faltaban `TraceCapture`, `ParseDialogflowRequest`, `SetDialogflowResponse` | Añadidas, con su categoría oficial verificada |
@@ -90,6 +90,19 @@ Estos documentos son **síntesis**, no copias página a página. Los procedimien
 - **Correcciones:**
   - `apigee/openbank` está hecho para Edge, no para X (`HostedTarget`, API de gestión de Edge).
   - En OAuthV2, un token pedido sin `scope` recibe todos los scopes de la app. Se añadió a la referencia.
+
+### Sexta pasada (23 de octubre de 2026): Apigee Edge
+
+Se escribieron **6 documentos** en `docs/17-edge/` a partir de unas 570 páginas de `docs.apigee.com` (Private Cloud 4.54.00, Microgateway 3.3.x, Node.js, Hosted Targets, Extensions, API Monitoring, troubleshooting y diferencias por área) y de las notas de versión de Edge en Google Cloud.
+
+**Errores corregidos en documentos previos:**
+
+| Error | Corrección |
+|---|---|
+| «Apigee Edge está en fin de vida» | **No como producto.** Edge Public Cloud sigue con versiones y Private Cloud 4.54 (LTS) tiene soporte hasta octubre de 2029. Lo que llega a fin de vida son versiones y funciones concretas. |
+| Classic UI apagada en agosto o septiembre de 2025 atribuida a Edge | Era la Classic UI de **Apigee X/hybrid**. La de Edge Private Cloud se eliminó en la 4.54.00. |
+| Fin de vida de la 4.53.01 el 26 de febrero de 2027 | La página oficial dice ahora el **30 de junio de 2027** |
+| Ciclo de soporte de ~18 meses para todas las versiones | Solo hasta la 4.53.01. Desde la 4.54.00, LTS de 36 meses (18 de soporte completo y 18 de mantenimiento). |
 
 ---
 
