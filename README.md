@@ -84,6 +84,7 @@ cat apigee-knowledge-base/docs/**/*.md > contexto-apigee.md
 ### 04 · Publicación
 - [API products](docs/04-publicacion/01-api-products.md)
 - [Developers, apps y AppGroups](docs/04-publicacion/02-developers-apps.md)
+- [Monetización](docs/04-publicacion/03-monetizacion.md)
 
 ### 05 · Operación
 - [Manejo de errores y FaultRules](docs/05-operacion/01-manejo-de-errores.md)
@@ -113,6 +114,37 @@ cat apigee-knowledge-base/docs/**/*.md > contexto-apigee.md
 - [Límites de la plataforma](docs/10-referencia/01-limites.md)
 - [Códigos de error](docs/10-referencia/02-codigos-de-error.md)
 - [Fuentes oficiales](docs/10-referencia/03-fuentes-oficiales.md)
+
+### 11 · Apigee hybrid
+- [Arquitectura, datos, puertos y dimensionamiento](docs/11-hybrid/01-arquitectura-y-planificacion.md)
+- [Instalación con Helm y cuentas de servicio](docs/11-hybrid/02-instalacion.md)
+- [Cassandra: producción, escalado y backups](docs/11-hybrid/03-cassandra.md)
+- [Actualización, escalado, guardrails y troubleshooting](docs/11-hybrid/04-operacion-y-troubleshooting.md)
+
+### 12 · API hub
+- [Modelo de datos, aprovisionamiento y límites](docs/12-api-hub/01-modelo-y-aprovisionamiento.md)
+- [Auto-registro, plugins, curación y funciones avanzadas](docs/12-api-hub/02-integraciones-y-funciones.md)
+
+### 13 · Advanced API Security
+- [Visión general, habilitación y roles](docs/13-advanced-api-security/01-vision-general.md)
+- [Detección de abuso y security actions](docs/13-advanced-api-security/02-deteccion-y-acciones.md)
+- [Risk assessment, informes y alertas](docs/13-advanced-api-security/03-risk-assessment-e-informes.md)
+
+### 14 · Troubleshooting
+- [Errores de runtime y de red (playbooks)](docs/14-troubleshooting/01-errores-de-runtime.md)
+
+### 15 · Administración
+- [Usuarios, roles e identidad](docs/15-administracion/01-usuarios-roles-e-identidad.md)
+- [Instancias, multirregión, mantenimiento y backups](docs/15-administracion/02-instancias-mantenimiento-y-backups.md)
+- [Redes y acceso: PSC, peering, IP del cliente](docs/15-administracion/03-redes-y-acceso.md)
+- [TLS hacia backends, referencias y data collectors](docs/15-administracion/04-tls-referencias-y-data-collectors.md)
+- [Apigee Spaces](docs/15-administracion/05-apigee-spaces.md)
+
+### 16 · Adaptadores (APIs fuera de un proxy)
+- [Panorama: cuál elegir](docs/16-adaptadores/01-panorama.md)
+- [Apigee Extension Processor](docs/16-adaptadores/02-extension-processor.md)
+- [Apigee Operator for Kubernetes](docs/16-adaptadores/03-apim-operator-kubernetes.md)
+- [Apigee Adapter for Envoy](docs/16-adaptadores/04-envoy-adapter.md)
 
 ---
 

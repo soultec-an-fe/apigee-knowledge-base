@@ -1,23 +1,23 @@
 edicion	tema	paginas	citadas	pct
 x-hybrid	reference/apis (API REST, bloque)	767	2	0
-x-hybrid	hybrid (v1.17)	126	0	0
+x-hybrid	hybrid (v1.17)	126	18	14
 x-hybrid	api-platform/reference	102	72	71
-x-hybrid	api-platform/troubleshoot	89	0	0
-x-hybrid	apihub	75	1	1
+x-hybrid	api-platform/troubleshoot	89	10	11
+x-hybrid	apihub	75	18	24
 x-hybrid	api-platform/get-started	58	2	3
 x-hybrid	api-platform/publish	53	4	8
 x-hybrid	api-platform/integration	42	0	0
 x-hybrid	api-platform/security	41	6	15
-x-hybrid	api-platform/envoy-adapter	39	0	0
-x-hybrid	api-platform/system-administration	36	1	3
+x-hybrid	api-platform/envoy-adapter	39	4	10
+x-hybrid	api-platform/system-administration	36	28	78
 x-hybrid	api-platform/analytics	28	1	4
 x-hybrid	api-platform/develop	28	2	7
 x-hybrid	api-platform/fundamentals	26	12	46
 x-hybrid	api-platform/local-development	25	1	4
 x-hybrid	api-platform/antipatterns	22	4	18
-x-hybrid	api-security	18	1	6
-x-hybrid	api-platform/apigee-kubernetes	15	0	0
-x-hybrid	api-platform/monetization	13	0	0
+x-hybrid	api-security	18	11	61
+x-hybrid	api-platform/apigee-kubernetes	15	10	67
+x-hybrid	api-platform/monetization	13	9	69
 x-hybrid	api-hub	12	0	0
 x-hybrid	api-platform/tutorials	9	3	33
 x-hybrid	api-monitoring	8	0	0
@@ -28,15 +28,15 @@ x-hybrid	api-platform/debug	6	1	17
 x-hybrid	support/service-requests	6	0	0
 x-hybrid	api-platform/deploy	5	1	20
 x-hybrid	hybrid	5	0	0
-x-hybrid	aapi-ops	4	0	0
+x-hybrid	aapi-ops	4	1	25
 x-hybrid	api-observation	4	0	0
-x-hybrid	api-platform/service-extensions	4	0	0
+x-hybrid	api-platform/service-extensions	4	4	100
 x-hybrid	release	4	0	0
 x-hybrid	apihub/tutorials	3	0	0
 x-hybrid	hybrid/latest	3	0	0
 x-hybrid	hybrid/preview	3	0	0
 x-hybrid	api-platform/architecture	2	1	50
-x-hybrid	api-platform/errorcatalog	2	0	0
+x-hybrid	api-platform/errorcatalog	2	1	50
 x-hybrid	api-platform/test	2	0	0
 x-hybrid	release/notes	2	0	0
 x-hybrid	support	2	0	0

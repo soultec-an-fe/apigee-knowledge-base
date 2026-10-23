@@ -44,6 +44,7 @@ Reglas de uso para el modelo:
 ## Publicación
 - [API products](docs/04-publicacion/01-api-products.md)
 - [Developers y apps](docs/04-publicacion/02-developers-apps.md)
+- [Monetización](docs/04-publicacion/03-monetizacion.md): rate plans, prepago y pospago, variables de monetización.
 
 ## Operación
 - [Manejo de errores](docs/05-operacion/01-manejo-de-errores.md): FaultRules, DefaultFaultRule, RaiseFault, precedencia.
@@ -71,3 +72,32 @@ Reglas de uso para el modelo:
 - [Límites](docs/10-referencia/01-limites.md)
 - [Códigos de error](docs/10-referencia/02-codigos-de-error.md)
 - [Fuentes oficiales](docs/10-referencia/03-fuentes-oficiales.md)
+
+## Apigee hybrid
+- [Arquitectura](docs/11-hybrid/01-arquitectura-y-planificacion.md): componentes del runtime, datos por plano, puertos, dimensionamiento (v1.17).
+- [Instalación](docs/11-hybrid/02-instalacion.md): 11 pasos, orden de charts Helm, cuentas de servicio y autenticación.
+- [Cassandra](docs/11-hybrid/03-cassandra.md): producción, escalado, external datastore, backups.
+- [Operación](docs/11-hybrid/04-operacion-y-troubleshooting.md): upgrade, HPA, Guardrails, Automated Issue Surfacing, playbooks.
+
+## API hub
+- [Modelo y aprovisionamiento](docs/12-api-hub/01-modelo-y-aprovisionamiento.md)
+- [Integraciones y funciones](docs/12-api-hub/02-integraciones-y-funciones.md): auto-registro, plugins, curación, API observations, insights.
+
+## Advanced API Security
+- [Visión general](docs/13-advanced-api-security/01-vision-general.md)
+- [Detección y security actions](docs/13-advanced-api-security/02-deteccion-y-acciones.md)
+- [Risk assessment](docs/13-advanced-api-security/03-risk-assessment-e-informes.md)
+
+## Troubleshooting y administración
+- [Errores de runtime y de red](docs/14-troubleshooting/01-errores-de-runtime.md): 504, 503, 502, PSC, DNS peering, keep-alive.
+- [Usuarios y roles](docs/15-administracion/01-usuarios-roles-e-identidad.md)
+- [Instancias y mantenimiento](docs/15-administracion/02-instancias-mantenimiento-y-backups.md)
+- [Redes](docs/15-administracion/03-redes-y-acceso.md)
+- [TLS y referencias](docs/15-administracion/04-tls-referencias-y-data-collectors.md)
+- [Apigee Spaces](docs/15-administracion/05-apigee-spaces.md)
+
+## Adaptadores
+- [Panorama](docs/16-adaptadores/01-panorama.md): Extension Processor vs Operator for Kubernetes vs Envoy.
+- [Extension Processor](docs/16-adaptadores/02-extension-processor.md)
+- [Operator for Kubernetes](docs/16-adaptadores/03-apim-operator-kubernetes.md)
+- [Adapter for Envoy](docs/16-adaptadores/04-envoy-adapter.md)

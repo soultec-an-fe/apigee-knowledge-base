@@ -68,6 +68,21 @@ Se escribió un archivo por política en [`docs/02-politicas/referencia/`](docs/
 | Catálogo: fechas de OAuthV1 aparentemente contradictorias | Dos anuncios distintos: Edge Cloud (2018) y Private Cloud (2020) |
 | Ejemplos de logging con `response.status.code` y timestamps etiquetados como latencias | `message.status.code` (válido también tras un error) y nombres `*_ts` |
 
+### Cuarta pasada (23 de octubre de 2026): áreas que faltaban en X/hybrid
+
+Se escribieron **23 documentos nuevos**, en `docs/11-hybrid/`, `12-api-hub/`, `13-advanced-api-security/`, `14-troubleshooting/`, `15-administracion/`, `16-adaptadores/` y `04-publicacion/03-monetizacion.md`. Se usó el mismo método de la tercera pasada: se descargaron con `scripts/extraer_pagina.py` unas 360 páginas oficiales, todas leídas, y en cada documento se dejan las fuentes con su fecha de consulta.
+
+Estos documentos son **síntesis**, no copias página a página. Los procedimientos paso a paso (comandos completos de instalación de hybrid, pantallas de la UI de API hub) remiten a la guía oficial de cada versión.
+
+**Errores corregidos en documentos previos:**
+
+| Error | Corrección |
+|---|---|
+| Varios códigos de error inexistentes en `10-referencia/02-codigos-de-error.md`: `IssuerMismatch`, `AudienceMismatch`, `ApplicationNotApproved`, `insufficient_scope`, `NoRoutesMatched` y `ExecutionFailed` para JavaScript y JavaCallout | Reemplazados por los oficiales: `JwtIssuerMismatch`, `JwtAudienceMismatch`, `invalid_client-app_not_approved`, `InsufficientScope`, `ScriptExecutionFailed` y `ExecutionError`. `NoRoutesMatched` se eliminó. |
+| `SslHandshakeFailed` documentado con HTTP 502 | Es **503**, según el catálogo oficial de runtime |
+| `ConcurrentRatelimtViolation` en la plantilla de FaultRules | Eliminado: la política está retirada y nunca existió en X |
+| Propiedades de TargetEndpoint sin defaults | Defaults verificados: `connect.timeout.millis` 3 s, `io.timeout.millis` 55 s, `keepalive.timeout.millis` 60 s en X. Se añade la regla de que el keep-alive de Apigee debe ser menor que el del backend. |
+
 ---
 
 ## Nivel A — Verificado contra fuente oficial
@@ -94,6 +109,7 @@ navegador) que devolvieron contenido sustantivo, o de código publicado por Goog
 | Fechas de EOL de Apigee Edge Private Cloud (4.53, 4.53.01, 4.52.x) y fecha de apagado de la Classic UI | Navegador — dos páginas completas de `docs.apigee.com` y `docs.cloud.google.com/apigee/docs/deprecations` |
 | Introducción a OAuth 2.0: roles, los cuatro grant types | Navegador — página completa (confirma el contenido ya escrito) |
 | `XSLTransform` (`<XSL>`) y `TraceCapture`: elemento XML, tipo Extensible, procesador Saxon | Navegador — páginas de referencia de cada política |
+| **Áreas 11 a 16 y monetización**: hybrid, API hub, Advanced API Security, troubleshooting, administración, adaptadores | Páginas oficiales leídas completas (cuarta pasada); las fuentes están en cada documento |
 | **[Referencia por política](docs/02-politicas/referencia/00-indice.md)**: los 71 archivos | Página oficial de X y de Edge leída completa, descargada con `scripts/extraer_pagina.py` (tercera pasada) |
 
 ---
