@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<APIProxy name="kb-api-key-cuota">
+  <DisplayName>kb-api-key-cuota</DisplayName>
+  <Description>API key en cabecera, escudo SpikeArrest, cuota del API product y errores JSON coherentes.</Description>
+</APIProxy>

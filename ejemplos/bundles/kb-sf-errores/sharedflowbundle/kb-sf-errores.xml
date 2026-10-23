@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharedFlowBundle name="kb-sf-errores">
+  <DisplayName>kb-sf-errores</DisplayName>
+  <Description>Formato de error JSON único para toda la plataforma. Se invoca desde la DefaultFaultRule de cada proxy con FlowCallout.</Description>
+</SharedFlowBundle>

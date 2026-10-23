@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignMessage name="AM-Error-403">
+  <DisplayName>AM-Error-403</DisplayName>
+  <Set>
+    <Headers>
+      <Header name="WWW-Authenticate">Bearer error="insufficient_scope"</Header>
+    </Headers>
+    <Payload contentType="application/json">{"error":"insufficient_scope","mensaje":"El token no tiene el scope recursos:leer.","peticion":"{messageid}"}</Payload>
+    <StatusCode>403</StatusCode>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

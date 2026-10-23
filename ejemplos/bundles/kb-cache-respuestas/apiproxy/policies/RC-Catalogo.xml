@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResponseCache name="RC-Catalogo">
+  <DisplayName>RC-Catalogo</DisplayName>
+  <CacheKey>
+    <Prefix>kb-catalogo</Prefix>
+    <KeyFragment ref="proxy.pathsuffix"/>
+    <KeyFragment ref="request.querystring"/>
+  </CacheKey>
+  <ExpirySettings>
+    <TimeoutInSeconds>300</TimeoutInSeconds>
+  </ExpirySettings>
+  <ExcludeErrorResponse>true</ExcludeErrorResponse>
+  <SkipCacheLookup>request.header.cache-control = "no-cache"</SkipCacheLookup>
+  <SkipCachePopulation>response.status.code != 200</SkipCachePopulation>
+</ResponseCache>

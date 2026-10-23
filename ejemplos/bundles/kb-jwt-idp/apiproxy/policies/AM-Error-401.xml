@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignMessage name="AM-Error-401">
+  <DisplayName>AM-Error-401</DisplayName>
+  <Set>
+    <Headers>
+      <Header name="WWW-Authenticate">Bearer error="invalid_token"</Header>
+    </Headers>
+    <Payload contentType="application/json">{"error":"invalid_token","mensaje":"El token falta, venció o no es válido.","peticion":"{messageid}"}</Payload>
+    <StatusCode>401</StatusCode>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProxyEndpoint name="default">
+  <HTTPProxyConnection>
+    <BasePath>/kb/v1/oauth-cc</BasePath>
+  </HTTPProxyConnection>
+  <PreFlow name="PreFlow">
+    <Request/>
+    <Response/>
+  </PreFlow>
+  <Flows>
+    <Flow name="emitir-token">
+      <Description>POST /token con grant_type=client_credentials y credenciales en Authorization: Basic.</Description>
+      <Condition>(proxy.pathsuffix MatchesPath "/token") and (request.verb = "POST")</Condition>
+      <Request>
+        <Step>
+          <Name>OA-Generar-Token</Name>
+        </Step>
+      </Request>
+      <Response/>
+    </Flow>
+    <Flow name="leer-recursos">
+      <Condition>(proxy.pathsuffix MatchesPath "/recursos/**") and (request.verb = "GET")</Condition>
+      <Request>
+        <Step>
+          <Name>OA-Verificar-Lectura</Name>
+        </Step>
+        <Step>
+          <Name>AM-Quitar-Authorization</Name>
+        </Step>
+      </Request>
+      <Response/>
+    </Flow>
+    <Flow name="no-encontrado">
+      <Description>Sin Condition: recoge todo lo que no emparejó los flujos anteriores.</Description>
+      <Request>
+        <Step>
+          <Name>RF-404</Name>
+        </Step>
+      </Request>
+      <Response/>
+    </Flow>
+  </Flows>
+  <PostFlow name="PostFlow">
+    <Request/>
+    <Response/>
+  </PostFlow>
+  <FaultRules>
+    <FaultRule name="token-invalido">
+      <Condition>(fault.name = "access_token_expired") or (fault.name = "invalid_access_token") or (fault.name = "InvalidAccessToken") or (fault.name = "access_token_not_approved")</Condition>
+      <Step>
+        <Name>AM-Error-401</Name>
+      </Step>
+    </FaultRule>
+    <FaultRule name="scope-insuficiente">
+      <Condition>fault.name = "InsufficientScope"</Condition>
+      <Step>
+        <Name>AM-Error-403</Name>
+      </Step>
+    </FaultRule>
+  </FaultRules>
+  <RouteRule name="sin-backend-para-token">
+    <Condition>proxy.pathsuffix MatchesPath "/token"</Condition>
+  </RouteRule>
+  <RouteRule name="default">
+    <TargetEndpoint>default</TargetEndpoint>
+  </RouteRule>
+</ProxyEndpoint>

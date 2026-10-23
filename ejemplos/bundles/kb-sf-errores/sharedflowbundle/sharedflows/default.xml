@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharedFlow name="default">
+  <Step>
+    <Name>AM-Clasificar-Error</Name>
+  </Step>
+  <Step>
+    <Name>AM-Error-JSON</Name>
+  </Step>
+</SharedFlow>

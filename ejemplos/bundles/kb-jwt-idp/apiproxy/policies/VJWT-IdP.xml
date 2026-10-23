@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VerifyJWT name="VJWT-IdP">
+  <DisplayName>VJWT-IdP</DisplayName>
+  <Algorithm>RS256</Algorithm>
+  <PublicKey>
+    <JWKS uri="https://idp.ejemplo.com/.well-known/jwks.json"/>
+  </PublicKey>
+  <Issuer>https://idp.ejemplo.com/</Issuer>
+  <Audience>api://kb-ejemplo</Audience>
+  <RequiredClaims>sub,exp,iat</RequiredClaims>
+  <MaxLifespan useIssueTime="true">1h</MaxLifespan>
+  <TimeAllowance>30s</TimeAllowance>
+</VerifyJWT>

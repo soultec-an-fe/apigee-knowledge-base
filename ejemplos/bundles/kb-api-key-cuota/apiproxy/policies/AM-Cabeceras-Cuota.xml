@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignMessage name="AM-Cabeceras-Cuota">
+  <DisplayName>AM-Cabeceras-Cuota</DisplayName>
+  <Set>
+    <Headers>
+      <Header name="X-RateLimit-Limit">{ratelimit.Q-Producto.allowed.count}</Header>
+      <Header name="X-RateLimit-Remaining">{ratelimit.Q-Producto.available.count}</Header>
+    </Headers>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

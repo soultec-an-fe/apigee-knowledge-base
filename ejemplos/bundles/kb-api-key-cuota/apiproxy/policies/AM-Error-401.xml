@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignMessage name="AM-Error-401">
+  <DisplayName>AM-Error-401</DisplayName>
+  <Set>
+    <Payload contentType="application/json">{"error":"invalid_credentials","mensaje":"Falta la API key o no es válida.","peticion":"{messageid}"}</Payload>
+    <StatusCode>401</StatusCode>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

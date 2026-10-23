@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignMessage name="AM-Propagar-Identidad">
+  <DisplayName>AM-Propagar-Identidad</DisplayName>
+  <Remove>
+    <Headers>
+      <Header name="Authorization"/>
+    </Headers>
+  </Remove>
+  <Set>
+    <Headers>
+      <Header name="X-Usuario">{jwt.VJWT-IdP.decoded.claim.sub}</Header>
+    </Headers>
+  </Set>
+  <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+</AssignMessage>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProxyEndpoint name="default">
+  <HTTPProxyConnection>
+    <BasePath>/kb/v1/api-key-cuota</BasePath>
+  </HTTPProxyConnection>
+  <PreFlow name="PreFlow">
+    <Request>
+      <Step>
+        <Name>SA-Escudo</Name>
+      </Step>
+      <Step>
+        <Name>VAK-Header</Name>
+      </Step>
+      <Step>
+        <Name>Q-Producto</Name>
+      </Step>
+      <Step>
+        <Name>AM-Quitar-API-Key</Name>
+      </Step>
+    </Request>
+    <Response/>
+  </PreFlow>
+  <Flows/>
+  <PostFlow name="PostFlow">
+    <Request/>
+    <Response>
+      <Step>
+        <Name>AM-Cabeceras-Cuota</Name>
+      </Step>
+    </Response>
+  </PostFlow>
+  <FaultRules>
+    <FaultRule name="credencial-invalida">
+      <Condition>(fault.name = "FailedToResolveAPIKey") or (fault.name = "InvalidApiKey") or (fault.name = "invalid_client-app_not_approved") or (fault.name = "DeveloperStatusNotActive")</Condition>
+      <Step>
+        <Name>AM-Error-401</Name>
+      </Step>
+    </FaultRule>
+    <FaultRule name="sin-acceso-al-recurso">
+      <Condition>fault.name = "InvalidApiKeyForGivenResource"</Condition>
+      <Step>
+        <Name>AM-Error-403</Name>
+      </Step>
+    </FaultRule>
+    <FaultRule name="limite-superado">
+      <Condition>(fault.name = "QuotaViolation") or (fault.name = "SpikeArrestViolation")</Condition>
+      <Step>
+        <Name>AM-Error-429</Name>
+      </Step>
+    </FaultRule>
+  </FaultRules>
+  <DefaultFaultRule name="por-defecto">
+    <AlwaysEnforce>false</AlwaysEnforce>
+    <Step>
+      <Name>AM-Error-Generico</Name>
+    </Step>
+  </DefaultFaultRule>
+  <RouteRule name="default">
+    <TargetEndpoint>default</TargetEndpoint>
+  </RouteRule>
+</ProxyEndpoint>

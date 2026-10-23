@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RaiseFault name="RF-403-Scope">
+  <DisplayName>RF-403-Scope</DisplayName>
+  <FaultResponse>
+    <Set>
+      <Headers>
+        <Header name="WWW-Authenticate">Bearer error="insufficient_scope", scope="api:escribir"</Header>
+      </Headers>
+      <Payload contentType="application/json">{"error":"insufficient_scope","mensaje":"La operación requiere el scope api:escribir.","peticion":"{messageid}"}</Payload>
+      <StatusCode>403</StatusCode>
+    </Set>
+  </FaultResponse>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

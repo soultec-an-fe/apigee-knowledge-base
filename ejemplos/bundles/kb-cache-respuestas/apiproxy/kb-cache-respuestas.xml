@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<APIProxy name="kb-cache-respuestas">
+  <DisplayName>kb-cache-respuestas</DisplayName>
+  <Description>ResponseCache por recurso y query, sin cachear errores, con bypass por Cache-Control: no-cache y cabecera de diagnóstico.</Description>
+</APIProxy>

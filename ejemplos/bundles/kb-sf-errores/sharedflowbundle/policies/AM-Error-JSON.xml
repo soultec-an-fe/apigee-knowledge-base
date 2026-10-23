@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignMessage name="AM-Error-JSON">
+  <DisplayName>AM-Error-JSON</DisplayName>
+  <Remove>
+    <Headers>
+      <Header name="X-Powered-By"/>
+      <Header name="Server"/>
+    </Headers>
+  </Remove>
+  <Set>
+    <Headers>
+      <Header name="X-Request-Id">{messageid}</Header>
+    </Headers>
+    <Payload contentType="application/json">{"error":"error_de_plataforma","estado":{kb.error.estado},"peticion":"{messageid}"}</Payload>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

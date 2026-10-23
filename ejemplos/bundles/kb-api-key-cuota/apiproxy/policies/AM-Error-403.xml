@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignMessage name="AM-Error-403">
+  <DisplayName>AM-Error-403</DisplayName>
+  <Set>
+    <Payload contentType="application/json">{"error":"forbidden","mensaje":"La credencial no da acceso a este recurso.","peticion":"{messageid}"}</Payload>
+    <StatusCode>403</StatusCode>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

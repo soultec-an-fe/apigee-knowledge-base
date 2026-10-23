@@ -1,0 +1,79 @@
+repo	ejemplo	tipo	bundle	politicas
+api-platform-samples	default-proxies/helloworld	proxy	default-proxies/helloworld	AssignMessage,Quota
+api-platform-samples	default-proxies/oauth	proxy	default-proxies/oauth	OAuthV2
+api-platform-samples	doc-samples/hosted-targets	proxy	doc-samples/hosted-targets/node-hosted-express	
+api-platform-samples	doc-samples/hosted-targets	proxy	doc-samples/hosted-targets/node-hosted-hello	
+api-platform-samples	doc-samples/java-cookbook	proxy	doc-samples/java-cookbook	JavaCallout,RaiseFault
+api-platform-samples	doc-samples/java-error	proxy	doc-samples/java-error	AssignMessage,JavaCallout
+api-platform-samples	doc-samples/java-hello	proxy	doc-samples/java-hello	AssignMessage,JavaCallout
+api-platform-samples	doc-samples/java-properties	proxy	doc-samples/java-properties	JavaCallout
+api-platform-samples	doc-samples/javascript-cookbook	proxy	doc-samples/javascript-cookbook	Javascript,XMLToJSON
+api-platform-samples	doc-samples/javascript-mashup-cookbook	proxy	doc-samples/javascript-mashup-cookbook	Javascript
+api-platform-samples	doc-samples/nodejs-baas-cookbook	proxy	doc-samples/nodejs-baas-cookbook	
+api-platform-samples	doc-samples/nodejs-hello	proxy	doc-samples/nodejs-hello	
+api-platform-samples	doc-samples/oauth-doc-examples	proxy	doc-samples/oauth-doc-examples	OAuthV2
+api-platform-samples	doc-samples/policy-mashup-cookbook	proxy	doc-samples/policy-mashup-cookbook	AssignMessage,ExtractVariables,Javascript,ServiceCallout,XMLToJSON
+api-platform-samples	edge-ux/basic-apikey-security	proxy	edge-ux/basic-apikey-security	VerifyAPIKey
+api-platform-samples	edge-ux/enforce-quota-simple	proxy	edge-ux/enforce-quota-simple	Quota
+api-platform-samples	edge-ux/extract-json-payload	proxy	edge-ux/extract-json-payload	AssignMessage,ExtractVariables
+api-platform-samples	edge-ux/fault-handling-apikey	proxy	edge-ux/fault-handling-apikey	AssignMessage,VerifyAPIKey
+api-platform-samples	edge-ux/proxy-to-target	proxy	edge-ux/proxy-to-target	
+api-platform-samples	edge-ux/response-cache-simple	proxy	edge-ux/response-cache-simple	ResponseCache
+api-platform-samples	learn-edge/apikey-security-1	proxy	learn-edge/apikey-security-1	VerifyAPIKey
+api-platform-samples	learn-edge/apikey-security-2	proxy	learn-edge/apikey-security-2	AssignMessage,VerifyAPIKey
+api-platform-samples	learn-edge/extract-json-payload	proxy	learn-edge/extract-json-payload	AssignMessage,ExtractVariables,ResponseCache,VerifyAPIKey
+api-platform-samples	learn-edge/extract-json-payload-2	proxy	learn-edge/extract-json-payload-2	AssignMessage,ExtractVariables,VerifyAPIKey
+api-platform-samples	learn-edge/extract-xml-payload	proxy	learn-edge/extract-xml-payload	AssignMessage,ExtractVariables,VerifyAPIKey
+api-platform-samples	learn-edge/fault-handling-1	proxy	learn-edge/fault-handling-1	AssignMessage,VerifyAPIKey
+api-platform-samples	learn-edge/fault-handling-2	proxy	learn-edge/fault-handling-2	AssignMessage,RaiseFault,VerifyAPIKey
+api-platform-samples	learn-edge/proxy-to-a-target	proxy	learn-edge/proxy-to-a-target	
+api-platform-samples	learn-edge/quota-1	proxy	learn-edge/quota-1	Quota,VerifyAPIKey
+api-platform-samples	learn-edge/response-cache-1	proxy	learn-edge/response-cache-1	AssignMessage,ResponseCache,VerifyAPIKey
+api-platform-samples	learn-edge/response-cache-2	proxy	learn-edge/response-cache-2	AssignMessage,ResponseCache,VerifyAPIKey
+api-platform-samples	learn-edge/service-callout-1	proxy	learn-edge/service-callout-1	AssignMessage,ExtractVariables,ServiceCallout,VerifyAPIKey
+api-platform-samples	learn-edge/service-callout-2	proxy	learn-edge/service-callout-2	AssignMessage,RaiseFault,ServiceCallout,VerifyAPIKey
+api-platform-samples	learn-edge/simplest-proxy	proxy	learn-edge/simplest-proxy	
+api-platform-samples	perf-proxies/perfproxy	proxy	perf-proxies/perfproxy	AssignMessage,ExtractVariables,FlowCallout,GenerateJWT,GraphQL,KeyValueMapOperations,MonetizationLimitsCheck,OAuthV2,Quota,RaiseFault,ResponseCache,Script,ServiceCallout,SpikeArrest,VerifyAPIKey,VerifyJWT,XMLToJSON,XSL
+api-platform-samples	perf-proxies/sharedflows	sharedflow	perf-proxies/sharedflows/sfassignmessage	AssignMessage
+api-platform-samples	sample-proxies/access-entity	proxy	sample-proxies/access-entity	AccessEntity,AssignMessage,ExtractVariables
+api-platform-samples	sample-proxies/advanced-api-services	proxy	sample-proxies/advanced-api-services/token-gen	AssignMessage,ExtractVariables,OAuthV2,RaiseFault,Script,VerifyAPIKey
+api-platform-samples	sample-proxies/advanced-api-services	proxy	sample-proxies/advanced-api-services/token-validate	AssignMessage,OAuthV2,RaiseFault,Script
+api-platform-samples	sample-proxies/apikey	proxy	sample-proxies/apikey	AssignMessage,Quota,VerifyAPIKey
+api-platform-samples	sample-proxies/async-callout	proxy	sample-proxies/async-callout	Javascript
+api-platform-samples	sample-proxies/base64encoder	proxy	sample-proxies/base64encoder	AssignMessage,Javascript
+api-platform-samples	sample-proxies/condition-pattern-matching	proxy	sample-proxies/condition-pattern-matching	AssignMessage,Javascript
+api-platform-samples	sample-proxies/conditional-policy	proxy	sample-proxies/conditional-policy	Script
+api-platform-samples	sample-proxies/dynamic-endpoint	proxy	sample-proxies/dynamic-endpoint	
+api-platform-samples	sample-proxies/graphql-sample	proxy	sample-proxies/graphql-sample/graphql-proxy	AssignMessage,ExtractVariables,Javascript,KeyValueMapOperations,RaiseFault,SpikeArrest
+api-platform-samples	sample-proxies/iterate-headers	proxy	sample-proxies/iterate-headers	AssignMessage,Javascript
+api-platform-samples	sample-proxies/jira-release-notes	proxy	sample-proxies/jira-release-notes	JSONToXML,XSL
+api-platform-samples	sample-proxies/json-patch-app-services	proxy	sample-proxies/json-patch-app-services	Javascript
+api-platform-samples	sample-proxies/kerberos-credential-mediation	proxy	sample-proxies/kerberos-credential-mediation	JavaCallout
+api-platform-samples	sample-proxies/oauth-advanced	proxy	sample-proxies/oauth-advanced/app/templates/login-app	AssignMessage,RaiseFault,VerifyAPIKey
+api-platform-samples	sample-proxies/oauth-advanced	proxy	sample-proxies/oauth-advanced/app/templates/oauth2	AssignMessage,JSONToXML,Javascript,OAuthV2
+api-platform-samples	sample-proxies/oauth-advanced	proxy	sample-proxies/oauth-advanced/app/templates/user-mgmt-v1	AssignMessage,ExtractVariables,Javascript,KeyValueMapOperations,OAuthV2,RaiseFault
+api-platform-samples	sample-proxies/oauth-advanced	proxy	sample-proxies/oauth-advanced/app/templates/webserver-app	AssignMessage,BasicAuthentication,ExtractVariables,ServiceCallout
+api-platform-samples	sample-proxies/oauth-client-credentials	proxy	sample-proxies/oauth-client-credentials	OAuthV2
+api-platform-samples	sample-proxies/oauth-login-app	proxy	sample-proxies/oauth-login-app	AssignMessage,OAuthV2,RaiseFault
+api-platform-samples	sample-proxies/oauth-validate-key-secret	proxy	sample-proxies/oauth-validate-key-secret	AssignMessage,ExtractVariables,OAuthV2,RaiseFault,ServiceCallout
+api-platform-samples	sample-proxies/oauth-verify-accesstoken	proxy	sample-proxies/oauth-verify-accesstoken	OAuthV2,Quota
+api-platform-samples	sample-proxies/oauth10a-3legged	proxy	sample-proxies/oauth10a-3legged	OAuthV1,ServiceCallout
+api-platform-samples	sample-proxies/outbound-oauth	proxy	sample-proxies/outbound-oauth	AssignMessage,Javascript,LookupCache,PopulateCache
+api-platform-samples	sample-proxies/pagination	proxy	sample-proxies/pagination	AssignMessage,ExtractVariables,ResponseCache,XSL
+api-platform-samples	sample-proxies/pagination	proxy	sample-proxies/pagination/restaurant_locator_target	AssignMessage
+api-platform-samples	sample-proxies/regex-protection	proxy	sample-proxies/regex-protection	RaiseFault,RegularExpressionProtection
+api-platform-samples	sample-proxies/response-cache	proxy	sample-proxies/response-cache	AssignMessage,ResponseCache
+api-platform-samples	sample-proxies/shared-flow	proxy	sample-proxies/shared-flow	FlowCallout
+api-platform-samples	sample-proxies/shared-flow	sharedflow	sample-proxies/shared-flow	VerifyAPIKey
+api-platform-samples	sample-proxies/simple-python	proxy	sample-proxies/simple-python	Script
+api-platform-samples	sample-proxies/soap	proxy	sample-proxies/soap	AssignMessage,ExtractVariables,Script,XSL
+api-platform-samples	sample-proxies/streaming	proxy	sample-proxies/streaming	
+api-platform-samples	sample-proxies/target-reroute	proxy	sample-proxies/target-reroute	ExtractVariables,Javascript
+api-platform-samples	sample-proxies/twitter-mobile-timeline	proxy	sample-proxies/twitter-mobile-timeline	AssignMessage,Javascript
+api-platform-samples	sample-proxies/twitter-oembed	proxy	sample-proxies/twitter-oembed	AssignMessage,Javascript
+api-platform-samples	sample-proxies/variables	proxy	sample-proxies/variables	AssignMessage,ExtractVariables,Javascript,XMLToJSON
+api-platform-samples	sample-proxies/xmltojson	proxy	sample-proxies/xmltojson	XMLToJSON
+api-platform-samples	samplets/Extract-Variables	proxy	samplets/Extract-Variables	AssignMessage,ExtractVariables,Javascript,RaiseFault
+api-platform-samples	tutorial-demos/firestore-demo	proxy	tutorial-demos/firestore-demo/proxies/Firestore Quickstart	AssignMessage,ExtractVariables,GenerateJWT,Javascript,ServiceCallout,VerifyAPIKey
+api-platform-samples	tutorial-demos/firestore-demo	sharedflow	tutorial-demos/firestore-demo/shared-flows/Firestore Adapter	AssignMessage,ExtractVariables,GenerateJWT,Javascript,ServiceCallout
+api-platform-samples	tutorial-demos/maps-demo	proxy	tutorial-demos/maps-demo	AssignMessage,ExtractVariables,Javascript,KeyValueMapOperations,Quota,ServiceCallout,VerifyAPIKey

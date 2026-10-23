@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<APIProxy name="kb-jwt-idp">
+  <DisplayName>kb-jwt-idp</DisplayName>
+  <Description>Valida access tokens JWT de un IdP externo (JWKS, iss, aud, vida máxima) y propaga la identidad al backend.</Description>
+</APIProxy>

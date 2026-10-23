@@ -8,7 +8,7 @@ elemento_xml: OAuthV2
 tipo_politica: extensible
 fuente: https://docs.cloud.google.com/apigee/docs/api-platform/reference/policies/oauthv2-policy
 fuente_edge: https://docs.apigee.com/api-platform/reference/policies/oauthv2-policy
-revisado: 2026-10-22
+revisado: 2026-10-23
 ---
 
 # OAuthV2 — referencia completa
@@ -201,6 +201,13 @@ Por defecto `VerifyAccessToken` lee `Authorization: Bearer <token>`. Con `<Acces
 
 > [!CAUTION]
 > Aceptar el token en query param (`<AccessToken>request.queryparam.token</AccessToken>`) es posible pero lo expone en logs y en `Referer`. RFC 6750 lo desaconseja.
+
+#### `<Scope>` en generación
+
+Los scopes que puede tener un token salen de los **API products de la app**: Apigee arma la unión de los scopes de todos sus productos. Si el cliente pide un scope que no está en esa lista, no lo obtiene.
+
+> [!WARNING]
+> **Sin scope pedido, el token recibe todos.** Si el cliente no envía `scope`, o lo envía vacío, o la operación `GenerateAccessToken` no tiene `<Scope>`, Apigee emite el token con **todos** los scopes de todos los productos de la app. Para aplicar mínimo privilegio, exige que la petición traiga `scope` (condición + [RaiseFault](raise-fault.md)) o reparte los permisos en productos distintos. Fuente: *Working with OAuth2 scopes* (consultada el 2026-10-23).
 
 #### `<Scope>` en verificación
 
@@ -518,3 +525,4 @@ Ver también el [catálogo de antipatrones](../../09-antipatrones/01-catalogo-an
 - Using JWT OAuth tokens: <https://docs.cloud.google.com/apigee/docs/api-platform/security/oauth/using-jwt-oauth> (consultada directamente, 2026-10-22).
 - Validating and invalidating access tokens: <https://docs.cloud.google.com/apigee/docs/api-platform/security/oauth/validating-and-invalidating-access-tokens> (consultada directamente, 2026-10-22).
 - RFC 6749 (OAuth 2.0), RFC 6750 (Bearer), RFC 7009 (revocación), RFC 9068 (JWT access tokens), RFC 9700 (Security BCP): <https://www.rfc-editor.org/>
+- Working with OAuth2 scopes: <https://docs.cloud.google.com/apigee/docs/api-platform/security/oauth/working-scopes> (consultada directamente, contenido completo, 2026-10-23).

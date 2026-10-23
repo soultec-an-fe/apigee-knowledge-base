@@ -1,0 +1,138 @@
+repo	ejemplo	tema	descripcion	docs
+apigee-samples	deploy-apigee-proxy	DevOps	Despliegue de un proxy con el plugin Maven de Apigee y Cloud Build.	docs/06-devops/03-cicd-github-actions.md,docs/06-devops/02-herramientas-cli.md
+apigee-samples	deploy-apigee-sharedflow	DevOps	Despliegue de un shared flow con el plugin Maven y Cloud Build.	docs/01-proxies/06-shared-flows-y-flow-hooks.md,docs/06-devops/02-herramientas-cli.md
+apigee-samples	deploy-apigee-config	DevOps	Despliegue de configuración (KVM, target servers, productos…) con el plugin Maven y Cloud Build.	docs/06-devops/02-herramientas-cli.md
+apigee-samples	authorize-idp-access-tokens	Seguridad	Autoriza access tokens JWT emitidos por un proveedor de identidad externo.	docs/02-politicas/referencia/verify-jwt.md,docs/03-seguridad/03-jwt-jws.md
+apigee-samples	oauth-client-credentials	Seguridad	OAuth 2.0 con el grant *client credentials*.	docs/02-politicas/referencia/oauthv2.md,docs/03-seguridad/02-oauth2.md
+apigee-samples	oauth-client-credentials-with-scope	Seguridad	*Client credentials* con control de acceso por scopes.	docs/02-politicas/referencia/oauthv2.md
+apigee-samples	cloud-logging	Operación	Logs personalizados a Cloud Logging con MessageLogging.	docs/02-politicas/referencia/message-logging.md
+apigee-samples	basic-caching	Tráfico	Caché de respuestas y de datos con las políticas de caché.	docs/02-politicas/referencia/response-cache.md,docs/02-politicas/referencia/claves-de-cache.md
+apigee-samples	basic-quota	Tráfico	Cuota básica de consumo por app.	docs/02-politicas/referencia/quota.md
+apigee-samples	apiproduct-operations	Publicación	Comportamiento de las *operations* de un API product.	docs/04-publicacion/01-api-products.md
+apigee-samples	cloud-run	Integración GCP	Invocar un servicio de Cloud Run desde Apigee con autenticación de Google.	docs/01-proxies/05-target-endpoints-y-servidores.md
+apigee-samples	integrated-developer-portal	Portales	Portal integrado de Apigee y publicación de API products en su catálogo.	docs/04-publicacion/02-developers-apps.md
+apigee-samples	drupal-developer-portal	Portales	Portal Drupal desde GCP Marketplace con el catálogo de productos.	docs/04-publicacion/02-developers-apps.md
+apigee-samples	exposing-to-internet	Redes	Exponer una instancia a internet con un balanceador HTTP(S) externo.	docs/15-administracion/03-redes-y-acceso.md
+apigee-samples	json-web-tokens	Seguridad	Generar y verificar JWT con las políticas estándar.	docs/02-politicas/referencia/generate-jwt.md,docs/02-politicas/referencia/verify-jwt.md
+apigee-samples	cors	Mediación	CORS para llamadas desde navegadores.	docs/02-politicas/referencia/cors.md
+apigee-samples	extract-variables	Mediación	Extraer variables y fijar cabeceras con ExtractVariables y AssignMessage.	docs/02-politicas/referencia/extract-variables.md,docs/02-politicas/referencia/assign-message.md
+apigee-samples	websockets	Protocolos	Exponer un servidor de WebSockets en Cloud Run de forma segura.	docs/01-proxies/05-target-endpoints-y-servidores.md
+apigee-samples	grpc	Protocolos	Exponer un servicio gRPC en Cloud Run de forma segura.	docs/01-proxies/05-target-endpoints-y-servidores.md
+apigee-samples	mtls-northbound	Seguridad	mTLS de entrada en el balanceador con una CA privada de GCP.	docs/03-seguridad/04-tls-mtls.md
+apigee-samples	property-set	Mediación	Leer un PropertySet desde AssignMessage.	docs/02-politicas/referencia/read-property-set.md
+apigee-samples	data-deidentification	Seguridad	Enmascarar datos de payloads JSON y XML con la API de DLP.	docs/02-politicas/referencia/service-callout.md
+apigee-samples	publish-to-apigee-portal	Portales	Publicar una especificación OpenAPI en el portal integrado con Maven y Cloud Build.	docs/06-devops/02-herramientas-cli.md
+apigee-samples	threat-protection	Seguridad	Protección frente a amenazas en JSON, XML y expresiones regulares.	docs/03-seguridad/05-threat-protection.md
+apigee-samples	composite-api	Mediación	API compuesta que combina varias llamadas a backends.	docs/02-politicas/referencia/service-callout.md
+apigee-samples	cloud-functions	Integración GCP	Proxy hacia una app en Cloud Functions.	docs/01-proxies/05-target-endpoints-y-servidores.md
+apigee-samples	grpc-web	Protocolos	Proxy hacia un servicio gRPC-Web en Cloud Run.	docs/01-proxies/05-target-endpoints-y-servidores.md
+apigee-samples	monolith-to-microservices-based-on-paths	Arquitectura	Fachada para migrar de monolito a microservicios por rutas.	docs/01-proxies/02-flujos-y-pipeline.md
+apigee-samples	extension-processor-http	Adaptadores	Políticas de Apigee sobre un Application Load Balancer con el Extension Processor (HTTP).	docs/16-adaptadores/02-extension-processor.md
+apigee-samples	extension-processor-grpc	Adaptadores	Extension Processor con tráfico gRPC.	docs/16-adaptadores/02-extension-processor.md
+apigee-samples	java-callout	Extensión	Uso de la política JavaCallout.	docs/02-politicas/referencia/java-callout.md
+apigee-samples	mtls-southbound	Seguridad	mTLS hacia el backend con keystore y truststore.	docs/15-administracion/04-tls-referencias-y-data-collectors.md
+apigee-samples	apihub-portal-publish	API hub	De API no gestionada en API hub a proxy gestionado publicado en el portal.	docs/12-api-hub/02-integraciones-y-funciones.md
+apigee-samples	traffic-mirroring-sharedflow	Arquitectura	Tráfico espejo (*shadow*) con un shared flow para probar endpoints nuevos sin afectar la respuesta.	docs/01-proxies/06-shared-flows-y-flow-hooks.md
+apigee-samples	spike-arrest	Tráfico	Suavizado de picos con SpikeArrest.	docs/02-politicas/referencia/spike-arrest.md
+apigee-samples	llm-token-limits	IA	Límites de consumo de tokens de LLM por API product.	docs/02-politicas/referencia/llm-token-quota.md,docs/07-ai-gateway/01-apigee-como-ai-gateway.md
+apigee-samples	llm-token-limits-v2	IA	Límites de tokens con las políticas estándar (LLMTokenQuota, PromptTokenLimit).	docs/02-politicas/referencia/llm-token-quota.md,docs/02-politicas/referencia/prompt-token-limit.md
+apigee-samples	llm-token-limits-per-user	IA	Límites de tokens por usuario final.	docs/02-politicas/referencia/llm-token-quota.md
+apigee-samples	llm-semantic-cache	IA	Caché semántica con la capa de caché de Apigee y Vector Search (versión con código propio).	docs/07-ai-gateway/01-apigee-como-ai-gateway.md
+apigee-samples	llm-semantic-cache-v2	IA	Caché semántica con las políticas estándar SemanticCacheLookup y SemanticCachePopulate.	docs/02-politicas/referencia/semantic-cache-lookup.md,docs/02-politicas/referencia/semantic-cache-populate.md
+apigee-samples	llm-circuit-breaking	IA	*Circuit breaking* entre varios LLM en aplicaciones RAG.	docs/07-ai-gateway/01-apigee-como-ai-gateway.md
+apigee-samples	llm-logging	IA	Registro de prompts y respuestas de LLM.	docs/02-politicas/referencia/message-logging.md
+apigee-samples	llm-routing	IA	Enrutamiento entre proveedores de LLM.	docs/07-ai-gateway/01-apigee-como-ai-gateway.md
+apigee-samples	llm-security	IA	Model Armor sobre los prompts (versión con código propio).	docs/07-ai-gateway/01-apigee-como-ai-gateway.md
+apigee-samples	llm-security-v2	IA	Model Armor con las políticas estándar SanitizeUserPrompt y SanitizeModelResponse.	docs/02-politicas/referencia/sanitize-user-prompt.md,docs/02-politicas/referencia/sanitize-llm-response.md
+apigee-samples	llm-vertexai-agent	IA	Agente de Vertex Agent Builder detrás de un proxy de Apigee.	docs/07-ai-gateway/01-apigee-como-ai-gateway.md
+apigee-samples	llm-function-calling	IA	Proxy configurado como *function call* de un LLM.	docs/07-ai-gateway/01-apigee-como-ai-gateway.md
+apigee-samples	llm-sse-security	IA	Streaming SSE con Model Armor sobre la respuesta.	docs/02-politicas/referencia/sanitize-llm-response.md
+apigee-samples	llm-sse-logging	IA	Streaming SSE con registro de la respuesta en Cloud Logging.	docs/02-politicas/referencia/message-logging.md
+apigee-samples	llm-inference-gateway	IA	Apigee con GKE Inference Gateway para autorización y límites.	docs/16-adaptadores/02-extension-processor.md
+apigee-samples	apigee-mcp	MCP y agentes	Servidor MCP que descubre especificaciones en API hub y las expone como *tools* a través de Apigee.	docs/07-ai-gateway/02-mcp-en-apigee.md
+apigee-samples	adk-auto-insurance-agent	MCP y agentes	Agente ADK de seguros que usa APIs de API hub como herramientas.	docs/12-api-hub/02-integraciones-y-funciones.md
+apigee-samples	apihub-plugins	API hub	Plugins para sincronizar metadatos de Azure APIM y AWS API Gateway con API hub.	docs/12-api-hub/02-integraciones-y-funciones.md
+devrel	references/common-shared-flows	Seguridad	Shared flows reutilizables de seguridad, tráfico, errores y CORS.	docs/01-proxies/06-shared-flows-y-flow-hooks.md
+devrel	references/java-callout	Extensión	Proyecto de referencia de una extensión Java.	docs/02-politicas/referencia/java-callout.md
+devrel	references/gcp-sa-auth-shared-flow	Integración GCP	Shared flow que obtiene access tokens de cuentas de servicio de GCP.	docs/01-proxies/06-shared-flows-y-flow-hooks.md
+devrel	references/cicd-pipeline	DevOps	Pipeline CI/CD con el plugin Maven, en Jenkins o Cloud Build.	docs/06-devops/03-cicd-github-actions.md
+devrel	references/cicd-sharedflow-pipeline	DevOps	Pipeline CI/CD para shared flows.	docs/06-devops/03-cicd-github-actions.md
+devrel	references/cloud-logging-shared-flow	Operación	Shared flow de registro en Cloud Logging.	docs/02-politicas/referencia/message-logging.md
+devrel	references/cloud-run	Integración GCP	Exponer un servicio de Cloud Run con Apigee.	docs/01-proxies/05-target-endpoints-y-servidores.md
+devrel	references/data-api	Arquitectura	Consumo de datos de una plataforma de datos a través de Apigee.	docs/01-proxies/01-anatomia-api-proxy.md
+devrel	references/data-converters-shared-flow	Mediación	Shared flow de conversiones JSON habituales en respuestas.	docs/02-politicas/referencia/json-xml.md
+devrel	references/product-recommendations	Arquitectura	API inteligente con BigQuery ML y Cloud Spanner.	docs/01-proxies/01-anatomia-api-proxy.md
+devrel	references/proxy-template	DevOps	Plantillas para generar proxies con seguridad, tráfico y manejo de errores.	docs/08-mejores-practicas/01-diseno-y-desarrollo.md
+devrel	references/js-callout	Extensión	Buenas prácticas para escribir JavaScript en Apigee.	docs/02-politicas/referencia/javascript.md
+devrel	references/southbound-mtls	Seguridad	mTLS de cliente hacia backends.	docs/15-administracion/04-tls-referencias-y-data-collectors.md
+devrel	references/oidc-mock	Seguridad	Proveedor de identidad OIDC simulado.	docs/03-seguridad/02-oauth2.md
+devrel	references/identity-facade	Seguridad	Fachada de identidad delante de un IdP compatible con OIDC.	docs/03-seguridad/02-oauth2.md
+devrel	references/oauth-admin-api	Seguridad	API para revocar tokens emitidos por Apigee por app o por usuario.	docs/02-politicas/referencia/revoke-oauth-v2.md
+devrel	references/dutch-healthcare	Sectorial	Referencia para los estándares sanitarios de Países Bajos.	docs/03-seguridad/02-oauth2.md
+devrel	references/threat-protect	Seguridad	Protección frente a amenazas XML y JSON.	docs/03-seguridad/05-threat-protection.md
+devrel	references/auth-schemes	Seguridad	Implementaciones de esquemas de autenticación habituales.	docs/03-seguridad/01-apikeys.md
+devrel	references/recaptcha-enterprise	Seguridad	Protección frente a bots con reCAPTCHA Enterprise.	docs/13-advanced-api-security/02-deteccion-y-acciones.md
+devrel	references/firestore-facade	Arquitectura	Caché o almacenamiento de largo plazo con Cloud Firestore.	docs/05-operacion/04-caching-y-persistencia.md
+devrel	references/openapi-mock	DevOps	Proxy *mock* generado desde una especificación OpenAPI 3.	docs/02-politicas/referencia/oas-validation.md
+devrel	references/apigee-skills-serving	MCP y agentes	API hub como catálogo versionado y firmado de *skills* de agentes.	docs/12-api-hub/02-integraciones-y-funciones.md
+devrel	tools/pipeline-runner	Herramientas	Construye y prueba grupos de proyectos de Apigee.	docs/06-devops/03-cicd-github-actions.md
+devrel	tools/pipeline-linter	Herramientas	*Linter* para grupos de proyectos de Apigee.	docs/06-devops/03-cicd-github-actions.md
+devrel	tools/hybrid-quickstart	Herramientas	Configuración rápida de hybrid sobre GKE.	docs/11-hybrid/02-instalacion.md
+devrel	tools/decrypt-hybrid-assets	Herramientas	Utilidad de rescate para descifrar proxies y shared flows de hybrid.	docs/11-hybrid/04-operacion-y-troubleshooting.md
+devrel	tools/apigee-x-trial-provision	Herramientas	Script de aprovisionamiento de una organización de prueba de Apigee X.	docs/00-fundamentos/04-organizaciones-entornos-grupos.md
+devrel	tools/apigee-sackmesser	Herramientas	Utilidad unificada de despliegue para Edge, hybrid y X.	docs/06-devops/02-herramientas-cli.md
+devrel	tools/apigee-openlegacy	Herramientas	Integración de OpenLegacy, Apigee y Cloud Run.	docs/01-proxies/05-target-endpoints-y-servidores.md
+devrel	tools/oas-apigee-mock	Herramientas	Genera un bundle con respuestas *mock* a partir de una especificación.	docs/06-devops/02-herramientas-cli.md
+devrel	tools/endpoints-oas-importer	Herramientas	Genera proxies desde especificaciones con extensiones de Cloud Endpoints.	docs/06-devops/02-herramientas-cli.md
+devrel	tools/sf-dependency-list	Herramientas	Ordena topológicamente las dependencias entre shared flows.	docs/01-proxies/06-shared-flows-y-flow-hooks.md
+devrel	tools/apigee-envoy-quickstart	Herramientas	Despliegues de ejemplo del adapter for Envoy.	docs/16-adaptadores/04-envoy-adapter.md
+devrel	tools/proxy-endpoint-unifier	Herramientas	Une o separa ProxyEndpoints según el basepath.	docs/01-proxies/01-anatomia-api-proxy.md
+devrel	tools/target-server-validator	Herramientas	Valida los targets de TargetServers y bundles.	docs/01-proxies/05-target-endpoints-y-servidores.md
+devrel	tools/grpc-http-gateway-generator	Herramientas	Genera gateways HTTP para exponer servicios gRPC.	docs/01-proxies/05-target-endpoints-y-servidores.md
+devrel	tools/apigee-proxy-modifier-validator	Herramientas	Modificaciones masivas de proxies al migrar a variantes nuevas de Apigee.	docs/00-fundamentos/02-ediciones-y-comparativa.md
+devrel	tools/apigee-edge-to-x-migration-tool	Herramientas	Acelerador de migración de Edge a X (Node.js).	docs/00-fundamentos/02-ediciones-y-comparativa.md
+devrel	tools/apigee-config-diff	Herramientas	Detecta y despliega solo los cambios de configuración.	docs/06-devops/02-herramientas-cli.md
+devrel	labs/best-practices-hackathon	Labs	Laboratorio de nivel 300 sobre buenas prácticas.	docs/08-mejores-practicas/01-diseno-y-desarrollo.md
+devrel	labs/bdd-proxy-development	Labs	Laboratorio de nivel 200 de desarrollo guiado por comportamiento (BDD) a partir de OpenAPI.	docs/06-devops/01-ciclo-de-vida.md
+devrel	labs/idp-okta-integration	Labs	Fachada de identidad con Okta (nivel 300).	docs/03-seguridad/02-oauth2.md
+devrel	labs/eventarc-apihub	Labs	Despliegue automatizado de proxies con API hub y Eventarc.	docs/12-api-hub/02-integraciones-y-funciones.md
+openbank	apiproxies/identity-v1	Open Banking	Servidor de identidad y autorización OAuth 2.0/OIDC de la referencia de Open Banking.	docs/03-seguridad/02-oauth2.md
+openbank	apiproxies/mock-tpp-v1	Open Banking	TPP (tercero) simulado para probar los flujos.	docs/03-seguridad/02-oauth2.md
+openbank	apiproxies/sandboxes-v1	Open Banking	Sandboxes de las APIs de Open Banking generadas desde las especificaciones oficiales (OBIE).	docs/02-politicas/referencia/oas-validation.md
+openbank	sharedflows/authcode-externaltoken	Open Banking	Shared flow de *authorization code* con token externo.	docs/02-politicas/referencia/oauthv2.md
+openbank	sharedflows/clientcredentials-token	Open Banking	Shared flow de *client credentials*.	docs/02-politicas/referencia/oauthv2.md
+openbank	sharedflows/cors-error-v1	Open Banking	Cabeceras CORS en respuestas de error.	docs/02-politicas/referencia/cors.md
+openbank	sharedflows/cors-headers-v1	Open Banking	Cabeceras CORS en respuestas normales.	docs/02-politicas/referencia/cors.md
+openbank	sharedflows/cors-options-v1	Open Banking	Respuesta a las peticiones *preflight* `OPTIONS`.	docs/02-politicas/referencia/cors.md
+openbank	sharedflows/dynamic-registration	Open Banking	Registro dinámico de clientes (DCR) de TPP.	docs/04-publicacion/02-developers-apps.md
+openbank	sharedflows/mock-jwks	Open Banking	JWKS simulado para pruebas de firma.	docs/02-politicas/referencia/jwt-jws-conceptos.md
+openbank	sharedflows/traffic-mgmt-v1	Open Banking	Gestión de tráfico común con SpikeArrest.	docs/02-politicas/referencia/quota.md
+openbank	sharedflows/verify-eidas-v1	Open Banking	Verificación del certificado eIDAS del TPP con un JavaCallout; en la guía, el certificado llega en la cabecera `SSL-CLIENT-CERT`.	docs/03-seguridad/04-tls-mtls.md
+openbank	sharedflows/verifyaccesstoken	Open Banking	Verificación del access token.	docs/02-politicas/referencia/oauthv2.md
+api-platform-samples	sample-proxies/access-entity	Seguridad	Recuperar perfiles de entidades (developers, apps, productos).	docs/02-politicas/referencia/access-entity.md
+api-platform-samples	sample-proxies/apikey	Seguridad	Validar una API key y aplicar la cuota del API product.	docs/02-politicas/referencia/verify-api-key.md
+api-platform-samples	sample-proxies/async-callout	Extensión	Llamadas asíncronas desde JavaScript (el backend de Yahoo ya no funciona sin key).	docs/02-politicas/referencia/javascript.md
+api-platform-samples	sample-proxies/base64encoder	Extensión	Librerías de terceros en JavaScript.	docs/02-politicas/referencia/javascript.md
+api-platform-samples	sample-proxies/condition-pattern-matching	Proxies	Probar condiciones y *pattern matching*.	docs/01-proxies/03-condiciones.md
+api-platform-samples	sample-proxies/conditional-policy	Proxies	Aplicación condicional de políticas.	docs/01-proxies/03-condiciones.md
+api-platform-samples	sample-proxies/dynamic-endpoint	Proxies	Cambiar el target dinámicamente en runtime.	docs/01-proxies/05-target-endpoints-y-servidores.md
+api-platform-samples	sample-proxies/graphql-sample	Mediación	Política GraphQL.	docs/02-politicas/referencia/graphql.md
+api-platform-samples	sample-proxies/iterate-headers	Extensión	Recorrer cabeceras de una respuesta de `httpClient`.	docs/02-politicas/referencia/javascript.md
+api-platform-samples	sample-proxies/oauth-advanced	Seguridad	OAuth 2.0 *authorization code* completo con Apigee como servidor de autorización.	docs/02-politicas/referencia/oauthv2.md
+api-platform-samples	sample-proxies/oauth-client-credentials	Seguridad	Token OAuth con *client credentials*.	docs/02-politicas/referencia/oauthv2.md
+api-platform-samples	sample-proxies/oauth-login-app	Seguridad	App de login para varios grants OAuth.	docs/02-politicas/referencia/oauthv2.md
+api-platform-samples	sample-proxies/oauth-validate-key-secret	Seguridad	Validar *client key* y *secret* en el grant *password*.	docs/02-politicas/referencia/oauthv2.md
+api-platform-samples	sample-proxies/oauth-verify-accesstoken	Seguridad	Acceso a un recurso con access token.	docs/02-politicas/referencia/oauthv2.md
+api-platform-samples	sample-proxies/oauth10a-3legged	Seguridad	⚠️ OAuth 1.0a de tres patas: política retirada.	docs/02-politicas/00-catalogo-de-politicas.md
+api-platform-samples	sample-proxies/outbound-oauth	Seguridad	Obtener y reutilizar tokens OAuth hacia el backend.	docs/02-politicas/referencia/service-callout.md
+api-platform-samples	sample-proxies/pagination	Mediación	Paginar una respuesta cacheada con XSLT.	docs/02-politicas/referencia/xsl-transform.md
+api-platform-samples	sample-proxies/regex-protection	Seguridad	Protección frente a inyección SQL con RegularExpressionProtection.	docs/02-politicas/referencia/regular-expression-protection.md
+api-platform-samples	sample-proxies/response-cache	Tráfico	Caché de respuestas.	docs/02-politicas/referencia/response-cache.md
+api-platform-samples	sample-proxies/shared-flow	Proxies	Shared flow de ejemplo.	docs/01-proxies/06-shared-flows-y-flow-hooks.md
+api-platform-samples	sample-proxies/simple-python	Extensión	Script Python en el flujo.	docs/02-politicas/referencia/python-script.md
+api-platform-samples	sample-proxies/soap	Mediación	Paso directo (*passthrough*) de SOAP.	docs/02-politicas/referencia/message-validation.md
+api-platform-samples	sample-proxies/streaming	Proxies	Streaming HTTP.	docs/01-proxies/05-target-endpoints-y-servidores.md
+api-platform-samples	sample-proxies/target-reroute	Proxies	Reescribir la URL del target.	docs/01-proxies/05-target-endpoints-y-servidores.md
+api-platform-samples	sample-proxies/variables	Mediación	Extraer variables de XML y JSON y asignarlas a cabeceras.	docs/02-politicas/referencia/extract-variables.md
+api-platform-samples	sample-proxies/xmltojson	Mediación	Convertir XML a JSON.	docs/02-politicas/referencia/xml-json.md
+api-platform-samples	sample-proxies/kerberos-credential-mediation	Seguridad	Mediación de credenciales Kerberos.	docs/02-politicas/referencia/java-callout.md

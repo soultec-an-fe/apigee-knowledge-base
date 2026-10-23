@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignMessage name="AM-Error-429">
+  <DisplayName>AM-Error-429</DisplayName>
+  <Set>
+    <Payload contentType="application/json">{"error":"too_many_requests","mensaje":"Se superó el límite de consumo; reintenta más tarde.","peticion":"{messageid}"}</Payload>
+    <StatusCode>429</StatusCode>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

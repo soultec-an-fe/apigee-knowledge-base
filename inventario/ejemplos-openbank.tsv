@@ -1,0 +1,14 @@
+repo	ejemplo	tipo	bundle	politicas
+openbank	apiproxies/identity-v1	proxy	apiproxies/identity-v1	AssignMessage,FlowCallout
+openbank	apiproxies/mock-tpp-v1	proxy	apiproxies/mock-tpp-v1	AssignMessage,FlowCallout
+openbank	apiproxies/sandboxes-v1	proxy	apiproxies/sandboxes-v1	FlowCallout
+openbank	sharedflows/authcode-externaltoken	sharedflow	sharedflows/authcode-externaltoken	AssignMessage,BasicAuthentication,ExtractVariables,OAuthV2,ServiceCallout,VerifyAPIKey
+openbank	sharedflows/clientcredentials-token	sharedflow	sharedflows/clientcredentials-token	OAuthV2
+openbank	sharedflows/cors-error-v1	sharedflow	sharedflows/cors-error-v1	AssignMessage
+openbank	sharedflows/cors-headers-v1	sharedflow	sharedflows/cors-headers-v1	AssignMessage
+openbank	sharedflows/cors-options-v1	sharedflow	sharedflows/cors-options-v1	RaiseFault
+openbank	sharedflows/dynamic-registration	sharedflow	sharedflows/dynamic-registration	AssignMessage,ExtractVariables,Javascript,KeyValueMapOperations,ServiceCallout
+openbank	sharedflows/mock-jwks	sharedflow	sharedflows/mock-jwks	AssignMessage
+openbank	sharedflows/traffic-mgmt-v1	sharedflow	sharedflows/traffic-mgmt-v1	SpikeArrest
+openbank	sharedflows/verify-eidas-v1	sharedflow	sharedflows/verify-eidas-v1	JavaCallout
+openbank	sharedflows/verifyaccesstoken	sharedflow	sharedflows/verifyaccesstoken	OAuthV2

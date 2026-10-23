@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignMessage name="AM-Clasificar-Error">
+  <DisplayName>AM-Clasificar-Error</DisplayName>
+  <AssignVariable>
+    <Name>kb.error.estado</Name>
+    <Ref>message.status.code</Ref>
+    <Value>500</Value>
+  </AssignVariable>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

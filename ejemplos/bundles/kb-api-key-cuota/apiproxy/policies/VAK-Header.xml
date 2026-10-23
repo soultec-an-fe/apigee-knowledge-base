@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VerifyAPIKey name="VAK-Header">
+  <DisplayName>VAK-Header</DisplayName>
+  <APIKey ref="request.header.x-api-key"/>
+</VerifyAPIKey>

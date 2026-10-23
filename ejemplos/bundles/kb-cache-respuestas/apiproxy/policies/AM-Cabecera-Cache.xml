@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignMessage name="AM-Cabecera-Cache">
+  <DisplayName>AM-Cabecera-Cache</DisplayName>
+  <Set>
+    <Headers>
+      <Header name="X-Cache-Hit">{responsecache.RC-Catalogo.cachehit}</Header>
+    </Headers>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

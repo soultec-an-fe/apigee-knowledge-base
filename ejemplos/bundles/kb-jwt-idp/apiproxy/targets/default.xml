@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TargetEndpoint name="default">
+  <PreFlow name="PreFlow">
+    <Request/>
+    <Response/>
+  </PreFlow>
+  <Flows/>
+  <PostFlow name="PostFlow">
+    <Request/>
+    <Response/>
+  </PostFlow>
+  <HTTPTargetConnection>
+    <Properties>
+      <Property name="connect.timeout.millis">3000</Property>
+      <Property name="io.timeout.millis">10000</Property>
+    </Properties>
+    <URL>https://mocktarget.apigee.net</URL>
+  </HTTPTargetConnection>
+</TargetEndpoint>

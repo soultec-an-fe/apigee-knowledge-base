@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Valida los Markdown de docs/: frontmatter obligatorio, XML bien formado y enlaces internos.
+"""Valida los Markdown de docs/ y ejemplos/: frontmatter obligatorio, XML bien formado y enlaces internos.
 
 Uso:
-    python3 scripts/validar_docs.py            # todo docs/
+    python3 scripts/validar_docs.py            # todo docs/ y ejemplos/
     python3 scripts/validar_docs.py RUTA...    # solo esos archivos
 
 Sale con código 1 si hay errores. Solo usa la biblioteca estándar.
@@ -27,6 +27,7 @@ import xml.etree.ElementTree as ET
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 DOCS = RAIZ / "docs"
+EJEMPLOS = RAIZ / "ejemplos"
 CAMPOS = ("id", "titulo", "area", "tags", "aplica_a", "fuente", "revisado")
 BLOQUE_XML = re.compile(r"^```xml\n(.*?)^```", re.S | re.M)
 ENLACE = re.compile(r"\]\((?!https?://|mailto:)([^)#\s]*)(#[^)\s]*)?\)")
@@ -105,10 +106,11 @@ def validar(ruta: pathlib.Path, ids: dict[str, pathlib.Path]) -> list[str]:
 
 
 def main(argv: list[str]) -> int:
-    rutas = [pathlib.Path(a).resolve() for a in argv] or sorted(DOCS.rglob("*.md"))
+    todos = sorted(DOCS.rglob("*.md")) + sorted(EJEMPLOS.rglob("*.md"))
+    rutas = [pathlib.Path(a).resolve() for a in argv] or todos
     ids: dict[str, pathlib.Path] = {}
     if argv:  # ids del resto del repo, para detectar duplicados
-        for otra in DOCS.rglob("*.md"):
+        for otra in todos:
             fm = frontmatter(otra.read_text())
             if fm and fm.get("id") and otra.resolve() not in rutas:
                 ids[fm["id"]] = otra

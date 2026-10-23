@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignMessage name="AM-Error-Generico">
+  <DisplayName>AM-Error-Generico</DisplayName>
+  <Set>
+    <Payload contentType="application/json">{"error":"internal_error","mensaje":"Error interno. Usa el identificador de la petición al contactar con soporte.","peticion":"{messageid}"}</Payload>
+    <StatusCode>500</StatusCode>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

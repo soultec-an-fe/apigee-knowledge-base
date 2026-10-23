@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpikeArrest name="SA-Escudo">
+  <DisplayName>SA-Escudo</DisplayName>
+  <Rate>100ps</Rate>
+  <UseEffectiveCount>true</UseEffectiveCount>
+</SpikeArrest>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Quota name="Q-Producto">
+  <DisplayName>Q-Producto</DisplayName>
+  <UseQuotaConfigInAPIProduct stepName="VAK-Header">
+    <DefaultConfig>
+      <Allow>1000</Allow>
+      <Interval>1</Interval>
+      <TimeUnit>month</TimeUnit>
+    </DefaultConfig>
+  </UseQuotaConfigInAPIProduct>
+  <Identifier ref="client_id"/>
+  <Distributed>true</Distributed>
+  <Synchronous>false</Synchronous>
+</Quota>

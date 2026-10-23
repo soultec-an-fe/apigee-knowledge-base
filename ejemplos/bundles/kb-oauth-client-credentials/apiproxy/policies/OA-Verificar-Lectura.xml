@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OAuthV2 name="OA-Verificar-Lectura">
+  <DisplayName>OA-Verificar-Lectura</DisplayName>
+  <Operation>VerifyAccessToken</Operation>
+  <Scope>recursos:leer</Scope>
+</OAuthV2>
