@@ -163,13 +163,13 @@ También existe `<TCPMonitor>` para comprobar solo la apertura del socket.
 
 | Propiedad | Efecto | Recomendación |
 |---|---|---|
-| `connect.timeout.millis` | Timeout de establecimiento de conexión TCP | 3.000–5.000 ms |
-| `io.timeout.millis` | Timeout de lectura de la respuesta | Menor que el timeout del cliente. Máximo de plataforma: **300 s** |
+| `connect.timeout.millis` | Timeout de establecimiento de conexión TCP. **Default: 3 s.** Al superarse, `503` con `TARGET_CONNECT_TIMEOUT`. | 3.000–5.000 ms |
+| `io.timeout.millis` | Timeout de lectura de la respuesta. **Default: 55 s.** Al superarse, `504` con `TARGET_READ_TIMEOUT`. | Menor que el timeout del cliente. Máximo de plataforma: **300 s** |
 | `success.codes` | Qué códigos se consideran éxito | Amplíalo solo si el backend usa 4xx como flujo normal |
 | `request.streaming.enabled` | Streaming de la petición | `true` solo si el payload supera los límites de buffer |
 | `response.streaming.enabled` | Streaming de la respuesta | Ídem |
 | `supports.http10` | Compatibilidad HTTP/1.0 | Dejar en `false` |
-| `keepalive.timeout.millis` | Reutilización de conexión | **No lo pongas a 0**: desactivar keep-alive es un antipatrón |
+| `keepalive.timeout.millis` | Reutilización de conexión. **Default en X: 60 s.** | **Menor que el keep-alive del backend**: si es igual o mayor, aparecen `502 UnexpectedEOFAtTarget` intermitentes. **No lo pongas a 0**: desactivar keep-alive es un antipatrón. |
 
 ### success.codes
 
@@ -280,3 +280,4 @@ Encadenamiento local:
 - <https://cloud.google.com/apigee/docs/api-platform/deploy/load-balancing-across-backend-servers>
 - <https://cloud.google.com/apigee/docs/api-platform/reference/limits>
 - <https://docs.apigee.com/api-platform/antipatterns/load-balancer-single-target>
+- Playbooks 504 TARGET_READ_TIMEOUT, 503 TARGET_CONNECT_TIMEOUT y 502 Unexpected EOF (defaults de `io.timeout.millis`, `connect.timeout.millis` y `keepalive.timeout.millis`): <https://docs.cloud.google.com/apigee/docs/api-platform/troubleshoot/playbooks/introduction> (consultada directamente, 2026-10-23).
