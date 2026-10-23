@@ -7,7 +7,7 @@ x-hybrid	apihub	75	18	24
 x-hybrid	api-platform/get-started	58	2	3
 x-hybrid	api-platform/publish	53	4	8
 x-hybrid	api-platform/integration	42	0	0
-x-hybrid	api-platform/security	41	6	15
+x-hybrid	api-platform/security	41	7	17
 x-hybrid	api-platform/envoy-adapter	39	4	10
 x-hybrid	api-platform/system-administration	36	28	78
 x-hybrid	api-platform/analytics	28	1	4

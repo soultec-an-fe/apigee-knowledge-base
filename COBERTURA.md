@@ -77,12 +77,17 @@ Estado: ✅ cubierto · 🟡 parcial · ❌ ausente · 🔧 en curso.
 
 ## Ejemplos oficiales
 
-| Repositorio | Edición | Ejemplos | Estado |
-|---|---|---|---|
-| [GoogleCloudPlatform/apigee-samples](https://github.com/GoogleCloudPlatform/apigee-samples) | X / hybrid | 57 | ❌ Por mapear en `ejemplos/` |
-| [apigee/devrel](https://github.com/apigee/devrel) (`references/`, `labs/`, `tools/`) | X / hybrid | 44 | ❌ Por mapear |
-| [apigee/api-platform-samples](https://github.com/apigee/api-platform-samples) (archivado) | Edge | 34 | ❌ Por mapear |
-| [apigee/openbank](https://github.com/apigee/openbank) | X / Edge | 1 implementación de referencia | ❌ Por mapear |
+| Repositorio | Edición | Ejemplos descritos | Bundles inventariados | Estado |
+|---|---|---|---|---|
+| [GoogleCloudPlatform/apigee-samples](https://github.com/GoogleCloudPlatform/apigee-samples) | X / hybrid | 53 | 62 | ✅ [Mapa](ejemplos/01-apigee-samples.md) |
+| [apigee/devrel](https://github.com/apigee/devrel) (`references/`, `labs/`, `tools/`) | X / hybrid | 44 | 52 | ✅ [Mapa](ejemplos/02-devrel.md) |
+| [apigee/openbank](https://github.com/apigee/openbank) | **Edge** (no X: usa `HostedTarget` y la API de gestión de Edge) | 13 | 13 | ✅ [Mapa](ejemplos/03-openbank.md) |
+| [apigee/api-platform-samples](https://github.com/apigee/api-platform-samples) (archivado) | Edge | 27 descritos + 43 solo inventariados | 78 | ✅ [Mapa](ejemplos/04-api-platform-samples.md) |
+
+Además: [índice de ejemplos por política](ejemplos/05-indice-por-politica.md) y [5 bundles propios](ejemplos/bundles/README.md) validados con `scripts/validar_bundles.py` y `apigeelint`.
+
+> [!NOTE]
+> **Corrección:** la versión anterior de esta tabla daba `apigee/openbank` como compatible con X y Edge. Su código usa `<HostedTarget/>`, que no existe en X, y su guía usa la API de gestión de Edge.
 
 ## Plan de trabajo
 
@@ -92,7 +97,7 @@ Estado: ✅ cubierto · 🟡 parcial · ❌ ausente · 🔧 en curso.
 | 2 | Referencia por política: 65 de X/hybrid + 4 exclusivas de Edge | ✅ 69 hechas, más 2 documentos de conceptos y el [índice](docs/02-politicas/referencia/00-indice.md) |
 | 3 | Áreas ausentes de X/hybrid: hybrid, troubleshooting, administración, API hub, Advanced API Security, adaptadores, monetización | ✅ 23 documentos nuevos y la verificación de los códigos de error. Pendientes: Apigee Integration y el detalle paso a paso de hybrid y API hub |
 | 4 | Edge (`docs/17-edge/`): Private Cloud, Microgateway, Node.js, API Monitoring, monetización, diferencias por área | Pendiente |
-| 5 | Mapa de ejemplos oficiales y bundles propios validados | Pendiente |
+| 5 | Mapa de ejemplos oficiales y bundles propios validados | ✅ 4 repositorios mapeados (205 bundles), 5 bundles propios con 0 errores de `apigeelint`; generación reproducible con `scripts/mapa_ejemplos.py` y `scripts/generar_mapa_ejemplos.py` |
 | 6 | Índices (`README.md`, `llms.txt`), `PROCEDENCIA.md` y esta matriz actualizados | Continuo |
 
 ## Discrepancias encontradas en la documentación oficial

@@ -101,3 +101,8 @@ Reglas de uso para el modelo:
 - [Extension Processor](docs/16-adaptadores/02-extension-processor.md)
 - [Operator for Kubernetes](docs/16-adaptadores/03-apim-operator-kubernetes.md)
 - [Adapter for Envoy](docs/16-adaptadores/04-envoy-adapter.md)
+
+## Ejemplos
+- [Mapa de ejemplos oficiales](ejemplos/README.md): qué muestra cada ejemplo de Google y qué políticas usa.
+- [Ejemplos por política](ejemplos/05-indice-por-politica.md): configuraciones reales de cada política.
+- [Bundles propios](ejemplos/bundles/README.md): proxies completos validados con apigeelint, en `ejemplos/bundles/<nombre>/apiproxy/`.

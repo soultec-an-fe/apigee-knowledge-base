@@ -115,6 +115,11 @@ cat apigee-knowledge-base/docs/**/*.md > contexto-apigee.md
 - [Códigos de error](docs/10-referencia/02-codigos-de-error.md)
 - [Fuentes oficiales](docs/10-referencia/03-fuentes-oficiales.md)
 
+### Ejemplos
+- [Mapa de los ejemplos oficiales](ejemplos/README.md): apigee-samples, devrel, openbank y api-platform-samples, con las políticas que usa cada uno
+- [Ejemplos por política](ejemplos/05-indice-por-politica.md)
+- [Bundles propios validados](ejemplos/bundles/README.md): API key + cuota, OAuth client credentials, JWT de IdP, caché de respuestas y shared flow de errores
+
 ### 11 · Apigee hybrid
 - [Arquitectura, datos, puertos y dimensionamiento](docs/11-hybrid/01-arquitectura-y-planificacion.md)
 - [Instalación con Helm y cuentas de servicio](docs/11-hybrid/02-instalacion.md)

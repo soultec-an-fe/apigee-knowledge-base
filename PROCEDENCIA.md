@@ -83,6 +83,14 @@ Estos documentos son **síntesis**, no copias página a página. Los procedimien
 | `ConcurrentRatelimtViolation` en la plantilla de FaultRules | Eliminado: la política está retirada y nunca existió en X |
 | Propiedades de TargetEndpoint sin defaults | Defaults verificados: `connect.timeout.millis` 3 s, `io.timeout.millis` 55 s, `keepalive.timeout.millis` 60 s en X. Se añade la regla de que el keep-alive de Apigee debe ser menor que el del backend. |
 
+### Quinta pasada (23 de octubre de 2026): ejemplos
+
+- **Mapa de ejemplos:** los cuatro repositorios oficiales se clonaron en un directorio temporal y **solo se leyeron**, sin ejecutar nada. Las políticas de cada ejemplo se extrajeron de sus XML con `scripts/mapa_ejemplos.py`. Las descripciones son síntesis propias, a partir de los README de cada repositorio.
+- **Bundles propios:** se escribieron a partir de las referencias de política de este repo y se validaron con `scripts/validar_bundles.py` y con `apigeelint` 2.85.1 (0 errores). **No se desplegaron** en una organización: es una validación estática.
+- **Correcciones:**
+  - `apigee/openbank` está hecho para Edge, no para X (`HostedTarget`, API de gestión de Edge).
+  - En OAuthV2, un token pedido sin `scope` recibe todos los scopes de la app. Se añadió a la referencia.
+
 ---
 
 ## Nivel A — Verificado contra fuente oficial
