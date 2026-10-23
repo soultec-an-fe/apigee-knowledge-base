@@ -24,7 +24,7 @@ python3 scripts/cobertura.py
 
 | Edición | Páginas en navegación | Tras normalizar | De ellas, guías (sin API REST ni release notes) | Citadas por el repo |
 |---|---|---|---|---|
-| Apigee X / hybrid | 3391 | 1719 | ≈ 950 | 232 (13,5 %) |
+| Apigee X / hybrid | 3391 | 1719 | ≈ 950 | 233 (13,6 %) |
 | Apigee Edge | 2103 | 1606 | ≈ 960 | 57 (3,5 %) |
 
 ## Matriz por área — Apigee X / hybrid
