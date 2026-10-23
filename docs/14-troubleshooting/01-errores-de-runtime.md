@@ -12,7 +12,7 @@ revisado: 2026-10-23
 
 > **Fecha de corte: 23 de octubre de 2026.**
 
-Google publica **playbooks** de diagnóstico elaborados con su equipo de soporte. Este documento sintetiza los de runtime y de red de Apigee X (la mayoría aplica también a hybrid). Los exclusivos de hybrid (Cassandra, ingress, *Automated Issue Surfacing*) están en [el área de hybrid](https://docs.cloud.google.com/apigee/docs/api-platform/troubleshoot/playbooks/troubleshooting-apigee-hybrid). Los códigos de error, con su HTTP, están en la [referencia de códigos](../10-referencia/02-codigos-de-error.md#backend-y-transporte).
+Google publica **playbooks** de diagnóstico elaborados con su equipo de soporte. Este documento sintetiza los de runtime y de red de Apigee X (la mayoría aplica también a hybrid). Los exclusivos de hybrid (Cassandra, ingress, *Automated Issue Surfacing*) están en [11-hybrid](../11-hybrid/04-operacion-y-troubleshooting.md). Los códigos de error, con su HTTP, están en la [referencia de códigos](../10-referencia/02-codigos-de-error.md#backend-y-transporte).
 
 ## Método general
 
